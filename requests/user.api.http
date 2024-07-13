@@ -1,0 +1,35 @@
+### Create User
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "invincible",
+  "email": "guest@gmail.com",
+  "password": "guest_password",
+  "firstName": "Mark",
+  "lastName": "Grayson"
+}
+
+### Get Current User
+GET http://localhost:3000/api/users/me
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+### Get User (Invalid)
+GET http://localhost:3000/api/users/dave
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+?? status == 404
+?? body error includes not found
+
+### Get User (Valid)
+GET http://localhost:3000/api/users/guest
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+?? status == 200
+?? body firstName includes John

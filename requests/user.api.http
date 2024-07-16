@@ -10,6 +10,18 @@ Content-Type: application/json
   "lastName": "Grayson"
 }
 
+### Create Another User
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "bruce",
+  "email": "banner@gmail.com",
+  "password": "test_password",
+  "firstName": "Bruce",
+  "lastName": "Banner"
+}
+
 ### Get Current User
 GET http://localhost:3000/api/users/me
 Content-Type: application/json
@@ -17,7 +29,7 @@ Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}
 
 ### Get User (Invalid)
-GET http://localhost:3000/api/users/dave
+GET http://localhost:3000/api/users/bruce
 Content-Type: application/json
 Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}
@@ -26,10 +38,30 @@ Cookie: {{$global.refreshToken}}
 ?? body error includes not found
 
 ### Get User (Valid)
-GET http://localhost:3000/api/users/guest
+GET http://localhost:3000/api/users/invincible
 Content-Type: application/json
 Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}
 
 ?? status == 200
 ?? body firstName includes John
+
+### Update User
+POST http://localhost:3000/api/users/update
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+{
+  "firstName": "Changed Mark"
+}
+
+?? status == 200
+
+### Follow / Unfollow User
+POST http://localhost:3000/api/users/follow/bruce
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+?? status == 200

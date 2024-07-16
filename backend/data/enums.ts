@@ -11,4 +11,10 @@ const enum StatusCode {
   INTERNAL_SERVER_ERROR = 500,
 }
 
-export default StatusCode;
+enum NotificationType {
+  FOLLOW = "follow",
+  LIKE = "like",
+  RETWEET = "retweet",
+}
+
+export { StatusCode, NotificationType };

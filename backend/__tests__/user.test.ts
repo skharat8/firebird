@@ -3,7 +3,7 @@ import supertest from "supertest";
 import mongoose from "mongoose";
 
 import createServer from "../server";
-import StatusCode from "../data/enums";
+import { StatusCode } from "../data/enums";
 import * as UserService from "../services/user.service";
 import type { SafeDbUser, UserSignup } from "../schemas/user.zod";
 

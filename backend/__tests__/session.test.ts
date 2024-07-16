@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import createServer from "../server";
 import * as UserService from "../services/user.service";
 import * as SessionService from "../services/session.service";
-import StatusCode from "../data/enums";
+import { StatusCode } from "../data/enums";
 import type { UserLogin } from "../schemas/session.zod";
 import type { SafeDbUser } from "../schemas/user.zod";
 import type { Session } from "../models/session.model";

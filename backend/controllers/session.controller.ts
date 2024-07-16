@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import createHttpError from "http-errors";
 
-import StatusCode from "../data/enums";
+import { StatusCode } from "../data/enums";
 import type { UserLogin } from "../schemas/session.zod";
 import { validatePassword } from "../services/user.service";
 import { getCookieOptions, signJwt } from "../utils/jwt.utils";

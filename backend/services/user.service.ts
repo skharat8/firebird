@@ -3,8 +3,9 @@ import createHttpError from "http-errors";
 import util from "node:util";
 import UserModel from "../models/user.model";
 import type { UserSignup, SafeDbUser } from "../schemas/user.zod";
-import StatusCode from "../data/enums";
+import { NotificationType, StatusCode } from "../data/enums";
 import logger from "../utils/logger";
+import { createNotification } from "./notification.service";
 
 type PasswordValidationResult =
   | { valid: true; data: SafeDbUser }
@@ -87,6 +88,13 @@ async function toggleFollowUser(
     });
     await updateUserById(targetUser.id, {
       $addToSet: { followers: currentUser.id },
+    });
+
+    // Create a notification
+    await createNotification({
+      from: currentUser.id,
+      to: targetUser.id,
+      type: NotificationType.FOLLOW,
     });
   }
 }

@@ -4,7 +4,7 @@ import { HttpError } from "http-errors";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
-import StatusCode from "../data/enums";
+import { StatusCode } from "../data/enums";
 import logger from "../utils/logger";
 
 // Catch all errors encountered in the app.

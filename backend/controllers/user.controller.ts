@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import createHttpError from "http-errors";
 
-import StatusCode from "../data/enums";
+import { StatusCode } from "../data/enums";
 import * as UserService from "../services/user.service";
 import type { UserSignup, UserUpdate } from "../schemas/user.zod";
 

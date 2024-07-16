@@ -8,7 +8,7 @@ import createHttpError from "http-errors";
 
 import "./config/env";
 import logger from "./utils/logger";
-import StatusCode from "./data/enums";
+import { StatusCode } from "./data/enums";
 import userRoutes from "./routes/user.route";
 import sessionRoutes from "./routes/session.route";
 import errorHandler from "./middleware/errorHandler";

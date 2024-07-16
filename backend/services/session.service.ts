@@ -1,7 +1,7 @@
 import type { FilterQuery } from "mongoose";
 import type { Session, JwtData } from "../models/session.model";
 import SessionModel from "../models/session.model";
-import { signJwt, verifyJwt } from "../utils/jwt.utils";
+import { signJwt, verifyJwt } from "../utils/auth.utils";
 
 async function createSession(
   userId: string,

@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 import type { CookieOptions } from "express";
 
 import logger from "./logger";
@@ -60,4 +61,9 @@ function getCookieOptions(age: string | undefined): CookieOptions {
   };
 }
 
-export { signJwt, verifyJwt, getCookieOptions };
+async function getHashedPassword(password: string) {
+  const SALT_LENGTH = 10;
+  return bcrypt.hash(password, SALT_LENGTH);
+}
+
+export { signJwt, verifyJwt, getCookieOptions, getHashedPassword };

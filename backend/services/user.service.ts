@@ -2,32 +2,29 @@ import { type FilterQuery, type UpdateQuery } from "mongoose";
 import createHttpError from "http-errors";
 import util from "node:util";
 import UserModel from "../models/user.model";
-import type { UserSignup, SafeDbUser } from "../schemas/user.zod";
+import type { UserSignup, SafeDbUser, DbUser } from "../schemas/user.zod";
 import { NotificationType, StatusCode } from "../data/enums";
 import logger from "../utils/logger";
 import { createNotification } from "./notification.service";
-
-type PasswordValidationResult =
-  | { valid: true; data: SafeDbUser }
-  | { valid: false; error: string };
+import { getHashedPassword } from "../utils/auth.utils";
 
 async function createUser(userData: UserSignup): Promise<SafeDbUser> {
   const user = await UserModel.create(userData);
   return user.toJSON();
 }
 
-async function validatePassword(
+async function validateCredentials(
   email: string,
   password: string,
-): Promise<PasswordValidationResult> {
+): Promise<SafeDbUser> {
   const errorMessage = "Invalid username or password";
   const user = await UserModel.findOne({ email });
-  if (!user) return { valid: false, error: errorMessage };
+  if (!user) throw createHttpError(StatusCode.UNAUTHORIZED, errorMessage);
 
   const isValid = await user.isValidPassword(password);
-  if (!isValid) return { valid: false, error: errorMessage };
+  if (!isValid) throw createHttpError(StatusCode.UNAUTHORIZED, errorMessage);
 
-  return { valid: true, data: user.toJSON() };
+  return user.toJSON();
 }
 
 async function findUser(query: FilterQuery<SafeDbUser>): Promise<SafeDbUser> {
@@ -43,9 +40,13 @@ async function findUser(query: FilterQuery<SafeDbUser>): Promise<SafeDbUser> {
 
 async function findByIdAndUpdateUser(
   id: string,
-  update: UpdateQuery<SafeDbUser>,
+  updateData: Partial<DbUser>,
 ): Promise<SafeDbUser> {
-  const user = await UserModel.findByIdAndUpdate(id, update, { new: true });
+  if (updateData.password) {
+    updateData.password = await getHashedPassword(updateData.password);
+  }
+
+  const user = await UserModel.findByIdAndUpdate(id, updateData, { new: true });
 
   if (!user) {
     throw createHttpError(StatusCode.NOT_FOUND, "Updating user data failed");
@@ -101,7 +102,7 @@ async function toggleFollowUser(
 
 export {
   createUser,
-  validatePassword,
+  validateCredentials,
   findUser,
   findByIdAndUpdateUser,
   updateUserById,

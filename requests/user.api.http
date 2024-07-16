@@ -46,7 +46,7 @@ Cookie: {{$global.refreshToken}}
 ?? status == 200
 ?? body firstName includes John
 
-### Update User
+### Update User Data
 POST http://localhost:3000/api/users/update
 Content-Type: application/json
 Cookie: {{$global.accessToken}}
@@ -54,6 +54,59 @@ Cookie: {{$global.refreshToken}}
 
 {
   "firstName": "Changed Mark"
+}
+
+?? status == 200
+
+### Update Password (missing data failure)
+POST http://localhost:3000/api/users/update
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+{
+  "currentPassword": "guest_password"
+}
+
+?? status == 400
+
+### Update Password (same password failure)
+POST http://localhost:3000/api/users/update
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+{
+  "currentPassword": "guest_password",
+  "newPassword": "guest_password"
+}
+
+?? status == 400
+?? body error includes same password
+
+### Update Password (wrong password failure)
+POST http://localhost:3000/api/users/update
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+{
+  "currentPassword": "wrong_password",
+  "newPassword": "new_password"
+}
+
+?? status == 400
+?? body error includes wrong password
+
+### Update Password (success)
+POST http://localhost:3000/api/users/update
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+{
+  "currentPassword": "guest_password",
+  "newPassword": "new_password"
 }
 
 ?? status == 200

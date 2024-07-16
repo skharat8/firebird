@@ -4,7 +4,7 @@ import createHttpError from "http-errors";
 
 import { StatusCode } from "../data/enums";
 import * as UserService from "../services/user.service";
-import type { UserSignup, UserUpdate } from "../schemas/user.zod";
+import type { DbUser, UserSignup, UserUpdate } from "../schemas/user.zod";
 
 const createUserHandler = asyncHandler(
   async (req: Request<object, object, UserSignup>, res: Response) => {
@@ -19,9 +19,22 @@ const getCurrentUserHandler = asyncHandler((_: Request, res: Response) => {
 
 const updateCurrentUserHandler = asyncHandler(
   async (req: Request<object, object, UserUpdate>, res: Response) => {
+    const { currentPassword, newPassword, ...rest } = req.body;
+    const dataToUpdate: Partial<DbUser> = { ...rest };
+
+    if (currentPassword && newPassword) {
+      // Validate current user password
+      await UserService.validateCredentials(
+        res.locals.user!.email,
+        currentPassword,
+      );
+
+      dataToUpdate.password = newPassword;
+    }
+
     const updatedUser = await UserService.findByIdAndUpdateUser(
       res.locals.user!.id,
-      req.body,
+      dataToUpdate,
     );
 
     res.json(updatedUser);

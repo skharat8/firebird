@@ -12,12 +12,34 @@ const createUserSchema = z.object({
 });
 
 const baseUpdateUserSchema = createUserSchema.shape.body
+  .omit({ password: true })
   .extend({
-    profileImage: z.string().optional(),
-    coverImage: z.string().optional(),
-    bio: z.string().optional(),
+    profileImage: z.string(),
+    coverImage: z.string(),
+    bio: z.string(),
+    currentPassword: z.string().min(6),
+    newPassword: z.string().min(6),
   })
-  .partial();
+  .partial()
+  .refine(
+    (data) => {
+      const missingData =
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+        (data.currentPassword && !data.newPassword) ||
+        (!data.currentPassword && data.newPassword);
+
+      // Return false to signify validation failure
+      return !missingData;
+    },
+    {
+      message: "Please provide both current password and new password",
+      path: ["currentPassword", "newPassword"],
+    },
+  )
+  .refine((data) => !(data.currentPassword === data.newPassword), {
+    message: "Current password and new password cannot be the same",
+    path: ["currentPassword", "newPassword"],
+  });
 
 const updateUserSchema = z.object({ body: baseUpdateUserSchema });
 
@@ -43,7 +65,7 @@ const userDbSchema = userSignupSchema.extend({
 const safeDbUserSchema = userDbSchema.omit({ password: true });
 
 type UserSignup = z.infer<typeof userSignupSchema>;
-type UserUpdate = z.infer<typeof updateUserSchema>;
+type UserUpdate = z.infer<typeof baseUpdateUserSchema>;
 type DbUser = z.infer<typeof userDbSchema>;
 type SafeDbUser = z.infer<typeof safeDbUserSchema>;
 

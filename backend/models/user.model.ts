@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 
 import type { DbUser } from "../schemas/user.zod";
+import { getHashedPassword } from "../utils/auth.utils";
 
 const userSchema = new mongoose.Schema(
   {
@@ -30,10 +31,7 @@ userSchema.pre("save", async function generateHashedPassword(next) {
     return next();
   }
 
-  const SALT_LENGTH = 10;
-  const hashedPassword = await bcrypt.hash(this.password, SALT_LENGTH);
-
-  this.password = hashedPassword;
+  this.password = await getHashedPassword(this.password);
   return next();
 });
 

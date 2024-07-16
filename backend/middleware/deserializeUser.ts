@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 
-import { getCookieOptions, verifyJwt } from "../utils/jwt.utils";
+import { getCookieOptions, verifyJwt } from "../utils/auth.utils";
 import type { JwtData } from "../models/session.model";
 import { issueNewAccessToken } from "../services/session.service";
 import { findUser } from "../services/user.service";

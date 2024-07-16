@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import createHttpError from "http-errors";
 import supertest from "supertest";
 import mongoose from "mongoose";
 
@@ -40,9 +41,9 @@ const session: Session = {
 describe("Session", () => {
   describe("Login Route", () => {
     it("If login details are valid, set cookies with signed JWT", async () => {
-      const validatePasswordMock = vi
-        .spyOn(UserService, "validatePassword")
-        .mockResolvedValue({ valid: true, data: user });
+      const validateCredentialsMock = vi
+        .spyOn(UserService, "validateCredentials")
+        .mockResolvedValue(user);
       const createSessionMock = vi
         .spyOn(SessionService, "createSession")
         .mockResolvedValue(session);
@@ -58,16 +59,16 @@ describe("Session", () => {
       expect(cookies[1]).toContain("RefreshToken");
       expect(createSessionMock.mock.calls.length).toBe(1);
       expect(createSessionMock).toHaveBeenCalledWith(userId, "");
-      expect(validatePasswordMock).toHaveBeenCalledWith(
+      expect(validateCredentialsMock).toHaveBeenCalledWith(
         loginPayload.email,
         loginPayload.password,
       );
     });
 
     it("If credentials are invalid, return 401 status", async () => {
-      const validatePasswordMock = vi
-        .spyOn(UserService, "validatePassword")
-        .mockResolvedValue({ valid: false, error: "Invalid credentials" });
+      const validateCredentialsMock = vi
+        .spyOn(UserService, "validateCredentials")
+        .mockRejectedValue(createHttpError(StatusCode.UNAUTHORIZED));
       const createSessionMock = vi.spyOn(SessionService, "createSession");
 
       const { statusCode } = await supertest(app)
@@ -76,7 +77,7 @@ describe("Session", () => {
 
       expect(statusCode).toBe(StatusCode.UNAUTHORIZED);
       expect(createSessionMock).not.toHaveBeenCalled();
-      expect(validatePasswordMock).toHaveBeenCalledWith(
+      expect(validateCredentialsMock).toHaveBeenCalledWith(
         loginPayload.email,
         loginPayload.password,
       );

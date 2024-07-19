@@ -111,6 +111,25 @@ Cookie: {{$global.refreshToken}}
 
 ?? status == 200
 
+### Upload Image (success)
+POST http://localhost:3000/api/users/update
+Content-Type: multipart/form-data; boundary=WebKitFormBoundary
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+--WebKitFormBoundary
+Content-Disposition: form-data; name="firstName"
+
+Mark
+--WebKitFormBoundary
+Content-Disposition: form-data; name="profileImage"; filename="favicon-32x32.png"
+Content-Type: image/png
+
+< ../frontend/public/favicon-32x32.png
+--WebKitFormBoundary--
+
+?? status == 200
+
 ### Follow / Unfollow User
 POST http://localhost:3000/api/users/follow/bruce
 Content-Type: application/json

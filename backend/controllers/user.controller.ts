@@ -5,6 +5,7 @@ import createHttpError from "http-errors";
 import { StatusCode } from "../data/enums";
 import * as UserService from "../services/user.service";
 import type { DbUser, UserSignup, UserUpdate } from "../schemas/user.zod";
+import { assertObjectExists } from "../utils/common.utils";
 
 const createUserHandler = asyncHandler(
   async (req: Request<object, object, UserSignup>, res: Response) => {
@@ -21,11 +22,12 @@ const updateCurrentUserHandler = asyncHandler(
   async (req: Request<object, object, UserUpdate>, res: Response) => {
     const { currentPassword, newPassword, ...rest } = req.body;
     const dataToUpdate: Partial<DbUser> = { ...rest };
+    assertObjectExists(res.locals.user);
 
     if (currentPassword && newPassword) {
       // Validate current user password
       await UserService.validateCredentials(
-        res.locals.user!.email,
+        res.locals.user.email,
         currentPassword,
       );
 
@@ -33,7 +35,7 @@ const updateCurrentUserHandler = asyncHandler(
     }
 
     const updatedUser = await UserService.findByIdAndUpdateUser(
-      res.locals.user!.id,
+      res.locals.user.id,
       dataToUpdate,
     );
 
@@ -49,8 +51,9 @@ const getUserHandler = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const followUserHandler = asyncHandler(async (req: Request, res: Response) => {
+  assertObjectExists(res.locals.user);
   const { username } = req.params;
-  const currentUser = res.locals.user!;
+  const currentUser = res.locals.user;
 
   if (username === currentUser.username) {
     throw createHttpError(

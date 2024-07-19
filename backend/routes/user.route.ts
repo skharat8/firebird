@@ -1,12 +1,14 @@
 import express from "express";
 
+import upload from "../config/multer";
 import validateResource from "../middleware/validateResource";
 import requireUser from "../middleware/requireUser";
+import uploadToCloudinary from "../middleware/uploadToCloudinary";
 import { createUserSchema, updateUserSchema } from "../schemas/user.zod";
 import {
   createUserHandler,
-  updateCurrentUserHandler,
   getCurrentUserHandler,
+  updateCurrentUserHandler,
   getUserHandler,
   followUserHandler,
 } from "../controllers/user.controller";
@@ -20,6 +22,11 @@ router.post(
   "/update",
   requireUser,
   validateResource(updateUserSchema),
+  upload.fields([
+    { name: "profileImage", maxCount: 1 },
+    { name: "coverImage", maxCount: 1 },
+  ]),
+  uploadToCloudinary,
   updateCurrentUserHandler,
 );
 

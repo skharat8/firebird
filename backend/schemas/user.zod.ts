@@ -36,10 +36,16 @@ const baseUpdateUserSchema = createUserSchema.shape.body
       path: ["currentPassword", "newPassword"],
     },
   )
-  .refine((data) => !(data.currentPassword === data.newPassword), {
-    message: "Current password and new password cannot be the same",
-    path: ["currentPassword", "newPassword"],
-  });
+  .refine(
+    (data) => {
+      if (!data.currentPassword && !data.newPassword) return true;
+      return !(data.currentPassword === data.newPassword);
+    },
+    {
+      message: "Current password and new password cannot be the same",
+      path: ["currentPassword", "newPassword"],
+    },
+  );
 
 const updateUserSchema = z.object({ body: baseUpdateUserSchema });
 

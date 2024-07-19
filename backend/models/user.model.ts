@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema(
 
     following: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
-    profileImage: { type: String, default: "" },
-    coverImage: { type: String, default: "" },
+    profileImage: { type: String },
+    coverImage: { type: String },
     bio: { type: String, default: "" },
   },
 

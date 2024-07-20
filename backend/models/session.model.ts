@@ -24,5 +24,5 @@ const sessionSchema = new mongoose.Schema(
 
 const SessionModel = mongoose.model<Session>("Session", sessionSchema);
 
-export default SessionModel;
 export type { Session, JwtData };
+export default SessionModel;

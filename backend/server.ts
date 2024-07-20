@@ -5,9 +5,9 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import cookieParser from "cookie-parser";
 import createHttpError from "http-errors";
-import { v2 as cloudinary } from "cloudinary";
 
 import "./config/env";
+import "./config/cloudinary";
 import logger from "./utils/logger";
 import { StatusCode } from "./data/enums";
 import userRoutes from "./routes/user.route";
@@ -18,13 +18,6 @@ import deserializeUser from "./middleware/deserializeUser";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
-
-// Cloud storage for images
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 function createServer() {
   const app = express();

@@ -3,11 +3,11 @@ import { z } from "zod";
 
 const createUserSchema = z.object({
   body: z.object({
-    username: z.string(),
-    email: z.string().email(),
+    username: z.string().trim(),
+    email: z.string().trim().email(),
     password: z.string().min(6),
-    firstName: z.string(),
-    lastName: z.string(),
+    firstName: z.string().trim(),
+    lastName: z.string().trim(),
   }),
 });
 
@@ -16,7 +16,7 @@ const baseUpdateUserSchema = createUserSchema.shape.body
   .extend({
     profileImage: z.string(),
     coverImage: z.string(),
-    bio: z.string(),
+    bio: z.string().trim(),
     currentPassword: z.string().min(6),
     newPassword: z.string().min(6),
   })

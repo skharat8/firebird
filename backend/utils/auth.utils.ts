@@ -5,6 +5,8 @@ import type { CookieOptions } from "express";
 import logger from "./logger";
 import convertDurationToMs from "./datetime.utils";
 
+type JwtData = { userId: string; sessionId: string };
+
 type JwtVerificationResult = {
   valid: boolean;
   expired: boolean;
@@ -67,3 +69,4 @@ async function getHashedPassword(password: string) {
 }
 
 export { signJwt, verifyJwt, getCookieOptions, getHashedPassword };
+export type { JwtData };

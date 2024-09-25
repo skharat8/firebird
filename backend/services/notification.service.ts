@@ -1,13 +1,12 @@
-import type { Notification } from "../models/notification.model";
-import NotificationModel from "../models/notification.model";
+import type { Prisma } from "@prisma/client";
+import prisma from "../prisma/customClient";
 
-async function createNotification(data: Notification) {
-  const notification = await NotificationModel.create(data);
-  return notification.toJSON();
+async function createNotification(data: Prisma.NotificationCreateInput) {
+  return prisma.notification.create({ data });
 }
 
 async function getAllNotifications(userId: string) {
-  return NotificationModel.find({ to: userId }).lean();
+  return prisma.notification.findMany({ where: { toId: userId } });
 }
 
 export { createNotification, getAllNotifications };

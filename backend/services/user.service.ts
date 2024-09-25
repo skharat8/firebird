@@ -1,16 +1,28 @@
-import { type FilterQuery, type UpdateQuery } from "mongoose";
 import createHttpError from "http-errors";
-import util from "node:util";
-import UserModel from "../models/user.model";
-import type { UserSignup, SafeDbUser, DbUser } from "../schemas/user.zod";
-import { NotificationType, StatusCode } from "../data/enums";
-import logger from "../utils/logger";
+import { type Prisma, NotificationType } from "@prisma/client";
+
+import prisma from "../prisma/customClient";
+import type { UserSignup, SafeDbUser } from "../schemas/user.zod";
+import { StatusCode } from "../data/enums";
 import { createNotification } from "./notification.service";
-import { getHashedPassword } from "../utils/auth.utils";
 
 async function createUser(userData: UserSignup): Promise<SafeDbUser> {
-  const user = await UserModel.create(userData);
-  return user.toJSON();
+  return prisma.user.create({ data: userData });
+}
+
+async function findUser(query: Prisma.UserWhereInput): Promise<SafeDbUser> {
+  return prisma.user.findFirstOrThrow({ where: query });
+}
+
+async function findUserWithFollows(query: Prisma.UserWhereInput) {
+  return prisma.user.findFirstOrThrow({
+    where: query,
+    include: { followers: true, following: true },
+  });
+}
+
+async function updateUser(id: string, updateData: Prisma.UserUpdateInput) {
+  return prisma.user.update({ where: { id }, data: updateData });
 }
 
 async function validateCredentials(
@@ -18,83 +30,36 @@ async function validateCredentials(
   password: string,
 ): Promise<SafeDbUser> {
   const errorMessage = "Invalid username or password";
-  const user = await UserModel.findOne({ email });
+  const user = await prisma.user.findUnique({ where: { email } });
   if (!user) throw createHttpError(StatusCode.UNAUTHORIZED, errorMessage);
 
   const isValid = await user.isValidPassword(password);
   if (!isValid) throw createHttpError(StatusCode.UNAUTHORIZED, errorMessage);
 
-  return user.toJSON();
+  return user;
 }
 
-async function findUser(query: FilterQuery<SafeDbUser>): Promise<SafeDbUser> {
-  const user = await UserModel.findOne(query);
+async function toggleFollowUser(currentUserId: string, targetUserId: string) {
+  const relation = {
+    followerId: currentUserId,
+    followingId: targetUserId,
+  };
 
-  if (!user) {
-    const errorMessage = `User ${util.inspect(query)} not found`;
-    throw createHttpError(StatusCode.NOT_FOUND, errorMessage);
-  }
-
-  return user.toJSON();
-}
-
-async function findByIdAndUpdateUser(
-  id: string,
-  updateData: Partial<DbUser>,
-): Promise<SafeDbUser> {
-  if (updateData.password) {
-    updateData.password = await getHashedPassword(updateData.password);
-  }
-
-  const user = await UserModel.findByIdAndUpdate(id, updateData, { new: true });
-
-  if (!user) {
-    throw createHttpError(StatusCode.NOT_FOUND, "Updating user data failed");
-  }
-
-  return user.toJSON();
-}
-
-async function updateUserById(id: string, update: UpdateQuery<SafeDbUser>) {
-  const res = await UserModel.updateOne({ _id: id }, update);
-
-  if (res.modifiedCount === 0) {
-    logger.warn(
-      `No item was modified by updateOne call with query ${util.inspect(update)}`,
-    );
-  }
-}
-
-async function toggleFollowUser(
-  currentUser: SafeDbUser,
-  targetUser: SafeDbUser,
-) {
   // Check if the current user is already following the target user.
-  const isFollowing = currentUser.following
-    .map((userId) => userId.toString())
-    .includes(targetUser.id);
+  const isFollowing = await prisma.follow.findFirst({ where: relation });
+  // currentUser.following.includes();
 
   if (isFollowing) {
     // Unfollow the target user
-    await updateUserById(currentUser.id, {
-      $pull: { following: targetUser.id },
-    });
-    await updateUserById(targetUser.id, {
-      $pull: { followers: currentUser.id },
-    });
+    await prisma.follow.delete({ where: { followerId_followingId: relation } });
   } else {
     // Follow the target user
-    await updateUserById(currentUser.id, {
-      $addToSet: { following: targetUser.id },
-    });
-    await updateUserById(targetUser.id, {
-      $addToSet: { followers: currentUser.id },
-    });
+    await prisma.follow.create({ data: relation });
 
     // Create a notification
     await createNotification({
-      from: currentUser.id,
-      to: targetUser.id,
+      from: { connect: { id: currentUserId } },
+      to: { connect: { id: targetUserId } },
       type: NotificationType.FOLLOW,
     });
   }
@@ -102,9 +67,9 @@ async function toggleFollowUser(
 
 export {
   createUser,
-  validateCredentials,
   findUser,
-  findByIdAndUpdateUser,
-  updateUserById,
+  findUserWithFollows,
+  updateUser,
+  validateCredentials,
   toggleFollowUser,
 };

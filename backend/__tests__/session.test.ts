@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import createHttpError from "http-errors";
 import supertest from "supertest";
-import mongoose from "mongoose";
 
 import createServer from "../server";
 import * as UserService from "../services/user.service";
@@ -9,12 +8,10 @@ import * as SessionService from "../services/session.service";
 import { StatusCode } from "../data/enums";
 import type { UserLogin } from "../schemas/session.zod";
 import type { SafeDbUser } from "../schemas/user.zod";
-import type { Session } from "../models/session.model";
 
 const app = createServer();
 
-const sessionId = new mongoose.Types.ObjectId().toString();
-const userId = new mongoose.Types.ObjectId().toString();
+const userId = "1";
 
 const loginPayload: UserLogin = {
   email: "johndoe@gmail.com",
@@ -30,12 +27,13 @@ const user: SafeDbUser = {
   email: "johndoe@gmail.com",
 };
 
-// @ts-expect-error Not including common DB fields like createdAt
-const session: Session = {
-  id: sessionId,
-  user: userId,
+const session = {
+  id: "2",
+  userId,
   valid: true,
   userAgent: "",
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 describe("Session", () => {

@@ -29,7 +29,7 @@ Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}
 
 ### Get User (Invalid)
-GET http://localhost:3000/api/users/bruce
+GET http://localhost:3000/api/users/bruce2
 Content-Type: application/json
 Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}

@@ -34,7 +34,7 @@ const updateCurrentUserHandler = asyncHandler(
       dataToUpdate.password = newPassword;
     }
 
-    const updatedUser = await UserService.findByIdAndUpdateUser(
+    const updatedUser = await UserService.updateUser(
       res.locals.user.id,
       dataToUpdate,
     );
@@ -63,7 +63,7 @@ const followUserHandler = asyncHandler(async (req: Request, res: Response) => {
   }
 
   const targetUser = await UserService.findUser({ username });
-  await UserService.toggleFollowUser(currentUser, targetUser);
+  await UserService.toggleFollowUser(currentUser.id, targetUser.id);
 
   res.json("Follow/unfollow request successful");
 });

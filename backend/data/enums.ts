@@ -11,10 +11,6 @@ const enum StatusCode {
   INTERNAL_SERVER_ERROR = 500,
 }
 
-enum NotificationType {
-  FOLLOW = "follow",
-  LIKE = "like",
-  RETWEET = "retweet",
-}
-
-export { StatusCode, NotificationType };
+// NO_LINT
+// eslint-disable-next-line import/prefer-default-export
+export { StatusCode };

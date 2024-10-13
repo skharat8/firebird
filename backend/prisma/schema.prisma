@@ -67,7 +67,7 @@ model Post {
   retweets     User[]   @relation("retweets")
   comments     Post[]   @relation("comments")
   parentPost   Post?    @relation("comments", fields: [parentPostId], references: [id])
-  parentPostId String
+  parentPostId String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

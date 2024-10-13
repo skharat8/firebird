@@ -1,0 +1,37 @@
+## Create Post
+POST http://localhost:3000/api/posts
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+{
+  "content": "This is a test post"
+}
+
+{{
+  $global.postId = response.parsedBody.id
+}}
+
+?? status == 201
+
+## Get Post
+GET http://localhost:3000/api/posts/{{$global.postId}}
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+## Update Post
+PUT http://localhost:3000/api/posts/{{$global.postId}}
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+{
+  "content": "Test post updated"
+}
+
+## Delete Post
+DELETE http://localhost:3000/api/posts/{{$global.postId}}
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}

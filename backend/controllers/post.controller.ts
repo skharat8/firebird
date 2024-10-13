@@ -1,12 +1,51 @@
 import type { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 
-const createPostHandler = asyncHandler(async (req: Request, res: Response) => {
-  console.log("create post");
+import type { CreatePost, UpdatePost } from "../schemas/post.zod";
+import * as PostService from "../services/post.service";
+import { StatusCode } from "../data/enums";
+import { assertObjectExists } from "../utils/common.utils";
+
+const createPostHandler = asyncHandler(
+  async (req: Request<object, object, CreatePost>, res: Response) => {
+    assertObjectExists(res.locals.user);
+    const { content, image } = req.body;
+    const userId = res.locals.user.id;
+
+    const post = await PostService.createPost(userId, content, image);
+    res.status(StatusCode.CREATED).json(post);
+  },
+);
+
+const getPostHandler = asyncHandler(async (req: Request, res: Response) => {
+  const { postId } = req.params;
+  const post = await PostService.getPost(postId);
+  res.json(post);
 });
+
+const updatePostHandler = asyncHandler(
+  async (
+    req: Request<UpdatePost["params"], object, UpdatePost["body"]>,
+    res: Response,
+  ) => {
+    const { content, image } = req.body;
+    const { postId } = req.params;
+
+    const post = await PostService.updatePost(postId, content, image);
+    res.json(post);
+  },
+);
 
 const deletePostHandler = asyncHandler(async (req: Request, res: Response) => {
-  console.log("delete post");
+  const { postId } = req.params;
+
+  await PostService.deletePost(postId);
+  res.json({ message: "Post deleted" });
 });
 
-export { createPostHandler, deletePostHandler };
+export {
+  createPostHandler,
+  getPostHandler,
+  updatePostHandler,
+  deletePostHandler,
+};

@@ -6,6 +6,8 @@ import {
   getPostHandler,
   updatePostHandler,
   deletePostHandler,
+  likePostHandler,
+  retweetPostHandler,
 } from "../controllers/post.controller";
 
 const router = express.Router();
@@ -15,8 +17,8 @@ router.get("/:postId", requireUser, getPostHandler);
 router.put("/:postId", requireUser, updatePostHandler);
 router.delete("/:postId", requireUser, deletePostHandler);
 
-// router.post("/:postId/like", requireUser, likePostHandler);
-// router.post("/:postId/retweet", requireUser, retweetPostHandler);
+router.post("/:postId/like", requireUser, likePostHandler);
+router.post("/:postId/retweet", requireUser, retweetPostHandler);
 
 // router.post("/:postId/comments", requireUser, createCommentHandler);
 // router.get("/:postId/comments/:commentId", requireUser, getCommentHandler);

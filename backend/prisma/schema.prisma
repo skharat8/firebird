@@ -29,7 +29,7 @@ model User {
   following             Follow[]       @relation("following")
   posts                 Post[]         @relation("author")
   likes                 Post[]         @relation("likes")
-  retweets              Post[]         @relation("retweets")
+  retweets              Repost[]
   outgoingNotifications Notification[] @relation("from")
   incomingNotifications Notification[] @relation("to")
   createdAt             DateTime       @default(now())
@@ -64,12 +64,23 @@ model Post {
   content      String
   image        String?
   likes        User[]   @relation("likes")
-  retweets     User[]   @relation("retweets")
+  retweets     Repost[]
   comments     Post[]   @relation("comments")
   parentPost   Post?    @relation("comments", fields: [parentPostId], references: [id])
   parentPostId String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model Repost {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, postId])
 }
 
 model Notification {

@@ -35,3 +35,15 @@ DELETE http://localhost:3000/api/posts/{{$global.postId}}
 Content-Type: application/json
 Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}
+
+## Like/Unlike Post
+POST http://localhost:3000/api/posts/{{$global.postId}}/like
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+## Retweet/Undo-Retweet Post
+POST http://localhost:3000/api/posts/{{$global.postId}}/retweet
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}

@@ -43,9 +43,29 @@ const deletePostHandler = asyncHandler(async (req: Request, res: Response) => {
   res.json({ message: "Post deleted" });
 });
 
+const likePostHandler = asyncHandler(async (req: Request, res: Response) => {
+  assertObjectExists(res.locals.user);
+  const userId = res.locals.user.id;
+  const { postId } = req.params;
+
+  await PostService.likePost(postId, userId);
+  res.status(StatusCode.OK).end();
+});
+
+const retweetPostHandler = asyncHandler(async (req: Request, res: Response) => {
+  assertObjectExists(res.locals.user);
+  const userId = res.locals.user.id;
+  const { postId } = req.params;
+
+  await PostService.retweetPost(postId, userId);
+  res.status(StatusCode.OK).end();
+});
+
 export {
   createPostHandler,
   getPostHandler,
   updatePostHandler,
   deletePostHandler,
+  likePostHandler,
+  retweetPostHandler,
 };

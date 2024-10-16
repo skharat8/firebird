@@ -11,6 +11,9 @@ const enum StatusCode {
   INTERNAL_SERVER_ERROR = 500,
 }
 
-// NO_LINT
-// eslint-disable-next-line import/prefer-default-export
-export { StatusCode };
+const enum PostAction {
+  LIKE = "likes",
+  RETWEET = "retweets",
+}
+
+export { StatusCode, PostAction };

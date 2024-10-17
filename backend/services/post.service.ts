@@ -1,7 +1,9 @@
 import createHttpError from "http-errors";
+import { NotificationType } from "@prisma/client";
 
 import prisma from "../prisma/customClient";
 import { PostAction, StatusCode } from "../data/enums";
+import { createNotification } from "./notification.service";
 
 async function createPost(userId: string, content: string, image?: string) {
   return prisma.post.create({
@@ -49,9 +51,16 @@ async function likePost(postId: string, userId: string) {
 
   if (!post) {
     // Add the like
-    await prisma.post.update({
+    const updatedPost = await prisma.post.update({
       where: { id: postId },
       data: { likes: { connect: { id: userId } } },
+    });
+
+    // Create a notification
+    await createNotification({
+      from: { connect: { id: userId } },
+      to: { connect: { id: updatedPost.authorId } },
+      type: NotificationType.LIKE,
     });
   } else {
     // Remove the like
@@ -71,13 +80,20 @@ async function retweetPost(postId: string, userId: string) {
 
   if (!repost) {
     // Retweet the post
-    await prisma.post.update({
+    const updatedPost = await prisma.post.update({
       where: { id: postId },
       data: {
         retweets: {
           create: { user: { connect: { id: userId } } },
         },
       },
+    });
+
+    // Create a notification
+    await createNotification({
+      from: { connect: { id: userId } },
+      to: { connect: { id: updatedPost.authorId } },
+      type: NotificationType.RETWEET,
     });
   } else {
     // Undo the retweet

@@ -68,10 +68,18 @@ const followUserHandler = asyncHandler(async (req: Request, res: Response) => {
   res.json("Follow/unfollow request successful");
 });
 
+const getUserFeedHandler = asyncHandler(async (_: Request, res: Response) => {
+  assertObjectExists(res.locals.user);
+  const feed = await UserService.getUserFeed(res.locals.user.id);
+
+  res.json(feed);
+});
+
 export {
   createUserHandler,
   getCurrentUserHandler,
   updateCurrentUserHandler,
   getUserHandler,
   followUserHandler,
+  getUserFeedHandler,
 };

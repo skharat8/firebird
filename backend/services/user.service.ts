@@ -97,6 +97,36 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
   }
 }
 
+async function getUserFeed(userId: string) {
+  // Get a list of users being followed by the current user
+  const currentUser = await prisma.user.findUniqueOrThrow({
+    where: { id: userId },
+    select: { following: { select: { followingId: true } } },
+  });
+
+  // Create a feed from following users and the current user's posts.
+  const feed = await prisma.post.findMany({
+    where: {
+      authorId: {
+        in: [...currentUser.following.map((user) => user.followingId), userId],
+      },
+    },
+    select: {
+      id: true,
+      author: {
+        select: { fullName: true, username: true, profileImage: true },
+      },
+      content: true,
+      image: true,
+      createdAt: true,
+      _count: { select: { likes: true, retweets: true, comments: true } },
+    },
+    take: 10,
+  });
+
+  return feed;
+}
+
 export {
   createUser,
   findUser,
@@ -104,4 +134,5 @@ export {
   updateUser,
   validateCredentials,
   toggleFollowUser,
+  getUserFeed,
 };

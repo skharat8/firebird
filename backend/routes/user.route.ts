@@ -11,6 +11,7 @@ import {
   updateCurrentUserHandler,
   getUserHandler,
   followUserHandler,
+  getUserFeedHandler,
 } from "../controllers/user.controller";
 
 const router = express.Router();
@@ -29,6 +30,8 @@ router.post(
   uploadToCloudinary,
   updateCurrentUserHandler,
 );
+
+router.get("/feed", requireUser, getUserFeedHandler);
 
 router.get("/:username", requireUser, getUserHandler);
 router.post("/follow/:username", requireUser, followUserHandler);

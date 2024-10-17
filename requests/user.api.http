@@ -137,3 +137,11 @@ Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}
 
 ?? status == 200
+
+### Get User Feed
+GET http://localhost:3000/api/users/feed
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+?? status == 200

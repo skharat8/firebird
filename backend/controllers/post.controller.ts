@@ -69,6 +69,27 @@ const getLikedPostsHandler = asyncHandler(async (_: Request, res: Response) => {
   res.json(posts);
 });
 
+const createCommentHandler = asyncHandler(
+  async (
+    req: Request<UpdatePost["params"], object, UpdatePost["body"]>,
+    res: Response,
+  ) => {
+    assertObjectExists(res.locals.user);
+    const { content, image } = req.body;
+    const userId = res.locals.user.id;
+    const { postId } = req.params;
+
+    const posts = await PostService.createComment(
+      postId,
+      userId,
+      content,
+      image,
+    );
+
+    res.json(posts);
+  },
+);
+
 export {
   createPostHandler,
   getPostHandler,
@@ -77,4 +98,5 @@ export {
   likePostHandler,
   retweetPostHandler,
   getLikedPostsHandler,
+  createCommentHandler,
 };

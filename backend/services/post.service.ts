@@ -12,7 +12,13 @@ async function createPost(userId: string, content: string, image?: string) {
 }
 
 async function getPost(postId: string) {
-  return prisma.post.findUniqueOrThrow({ where: { id: postId } });
+  return prisma.post.findUniqueOrThrow({
+    where: { id: postId },
+    include: {
+      comments: true,
+      _count: { select: { likes: true, retweets: true, comments: true } },
+    },
+  });
 }
 
 async function updatePost(postId: string, content: string, image?: string) {
@@ -116,6 +122,22 @@ async function getLikedPosts(userId: string) {
   });
 }
 
+async function createComment(
+  postId: string,
+  userId: string,
+  content: string,
+  image?: string,
+) {
+  return prisma.post.update({
+    where: { id: postId },
+    data: {
+      comments: {
+        create: { content, image, author: { connect: { id: userId } } },
+      },
+    },
+  });
+}
+
 export {
   createPost,
   getPost,
@@ -124,4 +146,5 @@ export {
   likePost,
   retweetPost,
   getLikedPosts,
+  createComment,
 };

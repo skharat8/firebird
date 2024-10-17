@@ -53,3 +53,15 @@ GET http://localhost:3000/api/posts/likes
 Content-Type: application/json
 Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}
+
+## Create Comment
+POST http://localhost:3000/api/posts/{{$global.postId}}/comments
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+{
+  "content": "This is a test comment"
+}
+
+?? status == 201

@@ -14,5 +14,5 @@ const updatePostSchema = createPostSchema.extend({
 type CreatePost = z.infer<typeof createPostSchema.shape.body>;
 type UpdatePost = z.infer<typeof updatePostSchema>;
 
-export default createPostSchema;
+export { createPostSchema, updatePostSchema };
 export type { CreatePost, UpdatePost };

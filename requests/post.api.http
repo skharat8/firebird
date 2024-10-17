@@ -43,7 +43,13 @@ Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}
 
 ## Retweet/Undo-Retweet Post
-POST http://localhost:3000/api/posts/{{$global.postId}}/retweet
+POST http://localhost:3000/api/posts/cm2cnj04h0003sjgcoztsibd1/retweet
+Content-Type: application/json
+Cookie: {{$global.accessToken}}
+Cookie: {{$global.refreshToken}}
+
+## Get All Liked Posts
+GET http://localhost:3000/api/posts/likes
 Content-Type: application/json
 Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}

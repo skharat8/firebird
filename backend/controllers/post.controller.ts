@@ -61,6 +61,14 @@ const retweetPostHandler = asyncHandler(async (req: Request, res: Response) => {
   res.status(StatusCode.OK).end();
 });
 
+const getLikedPostsHandler = asyncHandler(async (_: Request, res: Response) => {
+  assertObjectExists(res.locals.user);
+  const userId = res.locals.user.id;
+
+  const posts = await PostService.getLikedPosts(userId);
+  res.json(posts);
+});
+
 export {
   createPostHandler,
   getPostHandler,
@@ -68,4 +76,5 @@ export {
   deletePostHandler,
   likePostHandler,
   retweetPostHandler,
+  getLikedPostsHandler,
 };

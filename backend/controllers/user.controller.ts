@@ -45,9 +45,9 @@ const updateCurrentUserHandler = asyncHandler(
 
 const getUserHandler = asyncHandler(async (req: Request, res: Response) => {
   const { username } = req.params;
-  const user = await UserService.findUser({ username });
+  const { user, posts } = await UserService.getUserProfile(username);
 
-  res.json(user);
+  res.json({ user, posts });
 });
 
 const followUserHandler = asyncHandler(async (req: Request, res: Response) => {

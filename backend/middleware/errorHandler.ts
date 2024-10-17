@@ -31,9 +31,10 @@ function errorHandler(
         errorMessage =
           "Unique constraint violation. Failed to create new entry.";
         res.status(StatusCode.CONFLICT).json({ error: errorMessage });
+      } else if (err.code === "P2025") {
+        res.status(StatusCode.NOT_FOUND).json({ error: err.message });
       } else {
-        errorMessage = `Encountered a database error. Error code ${err.code}.`;
-        res.status(StatusCode.CONFLICT).json({ error: errorMessage });
+        res.status(StatusCode.BAD_REQUEST).json({ error: err.message });
       }
       break;
     }

@@ -14,11 +14,44 @@ async function findUser(query: Prisma.UserWhereInput): Promise<SafeDbUser> {
   return prisma.user.findFirstOrThrow({ where: query });
 }
 
-async function findUserWithFollows(query: Prisma.UserWhereInput) {
-  return prisma.user.findFirstOrThrow({
-    where: query,
-    include: { followers: true, following: true },
+async function getUserProfile(username: string) {
+  const user = await prisma.user.findFirstOrThrow({
+    where: {
+      username,
+    },
+    include: { _count: { select: { followers: true, following: true } } },
   });
+
+  const allPosts = await prisma.post.findMany({
+    where: {
+      OR: [{ authorId: user.id }, { retweets: { some: { userId: user.id } } }],
+    },
+    select: {
+      id: true,
+      author: {
+        select: { fullName: true, username: true, profileImage: true },
+      },
+      content: true,
+      image: true,
+      createdAt: true,
+      retweets: { select: { createdAt: true } },
+      _count: { select: { likes: true, retweets: true, comments: true } },
+    },
+    orderBy: { createdAt: "desc" },
+    take: 10,
+  });
+
+  // If the post was a retweet, then replace createdAt with the time the retweet
+  // was created. This is so that the posts can be sorted on user's profile.
+  const posts = allPosts.map((post) => {
+    if (post.retweets.length > 0)
+      return { ...post, createdAt: post.retweets[0].createdAt, retweets: true };
+    return { ...post, retweets: false };
+  });
+
+  posts.sort((a, b) => b.createdAt.valueOf() - a.createdAt.valueOf());
+
+  return { user, posts };
 }
 
 async function updateUser(id: string, updateData: Prisma.UserUpdateInput) {
@@ -47,7 +80,6 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
 
   // Check if the current user is already following the target user.
   const isFollowing = await prisma.follow.findFirst({ where: relation });
-  // currentUser.following.includes();
 
   if (isFollowing) {
     // Unfollow the target user
@@ -68,7 +100,7 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
 export {
   createUser,
   findUser,
-  findUserWithFollows,
+  getUserProfile,
   updateUser,
   validateCredentials,
   toggleFollowUser,

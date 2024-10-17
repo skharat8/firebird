@@ -37,8 +37,8 @@ Cookie: {{$global.refreshToken}}
 ?? status == 404
 ?? body error includes not found
 
-### Get User (Valid)
-GET http://localhost:3000/api/users/invincible
+### Get User (Valid) - should contain profile data & posts
+GET http://localhost:3000/api/users/bruce
 Content-Type: application/json
 Cookie: {{$global.accessToken}}
 Cookie: {{$global.refreshToken}}

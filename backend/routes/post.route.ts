@@ -8,9 +8,12 @@ import {
   deletePostHandler,
   likePostHandler,
   retweetPostHandler,
+  getLikedPostsHandler,
 } from "../controllers/post.controller";
 
 const router = express.Router();
+
+router.get("/likes", requireUser, getLikedPostsHandler);
 
 router.post("/", requireUser, createPostHandler);
 router.get("/:postId", requireUser, getPostHandler);

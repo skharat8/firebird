@@ -92,4 +92,20 @@ async function retweetPost(postId: string, userId: string) {
   }
 }
 
-export { createPost, getPost, updatePost, deletePost, likePost, retweetPost };
+async function getLikedPosts(userId: string) {
+  return prisma.post.findMany({
+    where: {
+      likes: { some: { id: userId } },
+    },
+  });
+}
+
+export {
+  createPost,
+  getPost,
+  updatePost,
+  deletePost,
+  likePost,
+  retweetPost,
+  getLikedPosts,
+};

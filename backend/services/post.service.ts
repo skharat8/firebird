@@ -12,11 +12,28 @@ async function createPost(userId: string, content: string, image?: string) {
 }
 
 async function getPost(postId: string) {
+  const counters = { likes: true, retweets: true, comments: true };
+
+  const authorInfo = { fullName: true, username: true, profileImage: true };
+  const postInfo = {
+    id: true,
+    content: true,
+    image: true,
+    createdAt: true,
+  };
+  const commentInfo = {
+    ...postInfo,
+    author: { select: authorInfo },
+    _count: { select: counters },
+  };
+
   return prisma.post.findUniqueOrThrow({
     where: { id: postId },
-    include: {
-      comments: true,
-      _count: { select: { likes: true, retweets: true, comments: true } },
+    select: {
+      ...postInfo,
+      author: { select: authorInfo },
+      comments: { select: commentInfo },
+      _count: { select: counters },
     },
   });
 }

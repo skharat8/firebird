@@ -89,11 +89,11 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
     await prisma.follow.create({ data: relation });
 
     // Create a notification
-    await createNotification({
-      from: { connect: { id: currentUserId } },
-      to: { connect: { id: targetUserId } },
-      type: NotificationType.FOLLOW,
-    });
+    await createNotification(
+      currentUserId,
+      targetUserId,
+      NotificationType.FOLLOW,
+    );
   }
 }
 

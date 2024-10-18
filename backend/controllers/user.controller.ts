@@ -65,7 +65,7 @@ const followUserHandler = asyncHandler(async (req: Request, res: Response) => {
   const targetUser = await UserService.findUser({ username });
   await UserService.toggleFollowUser(currentUser.id, targetUser.id);
 
-  res.json("Follow/unfollow request successful");
+  res.json({ message: "Follow/unfollow request successful" });
 });
 
 const getUserFeedHandler = asyncHandler(async (_: Request, res: Response) => {

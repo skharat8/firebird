@@ -13,6 +13,7 @@ import { StatusCode } from "./data/enums";
 import userRoutes from "./routes/user.route";
 import sessionRoutes from "./routes/session.route";
 import postRoutes from "./routes/post.route";
+import notificationRoutes from "./routes/notification.route";
 import errorHandler from "./middleware/errorHandler";
 import deserializeUser from "./middleware/deserializeUser";
 
@@ -55,6 +56,7 @@ function createServer() {
   app.use("/api/users", userRoutes);
   app.use("/api/sessions", sessionRoutes);
   app.use("/api/posts", postRoutes);
+  app.use("/api/notifications", notificationRoutes);
 
   /* --------------------------- */
   /*  Error Handling Middleware  */

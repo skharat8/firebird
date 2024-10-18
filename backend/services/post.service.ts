@@ -63,11 +63,11 @@ async function likePost(postId: string, userId: string) {
     });
 
     // Create a notification
-    await createNotification({
-      from: { connect: { id: userId } },
-      to: { connect: { id: updatedPost.authorId } },
-      type: NotificationType.LIKE,
-    });
+    await createNotification(
+      userId,
+      updatedPost.authorId,
+      NotificationType.LIKE,
+    );
   } else {
     // Remove the like
     await prisma.post.update({
@@ -96,11 +96,11 @@ async function retweetPost(postId: string, userId: string) {
     });
 
     // Create a notification
-    await createNotification({
-      from: { connect: { id: userId } },
-      to: { connect: { id: updatedPost.authorId } },
-      type: NotificationType.RETWEET,
-    });
+    await createNotification(
+      userId,
+      updatedPost.authorId,
+      NotificationType.RETWEET,
+    );
   } else {
     // Undo the retweet
     await prisma.post.update({

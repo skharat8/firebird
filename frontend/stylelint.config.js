@@ -20,6 +20,7 @@ export default {
     "hue-degree-notation": null,
     "selector-class-pattern": null,
     "custom-property-empty-line-before": null,
+    "value-keyword-case": null,
     "function-no-unknown": [true, { ignoreFunctions: "theme" }],
     "at-rule-no-unknown": [true, { ignoreAtRules: "tailwind" }],
   },

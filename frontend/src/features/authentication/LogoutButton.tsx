@@ -1,16 +1,24 @@
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
-import ButtonIcon from "@/components/ButtonIcon";
-import SpinnerMini from "@/components/SpinnerMini";
+import Button from "@/components/ui/Button";
+import SpinnerMini from "@/components/ui/SpinnerMini";
 import useLogout from "./useLogout";
 
 function LogoutButton() {
   const { logout, isLogoutPending } = useLogout();
 
   return (
-    <ButtonIcon onClick={logout} disabled={isLogoutPending}>
+    <Button
+      size="icon"
+      variant="secondary"
+      className="bg-primary-foreground/60 hover:bg-secondary-foreground/60
+        hover:text-primary-foreground"
+      // @ts-expect-error Mutation function not expected to fit any handler definition
+      onClick={logout}
+      disabled={isLogoutPending}
+    >
       {isLogoutPending ? <SpinnerMini /> : <RiLogoutBoxRLine />}
-    </ButtonIcon>
+    </Button>
   );
 }
 

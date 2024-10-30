@@ -90,10 +90,12 @@ module.exports = {
 
     // Allow passing functions as props (without having to memoize)
     "react/jsx-no-bind": ["error", { allowFunctions: true }],
-    // Allow prop spreading on input elements when using react-hook-form
-    "react/jsx-props-no-spreading": ["error", { exceptions: ["input"] }],
-    // defaultProps not required when using TypeScript
+    // Allow prop spreading
+    "react/jsx-props-no-spreading": "off",
+    // defaultProps are not required when using TypeScript
     "react/require-default-props": "off",
+    // Fix issue with shadcn: https://github.com/shadcn-ui/ui/issues/1013
+    "react/prop-types": "off",
 
     "import/no-restricted-paths": [
       "error",

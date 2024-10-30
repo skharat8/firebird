@@ -24,9 +24,9 @@
     /* Alias */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@images/*": ["src/assets/images/*"],
-      "@fonts/*": ["src/assets/fonts/*"]
+      "@/*": ["./src/*"],
+      "@images/*": ["./src/assets/images/*"],
+      "@fonts/*": ["./src/assets/fonts/*"]
     }
   },
   "include": ["src"],

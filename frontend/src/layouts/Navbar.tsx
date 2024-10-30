@@ -7,7 +7,7 @@ import {
   RiSearchFill,
 } from "react-icons/ri";
 
-import NavbarItem from "@/components/NavbarItem";
+import NavbarItem from "@/features/navigation/NavbarItem";
 
 function Navbar() {
   const iconSize = "1.2rem";

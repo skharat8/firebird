@@ -1,30 +1,31 @@
 import type { PropsWithChildren } from "react";
 
 import LogoutButton from "@/features/authentication/LogoutButton";
-import Avatar from "@/components/Avatar";
-import Logo from "@/components/Logo";
-import styles from "./Header.module.css";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
+import Logo from "@/components/ui/Logo";
+import useUser from "@/hooks/useUser";
 
 function Title({ children }: PropsWithChildren) {
   return (
-    <h1 className="font-noticia text-2xl font-bold tracking-wide text-zinc-300">
+    <h1 className="font-noticia text-primary-foreground text-2xl font-bold tracking-wide">
       {children}
     </h1>
   );
 }
 
 function Header() {
+  const { user } = useUser();
+
   return (
-    <header
-      className={`${styles.linearGradient} px-16px py-8px flex items-center justify-between
-        shadow-md`}
-    >
-      <Avatar size="small" />
+    <header className="bg-primary flex items-center justify-between px-4 py-2 shadow-md">
+      <Avatar>
+        <AvatarImage src={user?.profileImage} />
+        <AvatarFallback>{`${user?.firstName?.at(0)}${user?.lastName?.at(0)}`}</AvatarFallback>
+      </Avatar>
 
       <div className="flex items-center gap-2">
-        <Title>Twitter</Title>
-        <Logo width="2.5rem" />
-        <Title>Reborn</Title>
+        <Title>Firebird</Title>
+        <Logo width="2rem" />
       </div>
 
       <LogoutButton />

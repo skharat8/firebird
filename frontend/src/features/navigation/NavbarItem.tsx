@@ -1,11 +1,12 @@
+import { cn } from "@/lib/utils";
 import { NavLink } from "react-router-dom";
 
 function NavbarItem({ to, item, selectedItem }: NavbarItemProps) {
-  const baseStyles = `flex flex-grow items-center justify-center border-r-2 border-primary-800 py-10px
-  text-primary-50 hover:text-primary-50 hover:bg-accentPink-700`;
+  const baseStyles = `flex flex-grow items-center justify-center py-2
+  text-primary-foreground hover:text-secondary/90 hover:bg-accent-purple`;
 
-  const inactiveStyles = `${baseStyles} bg-primary-500`;
-  const activeStyles = `${baseStyles} bg-accentPink-700 `;
+  const inactiveStyles = cn(baseStyles, "bg-primary");
+  const activeStyles = cn(baseStyles, "bg-accent-purple text-secondary/90");
 
   function getNavLinkStyles({ isActive }: { isActive: boolean }) {
     return isActive ? activeStyles : inactiveStyles;

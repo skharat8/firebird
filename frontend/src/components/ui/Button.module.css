@@ -43,20 +43,15 @@
 /* Demo as Guest */
 .btnGuestDemo {
   height: var(--form-element-height);
-  padding: 10.5px 21px;
   font-size: 0.9rem;
-  background-color: transparent;
   border: 3px dotted var(--black);
   outline: none;
 }
 
 .btnGuestDemo:hover,
 .btnGuestDemo:focus {
-  font-weight: 600;
-  color: var(--fire-red);
-  background-color: var(--primary-100);
-  border-color: var(--acc-pink-400);
-  box-shadow: var(--shadow);
+  border-color: var(--black);
+  box-shadow: 0 0 8px 3px theme(colors.primary.DEFAULT);
 }
 
 /* Small Caps */

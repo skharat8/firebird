@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 import type { AuthType } from "@/data/types";
+import { Card, CardTitle } from "@/components/ui/Card";
 import AuthForm from "./AuthForm";
 import AuthLink from "./AuthLink";
 import styles from "./Auth.module.css";
@@ -16,13 +17,14 @@ function Auth() {
   }
 
   return (
-    <div className={styles.container}>
+    <Card className={styles.container}>
       <Toaster />
-      <h2 className={styles.header}>{authType}</h2>
-      <div className={styles.divider} />
+      <CardTitle className={styles.header}>{authType}</CardTitle>
+      <div className="bg-primary mx-auto mb-3 mt-2 h-[3px] w-[15%]" />
+
       <AuthForm authType={authType} onAuthToggle={onAuthToggle} />
       <AuthLink authType={authType} onAuthToggle={onAuthToggle} />
-    </div>
+    </Card>
   );
 }
 

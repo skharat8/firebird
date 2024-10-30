@@ -11,8 +11,19 @@ const userSignupSchema = z.object({
 const userLoginSchema = userSignupSchema.omit({ username: true });
 
 const userSchema = userSignupSchema.omit({ password: true }).extend({
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
+  id: z.string(),
+  firstName: z.string().nullish(),
+  lastName: z.string().nullish(),
+  fullName: z.string().nullish(),
+  profileImage: z
+    .string()
+    .nullish()
+    .transform((x) => x ?? undefined),
+  coverImage: z
+    .string()
+    .nullish()
+    .transform((x) => x ?? undefined),
+  bio: z.string().nullish(),
 });
 
 type UserLogin = z.infer<typeof userLoginSchema>;

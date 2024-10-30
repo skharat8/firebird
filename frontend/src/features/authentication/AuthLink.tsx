@@ -1,4 +1,4 @@
-import Button from "@/components/Button";
+import Button from "@/components/ui/Button";
 import type { AuthType } from "@/data/types";
 
 function AuthLink({ authType, onAuthToggle }: AuthLinkProps) {
@@ -6,8 +6,10 @@ function AuthLink({ authType, onAuthToggle }: AuthLinkProps) {
 
   return (
     <p>
-      {authType === "signup" ? "Already" : "Don't"} have an account?{" "}
-      <Button variant="link" onClick={onAuthToggle}>
+      <span className="text-sm">
+        {authType === "signup" ? "Already" : "Don't"} have an account?
+      </span>
+      <Button variant="link" size="lg" className="px-2" onClick={onAuthToggle}>
         {linkTo}
       </Button>
     </p>

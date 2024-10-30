@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RiUser3Fill, RiMailFill, RiLockPasswordFill } from "react-icons/ri";
 
-import Button from "@/components/Button";
-import SpinnerMini from "@/components/SpinnerMini";
+import Button from "@/components/ui/Button";
+import SpinnerMini from "@/components/ui/SpinnerMini";
 import { userLoginSchema, userSignupSchema } from "@/schemas/auth.zod";
 import type { UserSignup } from "@/schemas/auth.zod";
 import type { AuthType } from "@/data/types";
@@ -94,7 +94,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
           disabled={isLoginPending || isSignupPending}
         />
         <Button
-          variant="small-caps"
+          variant="smallCaps"
           className={styles.showPasswordBtn}
           onClick={toggleShowPassword}
         >
@@ -116,8 +116,8 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
 
       <Button
         type="submit"
-        variant="primary"
         ref={loginButtonRef}
+        className="text-lg font-semibold"
         disabled={isLoginPending || isSignupPending}
       >
         {isLoginPending || isSignupPending ? <SpinnerMini /> : authType}

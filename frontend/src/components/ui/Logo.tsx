@@ -1,5 +1,5 @@
 import logo from "@images/app-logo-96x96.png";
-import tw from "@/utils/string.utils";
+import { tw } from "@/lib/utils";
 
 function Logo({
   width = "3.9rem",

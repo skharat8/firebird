@@ -2,103 +2,82 @@ import colors from "tailwindcss/colors";
 
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      // Color Shades Generator: https://mdigi.tools/color-shades
       colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
         primary: {
-          50: "var(--primary-50)",
-          100: "var(--primary-100)",
-          200: "var(--primary-200)",
-          300: "var(--primary-300)",
-          400: "var(--primary-400)",
-          500: "var(--primary-500)",
-          600: "var(--primary-600)",
-          700: "var(--primary-700)",
-          800: "var(--primary-800)",
-          900: "var(--primary-900)",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        accentPink: {
-          50: "var(--acc-pink-50)",
-          100: "var(--acc-pink-100)",
-          200: "var(--acc-pink-200)",
-          300: "var(--acc-pink-300)",
-          400: "var(--acc-pink-400)",
-          500: "var(--acc-pink-500)",
-          600: "var(--acc-pink-600)",
-          700: "var(--acc-pink-700)",
-          800: "var(--acc-pink-800)",
-          900: "var(--acc-pink-900)",
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        accentYellow: {
-          50: "var(--acc-yellow-50)",
-          100: "var(--acc-yellow-100)",
-          200: "var(--acc-yellow-200)",
-          300: "var(--acc-yellow-300)",
-          400: "var(--acc-yellow-400)",
-          500: "var(--acc-yellow-500)",
-          600: "var(--acc-yellow-600)",
-          700: "var(--acc-yellow-700)",
-          800: "var(--acc-yellow-800)",
-          900: "var(--acc-yellow-900)",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        "fire-orange": "var(--fire-orange)",
-        "fire-red": "var(--fire-red)",
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          1: "hsl(var(--chart-1))",
+          2: "hsl(var(--chart-2))",
+          3: "hsl(var(--chart-3))",
+          4: "hsl(var(--chart-4))",
+          5: "hsl(var(--chart-5))",
+        },
+
         "link-color": "var(--link-color)",
         "link-color-hover": "var(--link-color-hover)",
-        black: "oklch(13% 0 0) / <alpha-value>)",
+        "accent-purple": "var(--accent-purple)",
       },
 
       fontFamily: {
-        chocolateWithBrownie: ["chocolateWithBrownie", "serif"],
+        backToBlack: ["backToBlack", "serif"],
+        butlerMedium: ["butlerMedium", "serif"],
         noticia: ["Noticia Text", "serif"],
       },
 
+      boxShadow: {
+        extreme: "var(--shadow)",
+      },
+
       dropShadow: {
-        logo: "0 0 2rem theme(colors.accentPink.500)",
+        logo: "0 0 2rem theme(colors.primary.DEFAULT)",
       },
 
       spacing: {
-        "2px": "2px",
-        "4px": "4px",
-        "6px": "6px",
-        "8px": "8px",
-        "10px": "10px",
-        "12px": "12px",
-        "14px": "14px",
-        "16px": "16px",
-        "20px": "20px",
-        "24px": "24px",
-        "28px": "28px",
-        "32px": "32px",
-        "36px": "36px",
-        "40px": "40px",
-        "44px": "44px",
-        "48px": "48px",
-        "56px": "56px",
-        "64px": "64px",
-        "80px": "80px",
-        "96px": "96px",
         "card-tb": "var(--card-top-bottom)",
         "card-lr": "var(--card-left-right)",
       },
-    },
 
-    /**
-     * Default tailwind values converted from rem to px:
-     * */
-    borderRadius: {
-      none: "0px",
-      sm: "2px",
-      DEFAULT: "4px",
-      md: "6px",
-      lg: "8px",
-      xl: "12px",
-      "2xl": "16px",
-      "3xl": "24px",
-      full: "999px",
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };

@@ -13,6 +13,9 @@
     "lint": "eslint ./backend --ext ts --report-unused-disable-directives --max-warnings 0",
     "pull-frontend": "git subtree pull --prefix frontend https://github.com/skharat8/react-template.git main --squash"
   },
+  "prisma": {
+    "seed": "tsx backend/prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -37,6 +40,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
+    "@faker-js/faker": "^9.2.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",

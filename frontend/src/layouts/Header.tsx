@@ -4,6 +4,7 @@ import LogoutButton from "@/features/authentication/LogoutButton";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
 import Logo from "@/components/ui/Logo";
 import useUser from "@/hooks/useUser";
+import ThemeToggle from "@/components/ThemeToggle";
 
 function Title({ children }: PropsWithChildren) {
   return (
@@ -28,7 +29,10 @@ function Header() {
         <Logo width="2rem" />
       </div>
 
-      <LogoutButton />
+      <div className="flex gap-2">
+        <ThemeToggle />
+        <LogoutButton />
+      </div>
     </header>
   );
 }

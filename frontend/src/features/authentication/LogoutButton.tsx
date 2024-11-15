@@ -11,8 +11,9 @@ function LogoutButton() {
     <Button
       size="icon"
       variant="secondary"
-      className="bg-primary-foreground/60 hover:bg-secondary-foreground/60
+      className="bg-popover text-primary hover:bg-secondary-foreground/60
         hover:text-primary-foreground"
+      // NO_LINT
       // @ts-expect-error Mutation function not expected to fit any handler definition
       onClick={logout}
       disabled={isLogoutPending}

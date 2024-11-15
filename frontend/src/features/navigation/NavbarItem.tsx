@@ -3,10 +3,13 @@ import { NavLink } from "react-router-dom";
 
 function NavbarItem({ to, item, selectedItem }: NavbarItemProps) {
   const baseStyles = `flex flex-grow items-center justify-center py-2
-  text-primary-foreground hover:text-secondary/90 hover:bg-accent-purple`;
+  text-primary-foreground hover:text-primary-foreground/90 hover:bg-accent-purple`;
 
   const inactiveStyles = cn(baseStyles, "bg-primary");
-  const activeStyles = cn(baseStyles, "bg-accent-purple text-secondary/90");
+  const activeStyles = cn(
+    baseStyles,
+    "bg-accent-purple text-primary-foreground",
+  );
 
   function getNavLinkStyles({ isActive }: { isActive: boolean }) {
     return isActive ? activeStyles : inactiveStyles;

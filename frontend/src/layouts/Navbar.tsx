@@ -13,7 +13,7 @@ function Navbar() {
   const iconSize = "1.2rem";
 
   return (
-    <nav className="border-primary-800 flex border-t-2">
+    <nav className="flex">
       <NavbarItem
         to="/profile"
         item={<RiUser3Line size={iconSize} />}

@@ -33,7 +33,8 @@
 }
 
 .formInput input::placeholder {
-  color: var(--transparent-gray);
+  color: theme(colors.accent.foreground);
+  opacity: 0.5;
 }
 
 .formInput .icon {

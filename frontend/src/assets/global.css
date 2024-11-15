@@ -81,6 +81,7 @@
     --muted-foreground: 240 5% 64.9%;
     --accent: 12 6.5% 15.1%;
     --accent-foreground: 0 0% 98%;
+    --accent-purple: oklch(30.6% 0.3 360);
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
     --border: 240 3.7% 15.9%;
@@ -91,6 +92,9 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    /* stylelint-disable-next-line color-no-hex */
+    --radial-background: radial-gradient(#1d1a1c, #431658);
   }
 }
 

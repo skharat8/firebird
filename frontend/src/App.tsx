@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login />, errorElement: <ErrorPage /> },
@@ -33,7 +34,9 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

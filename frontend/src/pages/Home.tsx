@@ -43,25 +43,23 @@ function Home() {
         </CardContent>
 
         <CardFooter>
-          <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full px-6"
-              onClick={toggleLike}
-            >
-              {like ? <HeartFilledIcon color="red" /> : <HeartIcon />}
-            </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full px-6"
+            onClick={toggleLike}
+          >
+            {like ? <HeartFilledIcon color="red" /> : <HeartIcon />}
+          </Button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full px-6"
-              onClick={toggleRetweet}
-            >
-              {retweet ? <FaRetweet color="green" /> : <FaRetweet />}
-            </Button>
-          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full px-6"
+            onClick={toggleRetweet}
+          >
+            {retweet ? <FaRetweet color="green" /> : <FaRetweet />}
+          </Button>
         </CardFooter>
       </Card>
     </div>

@@ -19,6 +19,7 @@ function LogoutButton() {
       disabled={isLogoutPending}
     >
       {isLogoutPending ? <SpinnerMini /> : <RiLogoutBoxRLine />}
+      <span className="sr-only">Log out</span>
     </Button>
   );
 }

@@ -1,6 +1,6 @@
 // NO_LINT
 /* eslint-disable react/jsx-no-bind */
-import { Moon, Sun } from "lucide-react";
+import { Check, Moon, Sun } from "lucide-react";
 
 import Button from "@/components/ui/Button";
 import {
@@ -12,7 +12,7 @@ import {
 import { useTheme } from "@/components/ThemeProvider";
 
 function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   return (
     <DropdownMenu>
@@ -32,12 +32,15 @@ function ThemeToggle() {
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
+          {theme === "light" && <Check className="ms-2" />}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
           Dark
+          {theme === "dark" && <Check className="ms-2" />}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
           System
+          {theme === "system" && <Check className="ms-2" />}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

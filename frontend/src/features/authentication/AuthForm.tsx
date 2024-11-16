@@ -94,6 +94,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
           disabled={isLoginPending || isSignupPending}
         />
         <Button
+          type="button"
           variant="smallCaps"
           className={styles.showPasswordBtn}
           onClick={toggleShowPassword}

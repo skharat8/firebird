@@ -33,7 +33,7 @@ router.post(
 
 router.get("/feed", requireUser, getUserFeedHandler);
 
-router.get("/:username", requireUser, getUserHandler);
-router.post("/follow/:username", requireUser, followUserHandler);
+router.get("/:userId", requireUser, getUserHandler);
+router.post("/follow/:userId", requireUser, followUserHandler);
 
 export default router;

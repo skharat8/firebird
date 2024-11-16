@@ -14,10 +14,10 @@ async function findUser(query: Prisma.UserWhereInput): Promise<SafeDbUser> {
   return prisma.user.findFirstOrThrow({ where: query });
 }
 
-async function getUserProfile(username: string) {
+async function getUserProfile(userId: string) {
   const user = await prisma.user.findFirstOrThrow({
     where: {
-      username,
+      id: userId,
     },
     include: { _count: { select: { followers: true, following: true } } },
   });

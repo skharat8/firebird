@@ -44,26 +44,25 @@ const updateCurrentUserHandler = asyncHandler(
 );
 
 const getUserHandler = asyncHandler(async (req: Request, res: Response) => {
-  const { username } = req.params;
-  const { user, posts } = await UserService.getUserProfile(username);
+  const { userId } = req.params;
+  const { user, posts } = await UserService.getUserProfile(userId);
 
   res.json({ user, posts });
 });
 
 const followUserHandler = asyncHandler(async (req: Request, res: Response) => {
   assertObjectExists(res.locals.user);
-  const { username } = req.params;
+  const { targetUserId } = req.params;
   const currentUser = res.locals.user;
 
-  if (username === currentUser.username) {
+  if (targetUserId === currentUser.id) {
     throw createHttpError(
       StatusCode.BAD_REQUEST,
       "User can't follow/unfollow themselves",
     );
   }
 
-  const targetUser = await UserService.findUser({ username });
-  await UserService.toggleFollowUser(currentUser.id, targetUser.id);
+  await UserService.toggleFollowUser(currentUser.id, targetUserId);
 
   res.json({ message: "Follow/unfollow request successful" });
 });

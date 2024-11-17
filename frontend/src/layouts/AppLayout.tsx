@@ -3,7 +3,6 @@ import { BeatLoader } from "react-spinners";
 
 import Header from "./Header";
 import Navbar from "./Navbar";
-import styles from "./AppLayout.module.css";
 
 function AppLayout() {
   // React Router Loader state is app wide, not per component. So, handle it here.
@@ -11,15 +10,16 @@ function AppLayout() {
   const isLoading = navigation.state === "loading";
 
   return (
-    <div className={`${styles.appContainer} bg-secondary h-dvh w-dvw`}>
+    <div className="bg-secondary flex min-h-screen w-dvw flex-col">
       {isLoading && <BeatLoader color="#b63b63" />}
       <Header />
 
-      <main>
+      <main className="mx-auto flex max-w-7xl grow gap-5 p-5">
+        <Navbar className="top-[5rem] hidden h-fit grow gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col" />
         <Outlet />
       </main>
 
-      <Navbar />
+      <Navbar className="bottom-0 flex justify-evenly sm:hidden" />
     </div>
   );
 }

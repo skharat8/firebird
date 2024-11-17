@@ -18,6 +18,8 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground hover:font-bold hover:ring-primary hover:shadow",
         smallCaps: styles.btnSmallCaps,
+        navbar:
+          "bg-card hover:bg-primary hover:text-primary-foreground border-none shadow-none",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

@@ -1,29 +1,37 @@
-import { cn } from "@/lib/utils";
 import { NavLink } from "react-router-dom";
+import { cn, tw } from "@/lib/utils";
+import buttonVariants from "@/components/ui/buttonVariants";
 
-function NavbarItem({ to, item, selectedItem }: NavbarItemProps) {
-  const baseStyles = `flex flex-grow items-center justify-center py-2
-  text-primary-foreground hover:text-primary-foreground/90 hover:bg-accent-purple`;
+function NavbarItem({ to, title, item, selectedItem }: NavbarItemProps) {
+  const inactiveStyles = tw`bg-card text-primary hover:text-primary-foreground hover:bg-primary flex-1`;
 
-  const inactiveStyles = cn(baseStyles, "bg-primary");
   const activeStyles = cn(
-    baseStyles,
-    "bg-accent-purple text-primary-foreground",
+    inactiveStyles,
+    "bg-primary text-primary-foreground font-bold",
   );
 
   function getNavLinkStyles({ isActive }: { isActive: boolean }) {
-    return isActive ? activeStyles : inactiveStyles;
+    const buttonStyles = buttonVariants({ variant: "ghost" });
+    const extraStyles = isActive ? activeStyles : inactiveStyles;
+
+    return cn(buttonStyles, extraStyles);
   }
 
   return (
-    <NavLink to={to} className={getNavLinkStyles}>
-      {({ isActive }) => (isActive ? selectedItem : item)}
+    <NavLink to={to} className={getNavLinkStyles} title={title}>
+      {({ isActive }) => (
+        <>
+          {isActive ? selectedItem : item}
+          <span className="hidden sm:inline">{title}</span>
+        </>
+      )}
     </NavLink>
   );
 }
 
 type NavbarItemProps = {
   to: string;
+  title: string;
   item: React.ReactElement;
   selectedItem: React.ReactElement;
 };

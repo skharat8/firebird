@@ -12,7 +12,7 @@ function Home() {
   } = useQuery({ queryKey: ["feed"], queryFn: getUserFeed });
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5">
+    <div className="flex flex-col items-stretch gap-5">
       {isPending && <BeatLoader color="#b63b63" />}
       {isSuccess && posts.map((post) => <UserPost key={post.id} post={post} />)}
     </div>

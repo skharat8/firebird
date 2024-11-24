@@ -41,7 +41,7 @@ function UserPost({ post }: UserPostProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full px-6"
+          className="rounded-full"
           onClick={toggleLike}
         >
           {like ? <HeartFilledIcon color="red" /> : <HeartIcon />}
@@ -50,7 +50,7 @@ function UserPost({ post }: UserPostProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full px-6"
+          className="rounded-full"
           onClick={toggleRetweet}
         >
           {retweet ? <FaRetweet color="green" /> : <FaRetweet />}

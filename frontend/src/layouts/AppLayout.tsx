@@ -15,11 +15,11 @@ function AppLayout() {
       <Header />
 
       <main className="mx-auto flex max-w-7xl grow gap-5 p-5">
-        <Navbar className="top-[5rem] hidden h-fit grow gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col" />
+        <Navbar className="top-[5rem] hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col xl:w-80" />
         <Outlet />
       </main>
 
-      <Navbar className="bottom-0 flex justify-evenly sm:hidden" />
+      <Navbar className="bottom-0 flex sm:hidden" />
     </div>
   );
 }

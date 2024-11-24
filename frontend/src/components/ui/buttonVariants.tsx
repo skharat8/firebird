@@ -16,7 +16,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         demo: `text-primary font-bold border-10 bg-secondary/80 ${styles.btnGuestDemo}`,
         ghost:
-          "hover:bg-accent hover:text-accent-foreground hover:font-bold hover:ring-primary hover:shadow",
+          "hover:bg-accent hover:text-accent-foreground hover:ring-primary hover:shadow",
         smallCaps: styles.btnSmallCaps,
         navbar:
           "bg-card hover:bg-primary hover:text-primary-foreground border-none shadow-none",

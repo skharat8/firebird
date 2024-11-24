@@ -2,8 +2,9 @@ import { NavLink } from "react-router-dom";
 import { cn, tw } from "@/lib/utils";
 import buttonVariants from "@/components/ui/buttonVariants";
 
-function NavbarItem({ to, title, item, selectedItem }: NavbarItemProps) {
-  const inactiveStyles = tw`bg-card text-primary hover:text-primary-foreground hover:bg-primary flex-1`;
+function NavbarItem({ to, title, icon, selectedIcon }: NavbarItemProps) {
+  const inactiveStyles = tw`bg-card text-foreground hover:text-primary-foreground hover:bg-primary flex-1
+  sm:justify-start`;
 
   const activeStyles = cn(
     inactiveStyles,
@@ -21,8 +22,8 @@ function NavbarItem({ to, title, item, selectedItem }: NavbarItemProps) {
     <NavLink to={to} className={getNavLinkStyles} title={title}>
       {({ isActive }) => (
         <>
-          {isActive ? selectedItem : item}
-          <span className="hidden sm:inline">{title}</span>
+          {isActive ? selectedIcon : icon}
+          <span className="hidden lg:inline">{title}</span>
         </>
       )}
     </NavLink>
@@ -32,8 +33,8 @@ function NavbarItem({ to, title, item, selectedItem }: NavbarItemProps) {
 type NavbarItemProps = {
   to: string;
   title: string;
-  item: React.ReactElement;
-  selectedItem: React.ReactElement;
+  icon: React.ReactElement;
+  selectedIcon: React.ReactElement;
 };
 
 export default NavbarItem;

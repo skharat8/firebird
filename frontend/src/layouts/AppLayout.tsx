@@ -1,6 +1,8 @@
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet, useNavigate, useNavigation } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
+import { Feather } from "lucide-react";
 
+import Button from "@/components/ui/Button";
 import Header from "./Header";
 import Navbar from "./Navbar";
 
@@ -8,6 +10,12 @@ function AppLayout() {
   // React Router Loader state is app wide, not per component. So, handle it here.
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
+
+  const navigate = useNavigate();
+
+  function createNewPost() {
+    navigate("/new");
+  }
 
   return (
     <div className="bg-secondary flex min-h-screen w-dvw flex-col">
@@ -20,6 +28,14 @@ function AppLayout() {
       </main>
 
       <Navbar className="bottom-0 flex sm:hidden" />
+
+      <Button
+        size="rounded"
+        className="fixed bottom-10 right-5"
+        onClick={createNewPost}
+      >
+        <Feather />
+      </Button>
     </div>
   );
 }

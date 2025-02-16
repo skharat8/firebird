@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
+import CreatePost from "./pages/CreatePost";
 import { ThemeProvider } from "./components/ThemeProvider";
 
 const router = createBrowserRouter([
@@ -26,6 +27,16 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile />, errorElement: <ErrorPage /> },
       { path: "/search", element: <Search />, errorElement: <ErrorPage /> },
     ],
+  },
+
+  {
+    path: "/new",
+    element: (
+      <ProtectedRoute>
+        <CreatePost />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
   },
 ]);
 

@@ -60,7 +60,7 @@
   top: 50%;
   right: 0;
   font-size: 0.875rem;
-  color: var(--transparent-dark-gray);
+  color: theme(colors.muted.foreground);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background-color: transparent;

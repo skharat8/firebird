@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/Card";
 import type { Post } from "@/schemas/post.zod";
 import useToggle from "@/hooks/useToggle";
+import { Link } from "react-router-dom";
 
 type UserPostProps = {
   post: Post;
@@ -22,19 +23,29 @@ function UserPost({ post }: UserPostProps) {
 
   return (
     <Card>
-      <CardHeader className="flex-row gap-4">
-        <Avatar>
-          <AvatarImage src={post.author.profileImage} />
-          <AvatarFallback>{post.author.fullName}</AvatarFallback>
-        </Avatar>
-        <h2>
-          <p>{post.author.fullName}</p>
-          <span className="text-sm font-light">@{post.author.username}</span>
-        </h2>
-      </CardHeader>
+      <Link
+        to={`/profile/${post.author.id}`}
+        className="text-current hover:text-current hover:underline"
+      >
+        <CardHeader className="flex-row gap-4">
+          <Avatar>
+            <AvatarImage src={post.author.profileImage} />
+            <AvatarFallback>{post.author.fullName}</AvatarFallback>
+          </Avatar>
+          <h2>
+            <p>{post.author.fullName}</p>
+            <span className="text-sm font-light">@{post.author.username}</span>
+          </h2>
+        </CardHeader>
+      </Link>
 
       <CardContent>
-        <p>{post.content}</p>
+        <Link
+          to={`/post/${post.id}`}
+          className="text-current hover:text-current"
+        >
+          <p>{post.content}</p>
+        </Link>
       </CardContent>
 
       <CardFooter>

@@ -14,7 +14,12 @@ async function createPost(userId: string, content: string, image?: string) {
 async function getPost(postId: string) {
   const counters = { likes: true, retweets: true, comments: true };
 
-  const authorInfo = { fullName: true, username: true, profileImage: true };
+  const authorInfo = {
+    id: true,
+    fullName: true,
+    username: true,
+    profileImage: true,
+  };
   const postInfo = {
     id: true,
     content: true,

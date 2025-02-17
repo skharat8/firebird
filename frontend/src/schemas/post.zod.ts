@@ -3,6 +3,7 @@ import { z } from "zod";
 const postSchema = z.object({
   id: z.string(),
   author: z.object({
+    id: z.string(),
     fullName: z.string(),
     username: z.string(),
     profileImage: z

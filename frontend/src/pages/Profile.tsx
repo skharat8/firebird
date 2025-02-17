@@ -1,11 +1,14 @@
 import ProfileFeed from "@/features/profile/ProfileFeed";
 import useUser from "@/hooks/useUser";
+import { useParams } from "react-router-dom";
 
 function Profile() {
-  const { user, isPending } = useUser();
-  if (isPending) return <div>Profile</div>;
+  let { profileId } = useParams();
+  const { user } = useUser();
 
-  return <ProfileFeed userId={user?.id} />;
+  if (!profileId) profileId = user?.id ?? "";
+
+  return <ProfileFeed userId={profileId} />;
 }
 
 export default Profile;

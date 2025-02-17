@@ -29,7 +29,12 @@ async function getUserProfile(userId: string) {
     select: {
       id: true,
       author: {
-        select: { fullName: true, username: true, profileImage: true },
+        select: {
+          id: true,
+          fullName: true,
+          username: true,
+          profileImage: true,
+        },
       },
       content: true,
       image: true,
@@ -99,29 +104,39 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
 
 async function getUserFeed(userId: string) {
   // Get a list of users being followed by the current user
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = await prisma.user.findUniqueOrThrow({
     where: { id: userId },
     select: { following: { select: { followingId: true } } },
   });
 
-  // Create a feed from following users and the current user's posts.
-  const feed = await prisma.post.findMany({
+  // Create a feed from following users
+  // TODO: include the current user's posts
+  const feed = await prisma.post.findManyRandom(10, {
     where: {
-      authorId: {
-        in: [...currentUser.following.map((user) => user.followingId), userId],
+      author: {
+        is: {
+          id: {
+            not: userId,
+          },
+        },
       },
     },
     select: {
       id: true,
       author: {
-        select: { fullName: true, username: true, profileImage: true },
+        select: {
+          id: true,
+          fullName: true,
+          username: true,
+          profileImage: true,
+        },
       },
       content: true,
       image: true,
       createdAt: true,
       _count: { select: { likes: true, retweets: true, comments: true } },
     },
-    take: 10,
   });
 
   return feed;

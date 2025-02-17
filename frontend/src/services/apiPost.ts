@@ -8,6 +8,6 @@ export async function createPost(content: string, image = "") {
 }
 
 export async function getPost(postId: string) {
-  const res = await api.get(`api/posts/:${postId}`);
+  const res = await api.get(`api/posts/${postId}`);
   return postSchema.parse(res.data);
 }

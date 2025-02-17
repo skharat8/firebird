@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import CreatePost from "./pages/CreatePost";
 import { ThemeProvider } from "./components/ThemeProvider";
+import UserPostWithComments from "./features/posts/UserPostWithComments";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login />, errorElement: <ErrorPage /> },
@@ -27,6 +28,25 @@ const router = createBrowserRouter([
       { path: "/profile", element: <Profile />, errorElement: <ErrorPage /> },
       { path: "/search", element: <Search />, errorElement: <ErrorPage /> },
     ],
+  },
+
+  {
+    path: "/profile/:profileId",
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/post/:postId",
+    element: (
+      <ProtectedRoute>
+        <UserPostWithComments />
+      </ProtectedRoute>
+    ),
+    errorElement: <ErrorPage />,
   },
 
   {

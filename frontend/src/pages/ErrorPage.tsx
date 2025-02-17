@@ -28,9 +28,11 @@ function getErrorMessage(error: unknown): string {
   return msg;
 }
 
-function ErrorPage() {
-  const error = useRouteError();
+function ErrorPage({ customError }: { customError?: Error }) {
+  let error = useRouteError();
   const navigate = useNavigate();
+
+  if (customError) error = customError;
 
   function navigateBack() {
     navigate(-1);
@@ -40,9 +42,7 @@ function ErrorPage() {
     <div className={styles.errorPageContainer}>
       <h1 className="main-title">Oops!</h1>
 
-      <p className="text-secondary-foreground">
-        Sorry, an unexpected error has occurred
-      </p>
+      <p className="text-secondary">Sorry, an unexpected error has occurred</p>
       <p className={styles.errorMessage}>
         <i>{getErrorMessage(error)}</i>
       </p>

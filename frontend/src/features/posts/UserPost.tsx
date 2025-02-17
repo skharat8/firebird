@@ -1,5 +1,4 @@
-import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
-import { FaRetweet } from "react-icons/fa";
+import { Heart, Repeat } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
@@ -55,7 +54,7 @@ function UserPost({ post }: UserPostProps) {
           className="rounded-full"
           onClick={toggleLike}
         >
-          {like ? <HeartFilledIcon color="red" /> : <HeartIcon />}
+          {like ? <Heart color="red" fill="red" /> : <Heart />}
         </Button>
 
         <Button
@@ -64,7 +63,7 @@ function UserPost({ post }: UserPostProps) {
           className="rounded-full"
           onClick={toggleRetweet}
         >
-          {retweet ? <FaRetweet color="green" /> : <FaRetweet />}
+          {retweet ? <Repeat color="green" fill="green" /> : <Repeat />}
         </Button>
       </CardFooter>
     </Card>

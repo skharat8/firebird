@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RiUser3Fill, RiMailFill, RiLockPasswordFill } from "react-icons/ri";
+import { User, Mail, LockKeyhole } from "lucide-react";
 
 import Button from "@/components/ui/Button";
 import SpinnerMini from "@/components/ui/SpinnerMini";
@@ -62,7 +62,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
     <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
       {authType === "signup" && (
         <div className={styles.formInput}>
-          <RiUser3Fill className={styles.icon} />
+          <User size={18} className={styles.icon} />
           <input
             {...register("username")}
             type="text"
@@ -74,7 +74,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
       )}
 
       <div className={styles.formInput}>
-        <RiMailFill className={styles.icon} />
+        <Mail size={18} className={styles.icon} />
         <input
           {...register("email")}
           type="email"
@@ -86,7 +86,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
       </div>
 
       <div className={styles.formInput}>
-        <RiLockPasswordFill className={`${styles.icon} ${styles.lock}`} />
+        <LockKeyhole className={`${styles.icon} ${styles.lock}`} />
         <input
           {...register("password")}
           type={showPassword ? "text" : "password"}

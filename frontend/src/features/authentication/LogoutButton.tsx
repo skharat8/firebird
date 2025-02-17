@@ -1,4 +1,4 @@
-import { RiLogoutBoxRLine } from "react-icons/ri";
+import { LogOut } from "lucide-react";
 
 import Button from "@/components/ui/Button";
 import SpinnerMini from "@/components/ui/SpinnerMini";
@@ -16,7 +16,7 @@ function LogoutButton() {
       onClick={logout}
       disabled={isLogoutPending}
     >
-      {isLogoutPending ? <SpinnerMini /> : <RiLogoutBoxRLine />}
+      {isLogoutPending ? <SpinnerMini /> : <LogOut />}
       <span className="sr-only">Log out</span>
     </Button>
   );

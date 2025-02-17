@@ -12,9 +12,18 @@ function ProtectedRoute({ children }: PropsWithChildren) {
     if (!isPending && !isAuthenticated) navigate("/login");
   }, [isPending, isAuthenticated, navigate]);
 
-  if (isPending) return <HashLoader color="#b63b63" />;
+  if (isPending)
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <HashLoader color="#b63b63" />
+      </div>
+    );
 
-  return isAuthenticated ? children : null;
+  return isAuthenticated ? (
+    <div className="bg-secondary flex min-h-screen flex-col items-center justify-center">
+      {children}
+    </div>
+  ) : null;
 }
 
 export default ProtectedRoute;

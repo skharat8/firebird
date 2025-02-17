@@ -23,21 +23,21 @@ function UserPost({ post }: UserPostProps) {
 
   return (
     <Card>
-      <Link
-        to={`/profile/${post.author.id}`}
-        className="text-current hover:text-current hover:underline"
-      >
-        <CardHeader className="flex-row gap-4">
+      <CardHeader>
+        <Link
+          to={`/profile/${post.author.id}`}
+          className="flex w-fit gap-4 text-current hover:text-current"
+        >
           <Avatar>
             <AvatarImage src={post.author.profileImage} />
             <AvatarFallback>{post.author.fullName}</AvatarFallback>
           </Avatar>
           <h2>
-            <p>{post.author.fullName}</p>
-            <span className="text-sm font-light">@{post.author.username}</span>
+            <p className="hover:underline">{post.author.fullName}</p>
+            <span className="text-xs font-light">@{post.author.username}</span>
           </h2>
-        </CardHeader>
-      </Link>
+        </Link>
+      </CardHeader>
 
       <CardContent>
         <Link

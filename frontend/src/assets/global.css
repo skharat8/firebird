@@ -124,10 +124,7 @@ html {
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 320px;
+  width: 100%;
   min-height: 100dvh;
 }
 
@@ -157,9 +154,11 @@ ul {
 .centered-container {
   display: flex;
   flex-direction: column;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   width: 90%;
   max-width: 640px;
+  min-height: 100dvh;
   margin: 0 auto;
 }
 

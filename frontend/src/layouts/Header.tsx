@@ -19,7 +19,7 @@ function Header() {
   const { user } = useUser();
 
   return (
-    <header className="bg-card sticky top-0 z-10 shadow-sm">
+    <header className="bg-card sticky top-0 z-10 min-w-full max-w-7xl shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-center px-5 py-3">
         <Avatar className="mr-auto shadow-sm">
           <AvatarImage src={user?.profileImage} />

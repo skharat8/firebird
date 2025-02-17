@@ -18,16 +18,19 @@ function AppLayout() {
   }
 
   return (
-    <div className="bg-secondary flex min-h-screen w-dvw flex-col">
-      {isLoading && <BeatLoader color="#b63b63" />}
+    <>
       <Header />
 
-      <main className="mx-auto flex max-w-7xl grow gap-5 p-5">
+      <main className="mx-auto flex min-w-full max-w-7xl grow justify-center gap-5 p-5">
         <Navbar className="top-[5rem] hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col xl:w-80" />
-        <Outlet />
+
+        <div className="flex max-w-[60rem] flex-1 items-center justify-center">
+          {isLoading && <BeatLoader color="#b63b63" />}
+          <Outlet />
+        </div>
       </main>
 
-      <Navbar className="bottom-0 flex sm:hidden" />
+      <Navbar className="bottom-0 flex min-w-full max-w-7xl sm:hidden" />
 
       <Button
         size="rounded"
@@ -36,7 +39,7 @@ function AppLayout() {
       >
         <Feather />
       </Button>
-    </div>
+    </>
   );
 }
 

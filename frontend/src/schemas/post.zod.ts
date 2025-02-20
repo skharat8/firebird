@@ -24,9 +24,12 @@ const postSchema = z.object({
 });
 
 const postArraySchema = z.array(postSchema);
-const postWithCommentsSchema = postSchema.extend({ comments: postSchema });
+const postWithCommentsSchema = postSchema.extend({
+  comments: postSchema.array(),
+});
 
 type Post = z.infer<typeof postSchema>;
+type PostWithComments = z.infer<typeof postWithCommentsSchema>;
 
-export type { Post };
+export type { Post, PostWithComments };
 export { postSchema, postArraySchema, postWithCommentsSchema };

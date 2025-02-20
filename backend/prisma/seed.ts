@@ -20,15 +20,11 @@ async function populateDatabase() {
               : faker.internet.password({ length: 10 }),
           firstName,
           lastName: faker.person.lastName(),
-          profileImage: faker.image.urlLoremFlickr({
-            category: "people",
-            width: 300,
-            height: 300,
-          }),
+          profileImage: faker.image.personPortrait({ size: 256 }),
           bio: faker.person.bio(),
           posts: {
             createMany: {
-              data: Array.from({ length: 20 }).map(() => ({
+              data: Array.from({ length: 1 }).map(() => ({
                 content: faker.lorem.paragraph(),
               })),
             },
@@ -42,11 +38,12 @@ async function populateDatabase() {
   // Seed post data
   const posts = await prisma.post.findMany();
   const postsToUpdate = [];
+  const limits = { min: 10, max: 80 };
 
   for (const currentPost of posts) {
-    const likeUserIds = faker.helpers.arrayElements(users);
+    const likeUserIds = faker.helpers.arrayElements(users, limits);
     const retweetUserIds = faker.helpers
-      .arrayElements(users, { min: 0, max: 20 })
+      .arrayElements(users, limits)
       .map((item) => ({ userId: item.id }));
 
     postsToUpdate.push(
@@ -73,7 +70,7 @@ async function populateDatabase() {
 
   for (const currentUser of users) {
     const followingIds = faker.helpers
-      .arrayElements(users)
+      .arrayElements(users, limits)
       .map((item) => ({ followingId: item.id }));
 
     usersToUpdate.push(

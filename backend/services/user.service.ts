@@ -25,6 +25,7 @@ async function getUserProfile(userId: string) {
   const allPosts = await prisma.post.findMany({
     where: {
       OR: [{ authorId: user.id }, { retweets: { some: { userId: user.id } } }],
+      parentPost: null,
     },
     select: {
       id: true,
@@ -121,6 +122,7 @@ async function getUserFeed(userId: string) {
           },
         },
       },
+      parentPost: null,
     },
     select: {
       id: true,

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "env": [
+        "PORT",
+        "NODE_ENV",
+        "PINO_LOG_LEVEL",
+        "DATABASE_URL",
+        "CLIENT_ORIGIN",
+        "ACCESS_TOKEN_TTL",
+        "REFRESH_TOKEN_TTL",
+        "CLOUDINARY_*",
+        "PRIVATE_KEY",
+        "PUBLIC_KEY"
+      ]
+    },
+    "dev": {
+      "env": [
+        "PORT",
+        "NODE_ENV",
+        "PINO_LOG_LEVEL",
+        "DATABASE_URL",
+        "CLIENT_ORIGIN",
+        "ACCESS_TOKEN_TTL",
+        "REFRESH_TOKEN_TTL",
+        "CLOUDINARY_*",
+        "PRIVATE_KEY",
+        "PUBLIC_KEY"
+      ]
+    }
+  }
+}

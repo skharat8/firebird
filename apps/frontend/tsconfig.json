@@ -1,27 +1,6 @@
 {
+  "extends": "@repo/typescript-config/react.json",
   "compilerOptions": {
-    /* Base Options */
-    "target": "ES2022",
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "verbatimModuleSyntax": true,
-    "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "module": "ESNext",
-    "isolatedModules": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-
-    /* Alias */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
@@ -30,5 +9,6 @@
     }
   },
   "include": ["src"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

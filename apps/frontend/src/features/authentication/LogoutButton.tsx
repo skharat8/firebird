@@ -11,7 +11,6 @@ function LogoutButton() {
     <Button
       size="icon"
       variant="navbar"
-      // NO_LINT
       // @ts-expect-error Mutation function not expected to fit any handler definition
       onClick={logout}
       disabled={isLogoutPending}

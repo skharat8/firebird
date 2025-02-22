@@ -1,4 +1,3 @@
-// NO_LINT
 /* eslint-disable react/jsx-no-bind */
 import { Check, Moon, Sun } from "lucide-react";
 

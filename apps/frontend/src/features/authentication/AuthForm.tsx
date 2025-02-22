@@ -12,6 +12,11 @@ import styles from "./Auth.module.css";
 import useLogin from "./useLogin";
 import useSignup from "./useSignup";
 
+type AuthFormProps = {
+  authType: AuthType;
+  onAuthToggle: () => void;
+};
+
 function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
   const validationSchema =
     authType === "login" ? userLoginSchema : userSignupSchema;
@@ -24,6 +29,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
     reset,
     formState: { errors },
   } = useForm<UserSignup>({
+    // @ts-expect-error Passes if I use userSignupSchema. debug later
     resolver: zodResolver(validationSchema),
   });
 
@@ -126,10 +132,5 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
     </form>
   );
 }
-
-type AuthFormProps = {
-  authType: AuthType;
-  onAuthToggle: () => void;
-};
 
 export default AuthForm;

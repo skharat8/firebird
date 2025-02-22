@@ -1,6 +1,12 @@
 import logo from "@images/app-logo-96x96.png";
 import { tw } from "@/lib/utils";
 
+type LogoProps = {
+  width?: string;
+  marginBottom?: string;
+  hasHoverEffect?: boolean;
+};
+
 function Logo({
   width = "3.9rem",
   marginBottom = "",
@@ -21,11 +27,5 @@ function Logo({
     />
   );
 }
-
-type LogoProps = {
-  width?: string;
-  marginBottom?: string;
-  hasHoverEffect?: boolean;
-};
 
 export default Logo;

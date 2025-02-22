@@ -46,7 +46,6 @@ function ThemeProvider({
 
   return (
     <ThemeContext.Provider
-      // NO_LINT
       // @ts-expect-error Value type is correct
       value={useMemo(() => ({ theme, setTheme }), [theme, setTheme])}
     >
@@ -63,6 +62,5 @@ function useTheme() {
   return context;
 }
 
-// NO_LINT
 // eslint-disable-next-line react-refresh/only-export-components
 export { ThemeProvider, useTheme };

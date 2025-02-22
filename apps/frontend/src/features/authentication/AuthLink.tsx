@@ -1,6 +1,11 @@
 import Button from "@/components/ui/Button";
 import type { AuthType } from "@/data/types";
 
+type AuthLinkProps = {
+  authType: AuthType;
+  onAuthToggle: () => void;
+};
+
 function AuthLink({ authType, onAuthToggle }: AuthLinkProps) {
   const linkTo = authType === "signup" ? "Login" : "Register";
 
@@ -15,10 +20,5 @@ function AuthLink({ authType, onAuthToggle }: AuthLinkProps) {
     </p>
   );
 }
-
-type AuthLinkProps = {
-  authType: AuthType;
-  onAuthToggle: () => void;
-};
 
 export default AuthLink;

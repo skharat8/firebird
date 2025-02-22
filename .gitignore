@@ -1,3 +1,28 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage
+
+# Turbo
+.turbo
+.vercel
+
+# Build Outputs
+.next/
+out/
+build
+dist
+
 # Logs
 logs
 *.log
@@ -6,12 +31,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-.turbo
 
 # Editor directories and files
 .vscode/*
@@ -24,5 +43,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-.env
+*.pem

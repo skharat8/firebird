@@ -1,0 +1,97 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: backToBlack;
+  src: url("./fonts/back-to-black-bold.ttf");
+}
+
+@font-face {
+  font-family: butlerMedium;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url("./fonts/butler/Butler-Medium.woff2") format("woff2"),
+    url("./fonts/butler/Butler-Medium.woff") format("woff");
+}
+
+@theme {
+  /* Fonts */
+  --font-header: backToBlack var(--font-serif);
+  --font-subheader: butlerMedium var(--font-serif);
+
+  /* Colors */
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(240 10% 3.9%);
+  --color-card: hsl(240 6% 90%);
+  --color-card-foreground: hsl(240 10% 3.9%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(240 10% 3.9%);
+
+  --color-primary-100: #f9d2da;
+  --color-primary-200: #f3a5b6;
+  --color-primary-300: #ed7791;
+  --color-primary-400: #e74a6d;
+  --color-primary-500: #e11d48;
+  --color-primary-600: #b4173a;
+  --color-primary-700: #87112b;
+  --color-primary-800: #5a0c1d;
+  --color-primary-900: #2d060e;
+  --color-primary: var(--color-primary-400);
+
+  --color-primary-foreground: hsl(355.7 100% 97.3%);
+  --color-secondary: hsl(240 4.8% 95.9%);
+  --color-secondary-foreground: hsl(240 5.9% 10%);
+  --color-muted: hsl(240 4.8% 95.9%);
+  --color-muted-foreground: hsl(240 3.8% 46.1%);
+  --color-accent: hsl(240 4.8% 95.9%);
+  --color-accent-foreground: hsl(240 5.9% 10%);
+  --color-accent-purple: oklch(30.6% 0.112 347.97);
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-border: hsl(240 5.9% 90%);
+  --color-input: hsl(240 5.9% 90%);
+  --ring: hsl(346.8 77.2% 49.8%);
+
+  /* stylelint-disable-next-line color-no-hex */
+  --color-radial-background: radial-gradient(#540d39, #270537);
+
+  /* Semantic States */
+  --color-error: oklch(49.68% 0.18 26.81);
+
+  /* Spacing */
+  --radius-default: 0.5rem;
+  --spacing-container-tb: 35px;
+  --spacing-container-lr: 40px;
+
+  /* Shadow */
+  --shadow-extreme: 2px 2px 4px 2px oklch(0% 0 0 / 0.3);
+  --drop-shadow-logo: 0 0 2rem var(--color-primary);
+}
+
+@layer base {
+  .dark {
+    --color-background: hsl(20 14.3% 4.1%);
+    --color-foreground: hsl(0 0% 95%);
+    --color-card: hsl(24 9.8% 10%);
+    --color-card-foreground: hsl(0 0% 95%);
+    --color-popover: hsl(0 0% 9%);
+    --color-popover-foreground: hsl(0 0% 95%);
+    --color-primary: hsl(346.8 77.2% 49.8%);
+    --color-primary-foreground: hsl(355.7 100% 97.3%);
+    --color-secondary: hsl(240 3.7% 15.9%);
+    --color-secondary-foreground: hsl(0 0% 98%);
+    --color-muted: hsl(0 0% 15%);
+    --color-muted-foreground: hsl(240 5% 64.9%);
+    --color-accent: hsl(12 6.5% 15.1%);
+    --color-accent-foreground: hsl(0 0% 98%);
+    --color-accent-purple: oklch(10.6% 0.3 360);
+    --color-destructive: hsl(0 62.8% 30.6%);
+    --color-destructive-foreground: hsl(0 85.7% 97.3%);
+    --color-border: hsl(240 3.7% 15.9%);
+    --color-input: hsl(240 3.7% 15.9%);
+    --ring: hsl(346.8 77.2% 49.8%);
+
+    /* stylelint-disable-next-line color-no-hex */
+    --color-radial-background: radial-gradient(#1d1a1c, #431658);
+  }
+}

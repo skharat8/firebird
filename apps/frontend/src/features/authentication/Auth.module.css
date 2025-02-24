@@ -1,5 +1,5 @@
 .container {
-  padding: var(--container-top-bottom) var(--container-left-right);
+  padding: var(--spacing-container-tb) var(--spacing-container-lr);
   text-align: center;
 }
 
@@ -27,13 +27,13 @@
   width: 100%;
   height: 100%;
   padding-left: 40px;
-  background: theme(colors.accent.DEFAULT);
-  border: 1px solid theme(colors.accent.DEFAULT / 0.6);
-  border-radius: theme(borderRadius.md);
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent) / 0.6;
+  border-radius: var(--radius-md);
 }
 
 .formInput input::placeholder {
-  color: theme(colors.accent.foreground);
+  color: var(--color-accent-foreground);
   opacity: 0.5;
 }
 
@@ -48,12 +48,12 @@
 }
 
 .formInput input:focus {
-  outline: 1px solid theme(colors.accent.foreground);
+  outline: 1px solid var(--color-accent-foreground);
 }
 
 .errorMessage {
   font-size: 0.875rem;
   font-weight: 500;
-  color: theme(colors.primary.DEFAULT);
+  color: var(--color-primary);
   text-align: left;
 }

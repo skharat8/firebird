@@ -7,7 +7,6 @@ import axios from "axios";
 
 import type { ResponseError } from "@/data/types";
 import Button from "@/components/ui/Button";
-import styles from "./ErrorPage.module.css";
 
 function getErrorMessage(error: unknown): string {
   let msg: string;
@@ -39,15 +38,17 @@ function ErrorPage({ customError }: { customError?: Error }) {
   }
 
   return (
-    <div className={styles.errorPageContainer}>
-      <h1 className="main-title">Oops!</h1>
-
-      <p className="text-secondary">Sorry, an unexpected error has occurred</p>
-      <p className={styles.errorMessage}>
-        <i>{getErrorMessage(error)}</i>
-      </p>
-
-      <Button onClick={navigateBack}>Go Back</Button>
+    <div className="centered-container flex-center-col">
+      <div className="flex-center-col px-container-lr py-container-tb bg-zinc-200 rounded-lg">
+        <h1 className="main-title">Oops!</h1>
+        <p className="text-secondary">
+          Sorry, an unexpected error has occurred
+        </p>
+        <p className="mb-4 font-semibold text-error">
+          <i>{getErrorMessage(error)}</i>
+        </p>
+        <Button onClick={navigateBack}>Go Back</Button>
+      </div>
     </div>
   );
 }

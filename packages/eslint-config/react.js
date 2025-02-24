@@ -82,7 +82,6 @@ export default tseslint.config(
       "**/postcss.config.js",
       "**/prettier.config.js",
       "**/stylelint.config.js",
-      "**/tailwind.config.js",
     ],
-  },
+  }
 );

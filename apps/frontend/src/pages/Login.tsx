@@ -14,7 +14,7 @@ function Login() {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className="centered-container">
+    <div className="centered-container flex-center-col">
       <h1 className="main-title">Firebird</h1>
       <h2 className="subtitle">A Modern Twitter Experience</h2>
       <Logo marginBottom="1.5em" hasHoverEffect />

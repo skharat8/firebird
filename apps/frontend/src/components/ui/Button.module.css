@@ -3,8 +3,8 @@
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  border-radius: 8px;
   outline: 2px solid transparent;
+  border-radius: 8px;
   transition: all 0.25s;
 }
 
@@ -16,8 +16,8 @@
 
 .btnPrimary:hover,
 .btnPrimary:focus {
-  background-color: var(--fire-red);
-  border: var(--primary-700);
+  background-color: var(--color-fire-red);
+  border: var(--color-primary-700);
   box-shadow: var(--shadow);
 }
 
@@ -30,28 +30,23 @@
   border: none;
 }
 
-.btnLink:hover,
 .btnLink:focus {
-  color: var(--link-color-hover);
-}
-
-.btnLink:focus {
+  outline: 2px solid var(--color-primary-600);
   border-radius: 4px;
-  outline: 2px solid var(--primary-600);
 }
 
 /* Demo as Guest */
 .btnGuestDemo {
   height: var(--form-element-height);
   font-size: 0.9rem;
-  border: 3px dotted var(--black);
   outline: none;
+  border: 3px dotted var(--black);
 }
 
 .btnGuestDemo:hover,
 .btnGuestDemo:focus {
   border-color: var(--black);
-  box-shadow: 0 0 8px 3px theme(colors.primary.DEFAULT);
+  box-shadow: 0 0 8px 3px var(--color-primary);
 }
 
 /* Small Caps */
@@ -59,8 +54,8 @@
   position: absolute;
   top: 50%;
   right: 0;
-  font-size: 0.875rem;
-  color: theme(colors.muted.foreground);
+  font-size: small;
+  color: var(--color-muted-foreground);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background-color: transparent;

@@ -20,48 +20,70 @@
   --font-subheader: butlerMedium var(--font-serif);
 
   /* Colors */
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(240 10% 3.9%);
+  --color-primary-50: hsl(360 100% 97%);
+  --color-primary-100: hsl(360 82% 89%);
+  --color-primary-200: hsl(360 77% 78%);
+  --color-primary-300: hsl(360 71% 66%);
+  --color-primary-400: hsl(360 64% 55%);
+  --color-primary-500: hsl(360 67% 44%);
+  --color-primary-600: hsl(360 72% 38%);
+  --color-primary-700: hsl(360 79% 32%);
+  --color-primary-800: hsl(360 85% 25%);
+  --color-primary-900: hsl(360 92% 20%);
+  --color-primary: var(--color-primary-400);
+  --color-primary-foreground: var(--color-primary-50);
+
+  --color-secondary-50: hsl(49 100% 96%);
+  --color-secondary-100: hsl(48 100% 88%);
+  --color-secondary-200: hsl(48 95% 76%);
+  --color-secondary-300: hsl(48 94% 68%);
+  --color-secondary-400: hsl(44 92% 63%);
+  --color-secondary-500: hsl(42 87% 55%);
+  --color-secondary-600: hsl(36 77% 49%);
+  --color-secondary-700: hsl(29 80% 44%);
+  --color-secondary-800: hsl(22 82% 39%);
+  --color-secondary-900: hsl(15 86% 30%);
+  --color-secondary: var(--color-secondary-400);
+  --color-secondary-foreground: var(--color-secondary-50);
+
+  --color-neutral-50: hsl(40 23% 97%);
+  --color-neutral-100: hsl(43 13% 90%);
+  --color-neutral-200: hsl(40 15% 80%);
+  --color-neutral-300: hsl(39 11% 69%);
+  --color-neutral-400: hsl(41 8% 61%);
+  --color-neutral-500: hsl(41 8% 48%);
+  --color-neutral-600: hsl(41 9% 35%);
+  --color-neutral-700: hsl(37 11% 28%);
+  --color-neutral-800: hsl(40 13% 23%);
+  --color-neutral-900: hsl(42 15% 13%);
+  --color-neutral: var(--color-neutral-200);
+  --color-neutral-foreground: var(--color-neutral-100);
+
+  --color-background: var(--color-neutral-50);
+  --color-foreground: var(--color-neutral-900);
+  --color-muted: hsl(240 4.8% 95.9%);
+  --color-muted-foreground: hsl(240 3.8% 46.1%);
+  --color-accent: hsl(240 4.8% 95.9%);
+  --color-accent-foreground: hsl(240 5.9% 10%);
+
   --color-card: hsl(240 6% 90%);
   --color-card-foreground: hsl(240 10% 3.9%);
   --color-popover: hsl(0 0% 100%);
   --color-popover-foreground: hsl(240 10% 3.9%);
 
-  --color-primary-100: #f9d2da;
-  --color-primary-200: #f3a5b6;
-  --color-primary-300: #ed7791;
-  --color-primary-400: #e74a6d;
-  --color-primary-500: #e11d48;
-  --color-primary-600: #b4173a;
-  --color-primary-700: #87112b;
-  --color-primary-800: #5a0c1d;
-  --color-primary-900: #2d060e;
-  --color-primary: var(--color-primary-400);
-
-  --color-primary-foreground: hsl(355.7 100% 97.3%);
-  --color-secondary: hsl(240 4.8% 95.9%);
-  --color-secondary-foreground: hsl(240 5.9% 10%);
-  --color-muted: hsl(240 4.8% 95.9%);
-  --color-muted-foreground: hsl(240 3.8% 46.1%);
-  --color-accent: hsl(240 4.8% 95.9%);
-  --color-accent-foreground: hsl(240 5.9% 10%);
-  --color-accent-purple: oklch(30.6% 0.112 347.97);
-  --color-destructive: hsl(0 84.2% 60.2%);
-  --color-destructive-foreground: hsl(0 0% 98%);
   --color-border: hsl(240 5.9% 90%);
   --color-input: hsl(240 5.9% 90%);
-  --ring: hsl(346.8 77.2% 49.8%);
-
-  /* stylelint-disable-next-line color-no-hex */
-  --color-radial-background: radial-gradient(#540d39, #270537);
+  --ring: hsl(346.8 77.2% 29 0.8%);
 
   /* Semantic States */
   --color-error: oklch(49.68% 0.18 26.81);
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(0 0% 98%);
 
   /* Spacing */
   --radius-default: 0.5rem;
   --spacing-container-tb: 35px;
-  --spacing-container-lr: 40px;
+  --spacing-container-lr: 50px;
 
   /* Shadow */
   --shadow-extreme: 2px 2px 4px 2px oklch(0% 0 0 / 0.3);
@@ -70,28 +92,30 @@
 
 @layer base {
   .dark {
-    --color-background: hsl(20 14.3% 4.1%);
-    --color-foreground: hsl(0 0% 95%);
+    --color-primary: var(--color-primary-400);
+    --color-primary-foreground: var(--color-primary-100);
+    --color-secondary: var(--color-secondary-700);
+    --color-secondary-foreground: var(--color-secondary-200);
+    --color-neutral: var(--color-neutral-400);
+    --color-neutral-foreground: var(--color-neutral-700);
+
+    --color-background: var(--color-neutral-800);
+    --color-foreground: var(--color-neutral-50);
+    --color-muted: hsl(0 0% 15%);
+    --color-muted-foreground: hsl(240 3.8% 36.1%);
+    --color-accent: hsl(12 6.5% 15.1%);
+    --color-accent-foreground: hsl(0 0% 98%);
+
     --color-card: hsl(24 9.8% 10%);
     --color-card-foreground: hsl(0 0% 95%);
     --color-popover: hsl(0 0% 9%);
     --color-popover-foreground: hsl(0 0% 95%);
-    --color-primary: hsl(346.8 77.2% 49.8%);
-    --color-primary-foreground: hsl(355.7 100% 97.3%);
-    --color-secondary: hsl(240 3.7% 15.9%);
-    --color-secondary-foreground: hsl(0 0% 98%);
-    --color-muted: hsl(0 0% 15%);
-    --color-muted-foreground: hsl(240 5% 64.9%);
-    --color-accent: hsl(12 6.5% 15.1%);
-    --color-accent-foreground: hsl(0 0% 98%);
-    --color-accent-purple: oklch(10.6% 0.3 360);
-    --color-destructive: hsl(0 62.8% 30.6%);
-    --color-destructive-foreground: hsl(0 85.7% 97.3%);
+
     --color-border: hsl(240 3.7% 15.9%);
     --color-input: hsl(240 3.7% 15.9%);
-    --ring: hsl(346.8 77.2% 49.8%);
+    --ring: hsl(346.8 77.2% 89.8%);
 
-    /* stylelint-disable-next-line color-no-hex */
-    --color-radial-background: radial-gradient(#1d1a1c, #431658);
+    --color-destructive: hsl(0 62.8% 30.6%);
+    --color-destructive-foreground: hsl(0 85.7% 97.3%);
   }
 }

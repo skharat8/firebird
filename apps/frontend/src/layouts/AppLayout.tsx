@@ -24,7 +24,7 @@ function AppLayout() {
       <main className="mx-auto flex min-w-full max-w-7xl grow justify-center gap-5 p-5">
         <Navbar className="top-[5rem] hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col xl:w-80" />
 
-        <div className="flex max-w-[60rem] flex-1 items-center justify-center">
+        <div className="flex-center max-w-[60rem] flex-1">
           {isLoading && <BeatLoader color="#b63b63" />}
           <Outlet />
         </div>

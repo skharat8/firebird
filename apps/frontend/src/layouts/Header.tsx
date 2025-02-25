@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 function Title({ children }: PropsWithChildren) {
   return (
-    <h1 className="text-primary text-2xl font-bold tracking-wide">
+    <h1 className="text-primary text-3xl font-bold tracking-wide">
       {children}
     </h1>
   );
@@ -29,7 +29,7 @@ function Header() {
           <Link to="/">
             <Title>firebird</Title>
           </Link>
-          <Logo width="2rem" />
+          <Logo width="2.1rem" />
         </div>
         <div className="ml-auto flex gap-2">
           <ThemeToggle />

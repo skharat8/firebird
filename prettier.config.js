@@ -11,15 +11,15 @@ const config = {
       },
     },
     {
-      files: "./frontend/src/**/*",
+      files: "./apps/frontend/src/**/*",
       options: {
         plugins: [
           "prettier-plugin-tailwindcss",
           "prettier-plugin-classnames",
           "prettier-plugin-merge",
         ],
-        tailwindFunctions: ["clsx", "tw"], // For prettier-plugin-tailwindcss
-        customFunctions: ["clsx", "tw"], // For prettier-plugin-classnames
+        tailwindFunctions: ["clsx", "tw", "cn", "cva"], // For prettier-plugin-tailwindcss
+        customFunctions: ["clsx", "tw", "cn", "cva"], // For prettier-plugin-classnames
       },
     },
   ],

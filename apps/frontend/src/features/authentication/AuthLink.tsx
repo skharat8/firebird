@@ -11,7 +11,7 @@ function AuthLink({ authType, onAuthToggle }: AuthLinkProps) {
 
   return (
     <p>
-      <span className="text-sm">
+      <span className="text-sm text-neutral-800 dark:text-neutral-100">
         {authType === "signup" ? "Already" : "Don't"} have an account?
       </span>
       <Button variant="link" size="lg" className="px-2" onClick={onAuthToggle}>

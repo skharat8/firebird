@@ -38,7 +38,7 @@ function PostEditor() {
 
         <EditorContent
           editor={editor}
-          className="mb-4 ml-4 mr-2 flex-1 rounded-md bg-gray-200 p-3 text-gray-800 shadow-md"
+          className="mb-4 ml-4 mr-2 flex-1 rounded-md bg-gray-200 p-3 text-neutral-900 shadow-md"
         />
       </div>
       <Button

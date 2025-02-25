@@ -17,9 +17,9 @@ function Auth() {
   }
 
   return (
-    <Card className={styles.container}>
+    <Card className="px-container-lr py-container-tb bg-neutral-foreground text-center">
       <Toaster />
-      <CardTitle className={styles.header}>{authType}</CardTitle>
+      <CardTitle className="text-4xl">{authType}</CardTitle>
       <div className="bg-primary mx-auto mb-3 mt-2 h-[3px] w-[15%]" />
 
       <AuthForm authType={authType} onAuthToggle={onAuthToggle} />

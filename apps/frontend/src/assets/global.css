@@ -10,6 +10,12 @@
   margin-inline: auto;
 }
 
+@utility flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @utility flex-center-col {
   display: flex;
   flex-direction: column;
@@ -26,7 +32,7 @@
     font-family: Poppins, var(--system-font-sans-serif);
     color: var(--color-primary);
     color-scheme: light dark;
-    background: var(--color-radial-background);
+    background-color: var(--color-neutral-200);
   }
 
   html,
@@ -78,7 +84,7 @@
   float: left;
   height: 0;
   font-style: italic;
-  color: var(--colors-muted-foreground);
+  color: hsl(40 15% 60% / 60);
   pointer-events: none;
   content: attr(data-placeholder);
 }

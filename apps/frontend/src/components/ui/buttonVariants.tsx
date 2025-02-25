@@ -2,25 +2,28 @@ import { cva } from "class-variance-authority";
 import styles from "./Button.module.css";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  `focus-visible:ring-ring inline-flex items-center justify-center gap-2
+  whitespace-nowrap rounded-md text-sm font-medium transition-colors
+  focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none
+  disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0`,
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-primary text-primary-foreground hover:bg-primary/90 shadow",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
+        outline: `border-input bg-background hover:bg-accent hover:text-accent-foreground border
+        shadow-sm`,
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        demo: `text-primary font-bold border-10 bg-secondary/80 ${styles.btnGuestDemo}`,
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
+        demo: `text-primary border-10 bg-neutral font-bold ${styles.btnGuestDemo}`,
         ghost:
           "hover:bg-accent hover:text-accent-foreground hover:ring-primary hover:shadow",
         smallCaps: styles.btnSmallCaps,
         navbar:
           "bg-card hover:bg-primary hover:text-primary-foreground border-none shadow-none",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "text-primary-400 underline-offset-4 hover:underline",
       },
       size: {
         default: "h-9 px-4 py-2",

@@ -80,8 +80,7 @@ export default tseslint.config(
       "**/dist",
       "**/eslint.config.js",
       "**/postcss.config.js",
-      "**/prettier.config.js",
       "**/stylelint.config.js",
     ],
-  }
+  },
 );

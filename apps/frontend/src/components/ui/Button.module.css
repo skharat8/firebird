@@ -16,7 +16,6 @@
 
 .btnPrimary:hover,
 .btnPrimary:focus {
-  background-color: var(--color-fire-red);
   border: var(--color-primary-700);
   box-shadow: var(--shadow);
 }

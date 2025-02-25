@@ -65,14 +65,15 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
   }
 
   return (
-    <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
       {authType === "signup" && (
         <div className={styles.formInput}>
-          <User size={18} className={styles.icon} />
+          <User size={18} className={`${styles.icon} dark:text-neutral-900`} />
           <input
             {...register("username")}
             type="text"
             placeholder="Username"
+            className="dark:placeholder:text-neutral-800/60"
             disabled={isLoginPending || isSignupPending}
           />
           <p className={styles.errorMessage}>{errors.username?.message}</p>
@@ -80,29 +81,33 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
       )}
 
       <div className={styles.formInput}>
-        <Mail size={18} className={styles.icon} />
+        <Mail size={18} className={`${styles.icon} dark:text-neutral-900`} />
         <input
           {...register("email")}
           type="email"
           placeholder="Email"
           autoComplete="email"
+          className="dark:placeholder:text-neutral-800/60"
           disabled={isLoginPending || isSignupPending}
         />
         <p className={styles.errorMessage}>{errors.email?.message}</p>
       </div>
 
       <div className={styles.formInput}>
-        <LockKeyhole className={`${styles.icon} ${styles.lock}`} />
+        <LockKeyhole
+          className={`${`${styles.icon} dark:text-neutral-900`} ${styles.lock}`}
+        />
         <input
           {...register("password")}
           type={showPassword ? "text" : "password"}
           placeholder="Password"
+          className="dark:placeholder:text-neutral-800/60"
           disabled={isLoginPending || isSignupPending}
         />
         <Button
           type="button"
           variant="smallCaps"
-          className={styles.showPasswordBtn}
+          className="dark:text-neutral-900"
           onClick={toggleShowPassword}
         >
           {showPassword ? "Hide" : "Show"}
@@ -123,8 +128,9 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
 
       <Button
         type="submit"
+        size="lg"
         ref={loginButtonRef}
-        className="text-lg font-semibold"
+        className="text-primary-foreground text-xl font-bold"
         disabled={isLoginPending || isSignupPending}
       >
         {isLoginPending || isSignupPending ? <SpinnerMini /> : authType}

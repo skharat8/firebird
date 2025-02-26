@@ -38,13 +38,13 @@ function ErrorPage({ customError }: { customError?: Error }) {
   }
 
   return (
-    <div className="centered-container flex-center-col">
-      <div className="flex-center-col px-container-lr py-container-tb bg-zinc-200 rounded-lg">
+    <div className="centered-container flex-center-col max-w-[640px]">
+      <div className="flex-center-col px-container-lr py-container-tb rounded-lg bg-zinc-200">
         <h1 className="main-title">Oops!</h1>
         <p className="text-secondary">
           Sorry, an unexpected error has occurred
         </p>
-        <p className="mb-4 font-semibold text-error">
+        <p className="text-error mb-4 font-semibold">
           <i>{getErrorMessage(error)}</i>
         </p>
         <Button onClick={navigateBack}>Go Back</Button>

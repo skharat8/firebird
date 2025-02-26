@@ -16,8 +16,8 @@
 
 @theme {
   /* Fonts */
-  --font-header: backToBlack var(--font-serif);
-  --font-subheader: butlerMedium var(--font-serif);
+  --font-header: "backToBlack";
+  --font-subheader: "butlerMedium";
 
   /* Colors */
   --color-primary-50: hsl(360 100% 97%);

@@ -26,10 +26,10 @@ function Header() {
           <AvatarFallback>{`${user?.firstName?.at(0)}${user?.lastName?.at(0)}`}</AvatarFallback>
         </Avatar>
         <div className="flex gap-2">
+          <Logo width="2.2rem" />
           <Link to="/">
             <Title>firebird</Title>
           </Link>
-          <Logo width="2.1rem" />
         </div>
         <div className="ml-auto flex gap-2">
           <ThemeToggle />

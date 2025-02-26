@@ -1,4 +1,3 @@
-import logo from "@images/app-logo-96x96.png";
 import { tw } from "@/lib/utils";
 
 type LogoProps = {
@@ -22,7 +21,8 @@ function Logo({
     <img
       className={hoverStyles}
       style={{ width, marginBottom }}
-      src={logo}
+      src="icon-192x192.png"
+      srcSet="icon-128x128.png 1x, icon-192x192.png 1.5x, icon-256x256.png 2x, icon-512x512.png 4x"
       alt="Main App Logo"
     />
   );

@@ -33,7 +33,10 @@ function PostContent({ post }: PostContentProps) {
         </h2>
       </Link>
 
-      <Link to={`/post/${post.id}`} className="text-current hover:text-current">
+      <Link
+        to={`/post/${post.id}`}
+        className="font-light text-current hover:text-current"
+      >
         <p>{post.content}</p>
       </Link>
 

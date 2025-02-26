@@ -38,4 +38,4 @@
 
 ## Acknowledgements
 
-- <a target="_blank" href="https://icons8.com/icon/57197/phoenix">Phoenix</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+- Firebird <a target="_blank" href="https://www.freepik.com/free-vector/hand-drawn-design-phoenix-bird_7458381.htm">illustration</a> and <a target="_blank" href="https://www.freepik.com/icon/cardinal-bird_6248814">logo</a> designed by Freepik

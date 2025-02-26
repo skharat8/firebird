@@ -4,7 +4,6 @@
 @plugin "tailwindcss-animate";
 
 @utility centered-container {
-  max-width: 640px;
   min-height: 100%;
   padding-inline: 16px;
   margin-inline: auto;
@@ -29,10 +28,15 @@
   }
 
   html {
-    font-family: Poppins, var(--system-font-sans-serif);
+    font-family: "Recursive Variable", var(--system-font-sans-serif);
     color: var(--color-primary);
     color-scheme: light dark;
     background-color: var(--color-neutral-200);
+
+    --system-font-sans-serif:
+      -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+      helvetica neue, Cantarell, Ubuntu, roboto, noto, helvetica, arial,
+      sans-serif;
   }
 
   html,
@@ -60,23 +64,6 @@
   button {
     cursor: pointer;
   }
-}
-
-.main-title {
-  margin-bottom: 0.1em;
-  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
-  font-family: backToBlack;
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-}
-
-.subtitle {
-  margin-bottom: 0.3em;
-  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
-  font-family: butlerMedium;
-  font-size: 1.5rem;
-  text-align: center;
 }
 
 /* Placeholder for TipTap Editor */

@@ -79,3 +79,20 @@
 .tiptap.ProseMirror {
   outline: none;
 }
+
+@layer component {
+  .background-pattern {
+    background-color: hsl(240 53% 93%);
+    background-image:
+      repeating-radial-gradient(
+        circle at 0 0,
+        transparent 0,
+        hsl(240 53% 93%) 10px
+      ),
+      repeating-linear-gradient(
+        var(--color-secondary-700) 55%,
+        var(--color-secondary-700)
+      );
+    opacity: 0.8;
+  }
+}

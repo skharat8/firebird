@@ -28,12 +28,16 @@ function ProfileFeed({ userId }: { userId: string }) {
       {isPending && <BeatLoader color="#b63b63" />}
       {isSuccess && (
         <div className="mx-auto flex max-w-[65ch] flex-col gap-2">
-          <div className="bg-primary-100 -mt-5 h-[20vh]">
-            <img src={userAndPosts.user.coverImage} />
+          <div className="bg-card-400">
+            <img
+              src={userAndPosts.user.coverImage}
+              alt="Cover Image for User Profile"
+              className="h-[20vh] w-full object-cover"
+            />
           </div>
 
           <div className="bg-card-400 border-b-1 border-b-card-200 h-30 -mt-5 flex flex-col p-4">
-            <Avatar className="border-card-400 -mt-14 mb-2 ml-4 h-20 w-20 border-2">
+            <Avatar className="border-card-400 -mt-14 mb-2 h-20 w-20 border-2">
               <AvatarImage src={userAndPosts.user.profileImage} />
               <AvatarFallback />
             </Avatar>

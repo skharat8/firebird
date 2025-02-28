@@ -21,6 +21,10 @@ async function populateDatabase() {
           firstName,
           lastName: faker.person.lastName(),
           profileImage: faker.image.personPortrait({ size: 256 }),
+          coverImage: faker.image.urlPicsumPhotos({
+            grayscale: false,
+            blur: 0,
+          }),
           bio: faker.person.bio(),
           posts: {
             createMany: {

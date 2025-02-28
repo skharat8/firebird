@@ -40,6 +40,7 @@ async function getUserProfile(userId: string) {
       content: true,
       image: true,
       createdAt: true,
+      updatedAt: true,
       retweets: { select: { createdAt: true } },
       _count: { select: { likes: true, retweets: true, comments: true } },
     },
@@ -49,7 +50,7 @@ async function getUserProfile(userId: string) {
 
   // If the post was a retweet, then replace createdAt with the time the retweet
   // was created. This is so that the posts can be sorted on user's profile.
-  const posts = allPosts.map(post => {
+  const posts = allPosts.map((post) => {
     if (post.retweets[0])
       return { ...post, createdAt: post.retweets[0].createdAt, retweets: true };
     return { ...post, retweets: false };
@@ -66,7 +67,7 @@ async function updateUser(id: string, updateData: Prisma.UserUpdateInput) {
 
 async function validateCredentials(
   email: string,
-  password: string
+  password: string,
 ): Promise<SafeDbUser> {
   const errorMessage = "Invalid username or password";
   const user = await prisma.user.findUnique({ where: { email } });
@@ -98,7 +99,7 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
     await createNotification(
       currentUserId,
       targetUserId,
-      NotificationType.FOLLOW
+      NotificationType.FOLLOW,
     );
   }
 }
@@ -137,6 +138,7 @@ async function getUserFeed(userId: string) {
       content: true,
       image: true,
       createdAt: true,
+      updatedAt: true,
       _count: { select: { likes: true, retweets: true, comments: true } },
     },
   });

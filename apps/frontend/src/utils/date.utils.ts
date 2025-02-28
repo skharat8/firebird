@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from "date-fns";
+
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("en", {
     day: "numeric",
@@ -6,4 +8,8 @@ function formatDate(date: string) {
   }).format(new Date(date));
 }
 
-export default formatDate;
+function getTimeElapsed(date: string) {
+  return formatDistanceToNow(date, { includeSeconds: true, addSuffix: true });
+}
+
+export { formatDate, getTimeElapsed };

@@ -56,8 +56,18 @@
   --color-accent: hsl(240 4.8% 95.9%);
   --color-accent-foreground: hsl(240 5.9% 10%);
 
-  --color-card: hsl(240 6% 90%);
+  --color-card-50: hsl(0 0% 98%);
+  --color-card-100: hsl(240 5% 96%);
+  --color-card-200: hsl(240 7% 94%);
+  --color-card-300: hsl(240 7% 92%);
+  --color-card-400: hsl(240 6% 90%);
+  --color-card-500: hsl(240 2% 72%);
+  --color-card-600: hsl(240 1% 54%);
+  --color-card-700: hsl(240 1% 36%);
+  --color-card-800: hsl(0 0% 18%);
   --color-card-foreground: hsl(240 10% 3.9%);
+  --color-card: var(--color-card-400);
+
   --color-popover: hsl(0 0% 100%);
   --color-popover-foreground: hsl(240 10% 3.9%);
 

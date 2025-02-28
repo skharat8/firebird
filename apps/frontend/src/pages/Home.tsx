@@ -3,6 +3,7 @@ import { BeatLoader } from "react-spinners";
 
 import { getUserFeed } from "@/services/apiUser";
 import UserPost from "@/features/posts/UserPost";
+import PostContent from "@/features/posts/PostContent";
 
 const FIVE_MINUTES_IN_MS = 5 * 60 * 1000;
 
@@ -23,7 +24,10 @@ function Home() {
   return (
     <div className="flex flex-col items-stretch gap-5">
       {isPending && <BeatLoader color="#b63b63" />}
-      {isSuccess && posts.map((post) => <UserPost key={post.id} post={post} />)}
+      {isSuccess &&
+        posts.map((post) => (
+          <PostContent key={post.id} post={post} hoverShadow={true} />
+        ))}
     </div>
   );
 }

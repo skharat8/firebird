@@ -21,16 +21,16 @@ function AppLayout() {
     <>
       <Header />
 
-      <main className="mx-auto flex min-w-full max-w-7xl grow justify-center gap-5 p-5">
-        <Navbar className="top-[5rem] hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col xl:w-80" />
+      <main className="mx-auto flex min-w-full grow justify-center gap-5 p-5">
+        <Navbar className="xl:w-50 top-[5rem] hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col" />
 
-        <div className="flex-center max-w-[60rem] flex-1">
+        <div className="flex-center max-w-[65ch] flex-1">
           {isLoading && <BeatLoader color="#b63b63" />}
           <Outlet />
         </div>
       </main>
 
-      <Navbar className="bottom-0 flex min-w-full max-w-7xl sm:hidden" />
+      <Navbar className="bottom-0 flex min-w-full sm:hidden" />
 
       <Button
         size="rounded"

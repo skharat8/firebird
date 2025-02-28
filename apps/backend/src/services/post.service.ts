@@ -25,6 +25,7 @@ async function getPost(postId: string) {
     content: true,
     image: true,
     createdAt: true,
+    updatedAt: true,
   };
   const commentInfo = {
     ...postInfo,

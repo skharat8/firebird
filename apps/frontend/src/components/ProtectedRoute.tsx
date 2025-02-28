@@ -20,7 +20,7 @@ function ProtectedRoute({ children }: PropsWithChildren) {
     );
 
   return isAuthenticated ? (
-    <div className="bg-neutral flex-center-col min-h-full">{children}</div>
+    <div className="flex-center-col min-h-full">{children}</div>
   ) : null;
 }
 

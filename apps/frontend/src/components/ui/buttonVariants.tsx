@@ -17,7 +17,8 @@ const buttonVariants = cva(
         shadow-sm`,
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
-        demo: `text-primary border-10 bg-neutral font-bold ${styles.btnGuestDemo}`,
+        demo: `text-primary border-3 bg-primary-50 border-card-900 font-bold
+        transition-[border_1s_ease] hover:border-solid ${styles.btnGuestDemo}`,
         ghost:
           "hover:bg-accent hover:text-accent-foreground hover:ring-primary hover:shadow",
         smallCaps: styles.btnSmallCaps,

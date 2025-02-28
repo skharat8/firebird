@@ -13,7 +13,7 @@ export default {
     // Colors
     "color-named": "never",
     "color-no-hex": true,
-    "function-disallowed-list": ["rgb", "rgba", "hsla", "hwb", "lch"],
+    "function-disallowed-list": ["rgb", "rgba", "hwb", "lch"],
     "alpha-value-notation": "number",
     "gamut/color-no-out-gamut-range": true,
 

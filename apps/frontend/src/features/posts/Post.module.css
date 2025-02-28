@@ -1,0 +1,17 @@
+.post {
+  position: relative;
+}
+
+.post::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  box-shadow: 0 0.5rem 1rem -0.25rem hsla(0 0% 10% / 0.3);
+  opacity: 0;
+  transition: opacity ease 500ms;
+}
+
+.post:hover::after {
+  opacity: 1;
+}

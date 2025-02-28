@@ -21,6 +21,8 @@ const postSchema = z.object({
     retweets: z.number(),
     comments: z.number(),
   }),
+  createdAt: z.string().datetime(),
+  updatedAt: z.string().datetime(),
 });
 
 const postArraySchema = z.array(postSchema);

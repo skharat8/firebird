@@ -5,12 +5,22 @@ import Button from "@/components/ui/Button";
 import type { Post, PostWithComments } from "@/schemas/post.zod";
 import useToggle from "@/hooks/useToggle";
 import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/Card";
+import { getTimeElapsed } from "@/utils/date.utils";
+
+import styles from "./Post.module.css";
 
 type PostContentProps = {
   post: Post | PostWithComments;
+  hoverShadow?: boolean;
 };
 
-function PostContent({ post }: PostContentProps) {
+function PostContent({ post, hoverShadow = false }: PostContentProps) {
   const [like, toggleLike] = useToggle({ initialValue: false });
   const [retweet, toggleRetweet] = useToggle({ initialValue: false });
 
@@ -18,30 +28,39 @@ function PostContent({ post }: PostContentProps) {
   const dotAfter = "after:ml-1 after:content-['•']";
 
   return (
-    <div className="grid">
-      <Link to={`/profile/${post.author.id}`} className={linkStyles}>
-        <Avatar>
-          <AvatarImage src={post.author.profileImage} />
-          <AvatarFallback>{post.author.fullName}</AvatarFallback>
-        </Avatar>
-      </Link>
+    <Card className={hoverShadow ? styles.post : undefined}>
+      <CardHeader className="flex-row gap-4">
+        <Link to={`/profile/${post.author.id}`} className={linkStyles}>
+          <Avatar>
+            <AvatarImage src={post.author.profileImage} />
+            <AvatarFallback>{post.author.fullName}</AvatarFallback>
+          </Avatar>
+        </Link>
 
-      <Link to={`/profile/${post.author.id}`} className={linkStyles}>
-        <h2>
-          <p className="font-bold hover:underline">{post.author.fullName}</p>
-          <span className="text-sm font-light">@{post.author.username}</span>
-        </h2>
-      </Link>
+        <Link to={`/profile/${post.author.id}`} className={linkStyles}>
+          <h2>
+            <p className="font-bold hover:underline">{post.author.fullName}</p>
+            <span className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+              @{post.author.username}
+            </span>
+          </h2>
+        </Link>
+        <p className="ml-auto text-sm text-neutral-500 dark:text-neutral-400">
+          {getTimeElapsed(post.createdAt)}
+        </p>
+      </CardHeader>
 
-      <Link
-        to={`/post/${post.id}`}
-        className="font-light text-current hover:text-current"
-      >
-        <p>{post.content}</p>
-      </Link>
+      <CardContent>
+        <Link
+          to={`/post/${post.id}`}
+          className="font-light text-current hover:text-current"
+        >
+          <p>{post.content}</p>
+        </Link>
+      </CardContent>
 
-      <footer className="flex items-center">
-        <div className="flex gap-2">
+      <CardFooter>
+        <div className="border-blue flex gap-2">
           <Button
             variant="ghost"
             size="icon"
@@ -68,8 +87,8 @@ function PostContent({ post }: PostContentProps) {
           <span className={dotAfter}>{post._count.retweets} Shares</span>
           <span>{post._count.comments} Comments</span>
         </div>
-      </footer>
-    </div>
+      </CardFooter>
+    </Card>
   );
 }
 

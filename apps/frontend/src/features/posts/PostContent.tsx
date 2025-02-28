@@ -18,18 +18,23 @@ import styles from "./Post.module.css";
 type PostContentProps = {
   post: Post | PostWithComments;
   hoverShadow?: boolean;
+  className?: string;
 };
 
-function PostContent({ post, hoverShadow = false }: PostContentProps) {
+function PostContent({
+  post,
+  hoverShadow = false,
+  className,
+}: PostContentProps) {
   const [like, toggleLike] = useToggle({ initialValue: false });
   const [retweet, toggleRetweet] = useToggle({ initialValue: false });
 
-  const linkStyles = "flex w-fit gap-4 text-current hover:text-current";
+  const linkStyles = "flex w-fit text-current hover:text-current";
   const dotAfter = "after:ml-1 after:content-['•']";
 
   return (
-    <Card className={hoverShadow ? styles.post : undefined}>
-      <CardHeader className="flex-row gap-4">
+    <Card className={`${hoverShadow ? styles.post : ""} ${className} relative`}>
+      <CardHeader className="flex-row items-center gap-4 pb-2">
         <Link to={`/profile/${post.author.id}`} className={linkStyles}>
           <Avatar>
             <AvatarImage src={post.author.profileImage} />
@@ -50,7 +55,7 @@ function PostContent({ post, hoverShadow = false }: PostContentProps) {
         </p>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="pb-4">
         <Link
           to={`/post/${post.id}`}
           className="font-light text-current hover:text-current"
@@ -59,8 +64,8 @@ function PostContent({ post, hoverShadow = false }: PostContentProps) {
         </Link>
       </CardContent>
 
-      <CardFooter>
-        <div className="border-blue flex gap-2">
+      <CardFooter className="flex items-center py-2">
+        <div className="flex gap-2">
           <Button
             variant="ghost"
             size="icon"

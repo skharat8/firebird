@@ -39,6 +39,7 @@
   height: var(--form-element-height);
   font-size: 0.9rem;
   outline: none;
+  border-radius: 0.6rem;
 }
 
 .btnGuestDemo:hover,

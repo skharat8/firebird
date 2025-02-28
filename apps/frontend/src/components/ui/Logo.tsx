@@ -1,4 +1,8 @@
 import { tw } from "@/lib/utils";
+import iconDefault from "/icon-192x192.png";
+import icon1x from "/icon-128x128.png";
+import icon2x from "/icon-256x256.png";
+import icon4x from "/icon-512x512.png";
 
 type LogoProps = {
   width?: string;
@@ -7,7 +11,7 @@ type LogoProps = {
 };
 
 function Logo({
-  width = "3.9rem",
+  width = "2.2rem",
   marginBottom = "",
   hasHoverEffect = false,
 }: LogoProps) {
@@ -21,8 +25,8 @@ function Logo({
     <img
       className={hoverStyles}
       style={{ width, marginBottom }}
-      src="icon-192x192.png"
-      srcSet="icon-128x128.png 1x, icon-192x192.png 1.5x, icon-256x256.png 2x, icon-512x512.png 4x"
+      src={iconDefault}
+      srcSet={`${icon1x} 1x, ${iconDefault} 1.5x, ${icon2x} 2x, ${icon4x} 4x`}
       alt="Main App Logo"
     />
   );

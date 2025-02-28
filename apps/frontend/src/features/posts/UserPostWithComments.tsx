@@ -6,6 +6,7 @@ import { getPost } from "@/services/apiPost";
 // eslint-disable-next-line import/no-restricted-paths
 import ErrorPage from "@/pages/ErrorPage";
 import PostContent from "./PostContent";
+import Header from "@/layouts/Header";
 
 function UserPostWithComments() {
   const { postId } = useParams() as { postId: string };
@@ -25,11 +26,21 @@ function UserPostWithComments() {
     <>
       {isPending && <BeatLoader color="#b63b63" />}
       {isSuccess && (
-        <div className="bg-card text-card-foreground rounded-xl border p-6 shadow">
-          <PostContent post={post} />
-          {post.comments.map((comment) => (
-            <PostContent key={comment.id} post={comment} />
-          ))}
+        <div className="dark:bg-secondary-50/60 w-full">
+          <Header showBackButton={true} />
+          <div className="mx-auto max-w-[65ch] p-5">
+            <PostContent
+              post={post}
+              className="border-b-3 rounded-b-none border-b-neutral-200 dark:border-b-neutral-400"
+            />
+            {post.comments.map((comment) => (
+              <PostContent
+                key={comment.id}
+                post={comment}
+                className="border-t-1 rounded-none border-neutral-200 pl-6 dark:border-b-neutral-400"
+              />
+            ))}
+          </div>
         </div>
       )}
     </>

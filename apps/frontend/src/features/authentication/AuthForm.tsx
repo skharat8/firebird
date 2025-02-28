@@ -11,6 +11,7 @@ import type { AuthType } from "@/data/types";
 import styles from "./Auth.module.css";
 import useLogin from "./useLogin";
 import useSignup from "./useSignup";
+import { tw } from "@/lib/utils";
 
 type AuthFormProps = {
   authType: AuthType;
@@ -64,6 +65,8 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   }
 
+  const textInputStyles = tw`bg-card-200 dark:placeholder:text-neutral-800/60`;
+
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
       {authType === "signup" && (
@@ -73,7 +76,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
             {...register("username")}
             type="text"
             placeholder="Username"
-            className="dark:placeholder:text-neutral-800/60"
+            className={textInputStyles}
             disabled={isLoginPending || isSignupPending}
           />
           <p className={styles.errorMessage}>{errors.username?.message}</p>
@@ -87,7 +90,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
           type="email"
           placeholder="Email"
           autoComplete="email"
-          className="dark:placeholder:text-neutral-800/60"
+          className={textInputStyles}
           disabled={isLoginPending || isSignupPending}
         />
         <p className={styles.errorMessage}>{errors.email?.message}</p>
@@ -101,7 +104,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
           {...register("password")}
           type={showPassword ? "text" : "password"}
           placeholder="Password"
-          className="dark:placeholder:text-neutral-800/60"
+          className={textInputStyles}
           disabled={isLoginPending || isSignupPending}
         />
         <Button

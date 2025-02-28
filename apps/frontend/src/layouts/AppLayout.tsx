@@ -21,7 +21,7 @@ function AppLayout() {
     <>
       <Header showAvatar={true} />
 
-      <main className="dark:bg-secondary-50/60 mx-auto flex min-w-full grow justify-center gap-5 p-5">
+      <main className="dark:bg-secondary-50/60 mx-auto flex min-w-full grow justify-center gap-5">
         <Navbar className="xl:w-50 top-[5rem] hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col" />
 
         <div className="flex-center max-w-[65ch] flex-1">

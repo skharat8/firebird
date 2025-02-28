@@ -22,7 +22,7 @@ function Home() {
   });
 
   return (
-    <div className="flex flex-col items-stretch gap-5">
+    <div className="flex flex-col items-stretch gap-5 p-5">
       {isPending && <BeatLoader color="#b63b63" />}
       {isSuccess &&
         posts.map((post) => (

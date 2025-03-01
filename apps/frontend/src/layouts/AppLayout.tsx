@@ -22,7 +22,10 @@ function AppLayout() {
       <Header showAvatar={true} />
 
       <main className="dark:bg-secondary-50/60 mx-auto flex min-w-full grow justify-center gap-5">
-        <Navbar className="xl:w-50 top-[5rem] hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex sm:flex-col" />
+        <Navbar
+          className="xl:w-50 top-[5rem] ml-5 hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex
+            sm:flex-col"
+        />
 
         <div className="flex-center max-w-[65ch] flex-1">
           {isLoading && <BeatLoader color="#b63b63" />}
@@ -34,7 +37,7 @@ function AppLayout() {
 
       <Button
         size="rounded"
-        className="fixed bottom-10 right-5"
+        className="fixed bottom-10 right-5 md:hidden"
         onClick={createNewPost}
       >
         <Feather />

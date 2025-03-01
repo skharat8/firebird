@@ -8,10 +8,11 @@ import { createNotification } from "./notification.service";
 async function createPost(userId: string, content: string, image?: string) {
   return prisma.post.create({
     data: { content, image, author: { connect: { id: userId } } },
+    include: { author: true },
   });
 }
 
-async function getPost(postId: string) {
+async function getPost(postId: string, currentUserId: string) {
   const counters = { likes: true, retweets: true, comments: true };
 
   const authorInfo = {
@@ -37,6 +38,8 @@ async function getPost(postId: string) {
     where: { id: postId },
     select: {
       ...postInfo,
+      likes: { where: { id: currentUserId } },
+      retweets: { where: { userId: currentUserId } },
       author: { select: authorInfo },
       comments: { select: commentInfo },
       _count: { select: counters },
@@ -78,11 +81,14 @@ async function likePost(postId: string, userId: string) {
     where: { id: postId, likes: { some: { id: userId } } },
   });
 
+  let updatedPost;
+
   if (!post) {
     // Add the like
-    const updatedPost = await prisma.post.update({
+    updatedPost = await prisma.post.update({
       where: { id: postId },
       data: { likes: { connect: { id: userId } } },
+      include: { author: true, _count: true },
     });
 
     // Create a notification
@@ -93,11 +99,14 @@ async function likePost(postId: string, userId: string) {
     );
   } else {
     // Remove the like
-    await prisma.post.update({
+    updatedPost = await prisma.post.update({
       where: { id: postId },
       data: { likes: { disconnect: { id: userId } } },
+      include: { author: true, _count: true },
     });
   }
+
+  return updatedPost;
 }
 
 async function retweetPost(postId: string, userId: string) {
@@ -107,15 +116,18 @@ async function retweetPost(postId: string, userId: string) {
     where: { userId_postId: { userId, postId } },
   });
 
+  let updatedPost;
+
   if (!repost) {
     // Retweet the post
-    const updatedPost = await prisma.post.update({
+    updatedPost = await prisma.post.update({
       where: { id: postId },
       data: {
         retweets: {
           create: { user: { connect: { id: userId } } },
         },
       },
+      include: { author: true, _count: true },
     });
 
     // Create a notification
@@ -126,15 +138,18 @@ async function retweetPost(postId: string, userId: string) {
     );
   } else {
     // Undo the retweet
-    await prisma.post.update({
+    updatedPost = await prisma.post.update({
       where: { id: postId },
       data: {
         retweets: {
           delete: { userId_postId: { userId, postId } },
         },
       },
+      include: { author: true, _count: true },
     });
   }
+
+  return updatedPost;
 }
 
 async function getLikedPosts(userId: string) {

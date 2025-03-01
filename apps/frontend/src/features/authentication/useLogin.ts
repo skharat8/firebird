@@ -18,7 +18,9 @@ function useLogin() {
     },
     onError: (err) => {
       console.error(err);
-      toast.error(err.message, { style: { background: "pink" } });
+      toast.error("Login failed. Please try again later.", {
+        style: { background: "pink" },
+      });
     },
   });
 

@@ -11,7 +11,7 @@ import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import CreatePost from "./pages/CreatePost";
 import { ThemeProvider } from "./components/ThemeProvider";
-import UserPostWithComments from "./features/posts/UserPostWithComments";
+import PostWithComments from "./features/posts/PostWithComments";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login />, errorElement: <ErrorPage /> },
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
     path: "/post/:postId",
     element: (
       <ProtectedRoute>
-        <UserPostWithComments />
+        <PostWithComments />
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,

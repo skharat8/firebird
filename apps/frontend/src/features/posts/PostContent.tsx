@@ -12,25 +12,45 @@ import {
   CardHeader,
 } from "@/components/ui/Card";
 import { getTimeElapsed } from "@/utils/date.utils";
+import usePostAction from "@/features/posts/usePostAction";
 
 import styles from "./Post.module.css";
+import PostAction from "@/data/enums";
+import useUser from "@/hooks/useUser";
 
 type PostContentProps = {
   post: Post | PostWithComments;
   hoverShadow?: boolean;
+  disableLineClamp?: boolean;
   className?: string;
 };
 
 function PostContent({
   post,
-  hoverShadow = false,
+  hoverShadow,
+  disableLineClamp,
   className,
 }: PostContentProps) {
-  const [like, toggleLike] = useToggle({ initialValue: false });
-  const [retweet, toggleRetweet] = useToggle({ initialValue: false });
+  const [like, toggleLike] = useToggle({
+    initialValue: post?.likes?.length === 1 ? true : false,
+  });
+  const [retweet, toggleRetweet] = useToggle({
+    initialValue: post?.retweets?.length === 1 ? true : false,
+  });
+  const { performPostAction } = usePostAction(post.id);
 
   const linkStyles = "flex w-fit text-current hover:text-current";
   const dotAfter = "after:ml-1 after:content-['•']";
+
+  function submitLike() {
+    toggleLike();
+    performPostAction(PostAction.LIKE);
+  }
+
+  function submitRetweet() {
+    toggleRetweet();
+    performPostAction(PostAction.RETWEET);
+  }
 
   return (
     <Card className={`${hoverShadow ? styles.post : ""} ${className} relative`}>
@@ -60,7 +80,9 @@ function PostContent({
           to={`/post/${post.id}`}
           className="font-light text-current hover:text-current"
         >
-          <p>{post.content}</p>
+          <p className={disableLineClamp ? "" : "line-clamp-5"}>
+            {post.content}
+          </p>
         </Link>
       </CardContent>
 
@@ -70,17 +92,25 @@ function PostContent({
             variant="ghost"
             size="icon"
             className="rounded-full"
-            onClick={toggleLike}
+            onClick={submitLike}
           >
-            {like ? <Heart color="red" fill="red" /> : <Heart />}
+            {post?.likes?.length === 1 ? (
+              <Heart color="red" fill="red" />
+            ) : (
+              <Heart />
+            )}
           </Button>
           <Button
             variant="ghost"
             size="icon"
             className="rounded-full"
-            onClick={toggleRetweet}
+            onClick={submitRetweet}
           >
-            {retweet ? <Repeat color="green" fill="green" /> : <Repeat />}
+            {post?.retweets?.length === 1 ? (
+              <Repeat color="green" fill="green" />
+            ) : (
+              <Repeat />
+            )}
           </Button>
           <Button variant="ghost" size="icon" className="rounded-full">
             <MessageCircle />

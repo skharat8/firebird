@@ -24,7 +24,7 @@ function ProfileFeed({ userId }: { userId: string }) {
   }
 
   return (
-    <div className="flex flex-col items-stretch gap-5">
+    <div className="flex flex-col items-center gap-5">
       {isPending && <BeatLoader color="#b63b63" />}
       {isSuccess && (
         <div className="mx-auto flex max-w-[65ch] flex-col gap-2">

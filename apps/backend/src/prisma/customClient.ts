@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
-import prismaRandom from "prisma-extension-random";
 
 import { getHashedPassword } from "../utils/auth.utils";
 
@@ -10,43 +9,41 @@ const prisma = new PrismaClient({
       password: true,
     },
   },
-})
-  .$extends({
-    query: {
-      user: {
-        async $allOperations({ operation, args, query }) {
-          // Generate hashed password before saving to the database.
-          if (
-            (operation === "create" || operation === "update") &&
-            args.data.password &&
-            typeof args.data.password === "string"
-          ) {
-            args.data.password = await getHashedPassword(args.data.password);
-          }
+}).$extends({
+  query: {
+    user: {
+      async $allOperations({ operation, args, query }) {
+        // Generate hashed password before saving to the database.
+        if (
+          (operation === "create" || operation === "update") &&
+          args.data.password &&
+          typeof args.data.password === "string"
+        ) {
+          args.data.password = await getHashedPassword(args.data.password);
+        }
 
-          return query(args);
+        return query(args);
+      },
+    },
+  },
+  result: {
+    user: {
+      fullName: {
+        needs: { firstName: true, lastName: true },
+        compute(user) {
+          return `${user.firstName} ${user.lastName}`;
+        },
+      },
+
+      isValidPassword: {
+        needs: { password: true },
+        compute(user) {
+          return async (inputPassword: string): Promise<boolean> =>
+            bcrypt.compare(inputPassword, user.password);
         },
       },
     },
-    result: {
-      user: {
-        fullName: {
-          needs: { firstName: true, lastName: true },
-          compute(user) {
-            return `${user.firstName} ${user.lastName}`;
-          },
-        },
-
-        isValidPassword: {
-          needs: { password: true },
-          compute(user) {
-            return async (inputPassword: string): Promise<boolean> =>
-              bcrypt.compare(inputPassword, user.password);
-          },
-        },
-      },
-    },
-  })
-  .$extends(prismaRandom());
+  },
+});
 
 export default prisma;

@@ -27,7 +27,7 @@ function getErrorMessage(error: unknown): string {
   return msg;
 }
 
-function ErrorPage({ customError }: { customError?: Error }) {
+function ErrorPage({ customError }: { customError?: Error | null }) {
   let error = useRouteError();
   const navigate = useNavigate();
 

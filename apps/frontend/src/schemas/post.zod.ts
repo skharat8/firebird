@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { any, z } from "zod";
 
 const postSchema = z.object({
   id: z.string(),
@@ -16,6 +16,8 @@ const postSchema = z.object({
     .string()
     .nullish()
     .transform((x) => x ?? undefined),
+  likes: z.array(z.object({ id: z.string() })).optional(),
+  retweets: z.array(z.object({ userId: z.string() })).optional(),
   _count: z.object({
     likes: z.number(),
     retweets: z.number(),

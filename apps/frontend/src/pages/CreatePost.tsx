@@ -14,7 +14,7 @@ function CreatePost() {
   useKeyPress("Escape", navigateBack);
 
   return (
-    <main className="bg-card-500 flex min-h-screen w-dvw flex-col p-6">
+    <main className="bg-card-500 flex min-h-screen w-dvw flex-col gap-4 p-6">
       <Button
         variant="ghost"
         size="icon"

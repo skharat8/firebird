@@ -1,22 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 
-import { getPost } from "@/services/apiPost";
 // eslint-disable-next-line import/no-restricted-paths
 import ErrorPage from "@/pages/ErrorPage";
 import PostContent from "./PostContent";
 import Header from "@/layouts/Header";
+import usePost from "@/hooks/usePost";
 
-function UserPostWithComments() {
+function PostWithComments() {
   const { postId } = useParams() as { postId: string };
-  const {
-    data: post,
-    isPending,
-    isSuccess,
-    isError,
-    error,
-  } = useQuery({ queryKey: ["post", postId], queryFn: () => getPost(postId) });
+  const { post, isPending, isSuccess, isError, error } = usePost(postId);
 
   if (isError) {
     return <ErrorPage customError={error} />;
@@ -30,10 +23,12 @@ function UserPostWithComments() {
           <Header showBackButton={true} />
           <div className="mx-auto max-w-[65ch] p-5">
             <PostContent
+              // @ts-expect-error
               post={post}
+              disableLineClamp
               className="border-b-3 rounded-b-none border-b-neutral-200 dark:border-b-neutral-400"
             />
-            {post.comments.map((comment) => (
+            {post?.comments.map((comment) => (
               <PostContent
                 key={comment.id}
                 post={comment}
@@ -47,4 +42,4 @@ function UserPostWithComments() {
   );
 }
 
-export default UserPostWithComments;
+export default PostWithComments;

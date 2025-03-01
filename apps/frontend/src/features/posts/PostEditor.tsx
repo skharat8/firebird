@@ -16,29 +16,38 @@ const extensions = [
   }),
 ];
 
-function PostEditor() {
+type PostEditorProps = {
+  showAvatar?: boolean;
+  className?: string;
+};
+
+function PostEditor({ showAvatar = true, className }: PostEditorProps) {
   const navigate = useNavigate();
   const { user } = useUser();
 
   const editor = useEditor({ extensions });
   const content = editor?.getText({ blockSeparator: "\n" }) ?? "";
 
+  // TODO: use custom hook
   async function submitPost() {
     await createPost(content);
     navigate("/");
   }
 
   return (
-    <>
-      <div className="flex flex-1">
-        <Avatar>
-          <AvatarImage src={user?.profileImage} />
-          <AvatarFallback>{user?.username}</AvatarFallback>
-        </Avatar>
+    // TODO: Fix this to use a modal instead
+    <div className={`${className} flex flex-col gap-2`}>
+      <div className="flex">
+        {showAvatar && (
+          <Avatar className="mr-4">
+            <AvatarImage src={user?.profileImage} />
+            <AvatarFallback>{user?.username}</AvatarFallback>
+          </Avatar>
+        )}
 
         <EditorContent
           editor={editor}
-          className="mb-4 ml-4 mr-2 flex-1 rounded-md bg-gray-200 p-3 text-neutral-900 shadow-md"
+          className="mr-2 flex-1 rounded-md bg-gray-200 p-3 text-neutral-900 shadow"
         />
       </div>
       <Button
@@ -48,7 +57,7 @@ function PostEditor() {
       >
         Post
       </Button>
-    </>
+    </div>
   );
 }
 

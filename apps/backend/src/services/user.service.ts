@@ -39,9 +39,13 @@ async function getUserProfile(userId: string) {
       },
       content: true,
       image: true,
+      likes: { where: { id: userId } },
+      retweets: {
+        where: { userId: userId },
+        select: { userId: true, createdAt: true },
+      },
       createdAt: true,
       updatedAt: true,
-      retweets: { select: { createdAt: true } },
       _count: { select: { likes: true, retweets: true, comments: true } },
     },
     orderBy: { createdAt: "desc" },
@@ -52,7 +56,7 @@ async function getUserProfile(userId: string) {
   // was created. This is so that the posts can be sorted on user's profile.
   const posts = allPosts.map((post) => {
     if (post.retweets[0])
-      return { ...post, createdAt: post.retweets[0].createdAt, retweets: true };
+      return { ...post, createdAt: post.retweets[0].createdAt };
     return { ...post, retweets: false };
   });
 
@@ -114,7 +118,7 @@ async function getUserFeed(userId: string) {
 
   // Create a feed from following users
   // TODO: include the current user's posts
-  const feed = await prisma.post.findManyRandom(10, {
+  const feed = await prisma.post.findMany({
     where: {
       author: {
         is: {
@@ -137,10 +141,13 @@ async function getUserFeed(userId: string) {
       },
       content: true,
       image: true,
+      likes: { where: { id: userId } },
+      retweets: { where: { userId: userId } },
       createdAt: true,
       updatedAt: true,
       _count: { select: { likes: true, retweets: true, comments: true } },
     },
+    take: 10,
   });
 
   return feed;

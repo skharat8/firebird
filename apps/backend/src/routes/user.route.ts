@@ -1,10 +1,10 @@
 import express from "express";
 
-import upload from "../config/multer";
-import validateResource from "../middleware/validateResource";
-import requireUser from "../middleware/requireUser";
-import uploadToCloudinary from "../middleware/uploadToCloudinary";
-import { createUserSchema, updateUserSchema } from "../schemas/user.zod";
+import upload from "../config/multer.js";
+import validateResource from "../middleware/validateResource.js";
+import requireUser from "../middleware/requireUser.js";
+import uploadToCloudinary from "../middleware/uploadToCloudinary.js";
+import { createUserSchema, updateUserSchema } from "../schemas/user.zod.js";
 import {
   createUserHandler,
   getCurrentUserHandler,
@@ -12,7 +12,7 @@ import {
   getUserHandler,
   followUserHandler,
   getUserFeedHandler,
-} from "../controllers/user.controller";
+} from "../controllers/user.controller.js";
 
 const router = express.Router();
 

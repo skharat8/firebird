@@ -1,8 +1,8 @@
 import express from "express";
 
-import requireUser from "../middleware/requireUser";
-import validateResource from "../middleware/validateResource";
-import { createPostSchema, updatePostSchema } from "../schemas/post.zod";
+import requireUser from "../middleware/requireUser.js";
+import validateResource from "../middleware/validateResource.js";
+import { createPostSchema, updatePostSchema } from "../schemas/post.zod.js";
 import {
   createPostHandler,
   getPostHandler,
@@ -12,7 +12,7 @@ import {
   retweetPostHandler,
   getLikedPostsHandler,
   createCommentHandler,
-} from "../controllers/post.controller";
+} from "../controllers/post.controller.js";
 
 const router = express.Router();
 

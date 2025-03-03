@@ -2,12 +2,12 @@ import { describe, expect, it, vi } from "vitest";
 import createHttpError from "http-errors";
 import supertest from "supertest";
 
-import createServer from "../server";
-import * as UserService from "../services/user.service";
-import * as SessionService from "../services/session.service";
-import { StatusCode } from "../data/enums";
-import type { UserLogin } from "../schemas/session.zod";
-import type { SafeDbUser } from "../schemas/user.zod";
+import createServer from "../server.js";
+import * as UserService from "../services/user.service.js";
+import * as SessionService from "../services/session.service.js";
+import { StatusCode } from "../data/enums.js";
+import type { UserLogin } from "../schemas/session.zod.js";
+import type { SafeDbUser } from "../schemas/user.zod.js";
 
 const app = createServer();
 
@@ -59,7 +59,7 @@ describe("Session", () => {
       expect(createSessionMock).toHaveBeenCalledWith(userId, "");
       expect(validateCredentialsMock).toHaveBeenCalledWith(
         loginPayload.email,
-        loginPayload.password
+        loginPayload.password,
       );
     });
 
@@ -77,7 +77,7 @@ describe("Session", () => {
       expect(createSessionMock).not.toHaveBeenCalled();
       expect(validateCredentialsMock).toHaveBeenCalledWith(
         loginPayload.email,
-        loginPayload.password
+        loginPayload.password,
       );
     });
   });

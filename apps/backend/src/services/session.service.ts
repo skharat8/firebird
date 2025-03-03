@@ -1,10 +1,10 @@
 import type { Prisma } from "@prisma/client";
-import { signJwt, verifyJwt, type JwtData } from "../utils/auth.utils";
-import prisma from "../prisma/customClient";
+import { signJwt, verifyJwt, type JwtData } from "../utils/auth.utils.js";
+import prisma from "../prisma/customClient.js";
 
 async function createSession(
   userId: string,
-  userAgent: string
+  userAgent: string,
 ): Promise<Prisma.SessionGetPayload<Prisma.SessionDefaultArgs>> {
   return prisma.session.create({ data: { userId, userAgent } });
 }
@@ -18,7 +18,7 @@ function deleteSession(query: Prisma.SessionWhereUniqueInput) {
 }
 
 async function issueNewAccessToken(
-  refreshToken: string
+  refreshToken: string,
 ): Promise<string | false> {
   // Verify refresh token
   const result = verifyJwt(refreshToken);
@@ -32,7 +32,7 @@ async function issueNewAccessToken(
   return signJwt(
     { userId, sessionId },
     // @ts-expect-error Debug later
-    { expiresIn: process.env.ACCESS_TOKEN_TTL }
+    { expiresIn: process.env.ACCESS_TOKEN_TTL },
   );
 }
 

@@ -12,6 +12,7 @@ const transport = pino.transport({
   ],
 }) as DestinationStream;
 
+// @ts-expect-error This works as expected. Not sure why TS shows an error.
 const logger = pino(
   {
     enabled: !(process.env.NODE_ENV === "test"),

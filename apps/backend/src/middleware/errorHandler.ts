@@ -4,8 +4,8 @@ import { Prisma } from "@prisma/client";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
-import { StatusCode } from "../data/enums";
-import logger from "../utils/logger";
+import { StatusCode } from "../data/enums.js";
+import logger from "../utils/logger.js";
 
 // Catch all errors encountered in the app.
 function errorHandler(

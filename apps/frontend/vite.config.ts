@@ -17,5 +17,4 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./src/setupTests.ts",
   },
-  server: { allowedHosts: ["kitten-present-pika.ngrok-free.app"] },
 });

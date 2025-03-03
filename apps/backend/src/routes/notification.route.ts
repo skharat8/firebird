@@ -1,11 +1,11 @@
 import express from "express";
 
-import requireUser from "../middleware/requireUser";
+import requireUser from "../middleware/requireUser.js";
 import {
   getNotificationsHandler,
   deleteNotificationsHandler,
   markNotificationsReadHandler,
-} from "../controllers/notification.controller";
+} from "../controllers/notification.controller.js";
 
 const route = express.Router();
 

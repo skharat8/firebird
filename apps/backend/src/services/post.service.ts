@@ -1,9 +1,9 @@
 import createHttpError from "http-errors";
 import { NotificationType } from "@prisma/client";
 
-import prisma from "../prisma/customClient";
-import { PostAction, StatusCode } from "../data/enums";
-import { createNotification } from "./notification.service";
+import prisma from "../prisma/customClient.js";
+import { PostAction, StatusCode } from "../data/enums.js";
+import { createNotification } from "./notification.service.js";
 
 async function createPost(userId: string, content: string, image?: string) {
   return prisma.post.create({

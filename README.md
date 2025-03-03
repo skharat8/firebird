@@ -35,6 +35,7 @@
 
 ![PNPM](https://img.shields.io/badge/PNPM-%23F69220.svg?style=for-the-badge&logo=pnpm&logoColor=white)
 ![Turborepo](https://img.shields.io/badge/turborepo-%23EF4444.svg?style=for-the-badge&logo=turborepo&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ## Acknowledgements
 

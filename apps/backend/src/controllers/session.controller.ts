@@ -1,14 +1,14 @@
 import type { Request, Response, Handler } from "express";
 import asyncHandler from "express-async-handler";
 
-import type { UserLogin } from "../schemas/session.zod";
-import { validateCredentials } from "../services/user.service";
-import { getCookieOptions, signJwt } from "../utils/auth.utils";
+import type { UserLogin } from "../schemas/session.zod.js";
+import { validateCredentials } from "../services/user.service.js";
+import { getCookieOptions, signJwt } from "../utils/auth.utils.js";
 import {
   createSession,
   findSessions,
   deleteSession,
-} from "../services/session.service";
+} from "../services/session.service.js";
 
 const createSessionHandler: Handler = asyncHandler(
   async (req: Request<object, object, UserLogin>, res: Response) => {
@@ -24,13 +24,13 @@ const createSessionHandler: Handler = asyncHandler(
     const accessToken = signJwt(
       { userId: user.id, sessionId: session.id },
       // @ts-expect-error Shouldn't error, doesn't make sense
-      { expiresIn: ACCESS_TOKEN_TTL }
+      { expiresIn: ACCESS_TOKEN_TTL },
     );
 
     const refreshToken = signJwt(
       { userId: user.id, sessionId: session.id },
       // @ts-expect-error Shouldn't error, doesn't make sense
-      { expiresIn: REFRESH_TOKEN_TTL }
+      { expiresIn: REFRESH_TOKEN_TTL },
     );
 
     // AccessToken cookie should last till refresh token expires. Otherwise,
@@ -41,7 +41,7 @@ const createSessionHandler: Handler = asyncHandler(
     res.cookie("AccessToken", accessToken, cookieOptions);
     res.cookie("RefreshToken", refreshToken, cookieOptions);
     res.json(user);
-  }
+  },
 );
 
 const getSessionsHandler: Handler = asyncHandler(
@@ -50,7 +50,7 @@ const getSessionsHandler: Handler = asyncHandler(
     const sessions = await findSessions({ userId: user?.id, valid: true });
 
     res.json({ sessions });
-  }
+  },
 );
 
 const deleteSessionHandler: Handler = asyncHandler(
@@ -60,7 +60,7 @@ const deleteSessionHandler: Handler = asyncHandler(
     res.clearCookie("RefreshToken");
 
     res.json({ message: "Session deleted" });
-  }
+  },
 );
 
 export { createSessionHandler, getSessionsHandler, deleteSessionHandler };

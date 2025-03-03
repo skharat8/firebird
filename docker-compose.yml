@@ -1,0 +1,52 @@
+# Run: docker compose --env-file apps/backend/.env up --build
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: firebird-backend-app
+    ports:
+      - 3000:3000
+    env_file: apps/backend/.env
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: ${NODE_ENV}
+      LOG_LEVEL: ${PINO_LOG_LEVEL}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - firebird
+
+  postgres:
+    image: postgres:alpine
+    hostname: ${POSTGRES_HOST}
+    container_name: firebird-db
+    restart: always
+    ports:
+      - 5432:5432
+    env_file: apps/backend/.env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test:
+        [CMD-SHELL, "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pg-data:/var/lib/postgresql/data/
+    networks:
+      - firebird
+
+volumes:
+  pg-data:
+
+networks:
+  firebird:

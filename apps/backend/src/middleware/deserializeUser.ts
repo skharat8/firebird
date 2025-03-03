@@ -1,9 +1,13 @@
 import type { Request, Response, NextFunction, Handler } from "express";
 import asyncHandler from "express-async-handler";
 
-import { getCookieOptions, verifyJwt, type JwtData } from "../utils/auth.utils";
-import { issueNewAccessToken } from "../services/session.service";
-import { findUser } from "../services/user.service";
+import {
+  getCookieOptions,
+  verifyJwt,
+  type JwtData,
+} from "../utils/auth.utils.js";
+import { issueNewAccessToken } from "../services/session.service.js";
+import { findUser } from "../services/user.service.js";
 
 async function setLocals(res: Response, decodedToken: JwtData) {
   const { userId, sessionId } = decodedToken;
@@ -36,7 +40,7 @@ const deserializeUser: Handler = asyncHandler(
         res.cookie(
           "AccessToken",
           newAccessToken,
-          getCookieOptions(process.env.ACCESS_TOKEN_TTL)
+          getCookieOptions(process.env.ACCESS_TOKEN_TTL),
         );
 
         const result = verifyJwt(newAccessToken);
@@ -45,7 +49,7 @@ const deserializeUser: Handler = asyncHandler(
     }
 
     return next();
-  }
+  },
 );
 
 export default deserializeUser;

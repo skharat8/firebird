@@ -2,22 +2,22 @@ import type { Request, Response, Handler } from "express";
 import asyncHandler from "express-async-handler";
 import createHttpError from "http-errors";
 
-import { StatusCode } from "../data/enums";
-import * as UserService from "../services/user.service";
-import type { DbUser, UserSignup, UserUpdate } from "../schemas/user.zod";
-import { assertObjectExists } from "../utils/common.utils";
+import { StatusCode } from "../data/enums.js";
+import * as UserService from "../services/user.service.js";
+import type { DbUser, UserSignup, UserUpdate } from "../schemas/user.zod.js";
+import { assertObjectExists } from "../utils/common.utils.js";
 
 const createUserHandler: Handler = asyncHandler(
   async (req: Request<object, object, UserSignup>, res: Response) => {
     const newUser = await UserService.createUser(req.body);
     res.status(StatusCode.CREATED).json(newUser);
-  }
+  },
 );
 
 const getCurrentUserHandler: Handler = asyncHandler(
   (_: Request, res: Response) => {
     res.json(res.locals.user);
-  }
+  },
 );
 
 const updateCurrentUserHandler: Handler = asyncHandler(
@@ -30,7 +30,7 @@ const updateCurrentUserHandler: Handler = asyncHandler(
       // Validate current user password
       await UserService.validateCredentials(
         res.locals.user.email,
-        currentPassword
+        currentPassword,
       );
 
       dataToUpdate.password = newPassword;
@@ -38,11 +38,11 @@ const updateCurrentUserHandler: Handler = asyncHandler(
 
     const updatedUser = await UserService.updateUser(
       res.locals.user.id,
-      dataToUpdate
+      dataToUpdate,
     );
 
     res.json(updatedUser);
-  }
+  },
 );
 
 const getUserHandler: Handler = asyncHandler(
@@ -56,7 +56,7 @@ const getUserHandler: Handler = asyncHandler(
     const { user, posts } = await UserService.getUserProfile(userId);
 
     res.json({ user, posts });
-  }
+  },
 );
 
 const followUserHandler: Handler = asyncHandler(
@@ -72,14 +72,14 @@ const followUserHandler: Handler = asyncHandler(
     if (targetUserId === currentUser.id) {
       throw createHttpError(
         StatusCode.BAD_REQUEST,
-        "User can't follow/unfollow themselves"
+        "User can't follow/unfollow themselves",
       );
     }
 
     await UserService.toggleFollowUser(currentUser.id, targetUserId);
 
     res.json({ message: "Follow/unfollow request successful" });
-  }
+  },
 );
 
 const getUserFeedHandler: Handler = asyncHandler(
@@ -88,7 +88,7 @@ const getUserFeedHandler: Handler = asyncHandler(
     const feed = await UserService.getUserFeed(res.locals.user.id);
 
     res.json(feed);
-  }
+  },
 );
 
 export {

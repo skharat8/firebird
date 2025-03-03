@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 
-import { getHashedPassword } from "../utils/auth.utils";
+import { getHashedPassword } from "../utils/auth.utils.js";
 
 const prisma = new PrismaClient({
   omit: {

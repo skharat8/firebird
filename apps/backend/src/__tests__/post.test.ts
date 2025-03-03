@@ -1,14 +1,14 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import supertest from "supertest";
 
-import createServer from "../server";
-import * as UserService from "../services/user.service";
-import * as SessionService from "../services/session.service";
-import * as PostService from "../services/post.service";
-import { StatusCode } from "../data/enums";
-import type { UserLogin } from "../schemas/session.zod";
-import type { SafeDbUser, UserSignup } from "../schemas/user.zod";
-import type { CreatePost } from "../schemas/post.zod";
+import createServer from "../server.js";
+import * as UserService from "../services/user.service.js";
+import * as SessionService from "../services/session.service.js";
+import * as PostService from "../services/post.service.js";
+import { StatusCode } from "../data/enums.js";
+import type { UserLogin } from "../schemas/session.zod.js";
+import type { SafeDbUser, UserSignup } from "../schemas/user.zod.js";
+import type { CreatePost } from "../schemas/post.zod.js";
 
 const app = createServer();
 
@@ -64,7 +64,7 @@ describe("Post", () => {
   beforeAll(async () => {
     vi.spyOn(UserService, "createUser").mockResolvedValue(userResponsePayload);
     vi.spyOn(UserService, "validateCredentials").mockResolvedValue(
-      userResponsePayload
+      userResponsePayload,
     );
     vi.spyOn(SessionService, "createSession").mockResolvedValue(session);
 

@@ -1,23 +1,23 @@
 import type { Request, Response, NextFunction, Handler } from "express";
 import asyncHandler from "express-async-handler";
 
-import { assertObjectExists } from "../utils/common.utils";
+import { assertObjectExists } from "../utils/common.utils.js";
 import {
   isMulterFileArray,
   uploadFile,
   uploadFiles,
   type UploadApiResponseUrl,
-} from "../utils/cloudinary.utils";
-import type { SafeDbUser } from "../schemas/user.zod";
+} from "../utils/cloudinary.utils.js";
+import type { SafeDbUser } from "../schemas/user.zod.js";
 import createHttpError from "http-errors";
-import { StatusCode } from "../data/enums";
+import { StatusCode } from "../data/enums.js";
 
 type UserKey = keyof SafeDbUser;
 
 async function uploadFilesAndAttachUrlsToRequest(
   req: Request<object, object, Record<string, UploadApiResponseUrl>>,
   user: SafeDbUser,
-  files: Express.Multer.File[]
+  files: Express.Multer.File[],
 ) {
   if (!files[0]) {
     throw createHttpError(StatusCode.BAD_REQUEST, "No files found!");
@@ -39,7 +39,7 @@ const uploadToCloudinary: Handler = asyncHandler(
   async (
     req: Request<object, object, Record<string, UploadApiResponseUrl>>,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     // Check if any files are present in the request
     if (!req.file && (!req.files || req.files.length === 0)) return next();
@@ -60,15 +60,15 @@ const uploadToCloudinary: Handler = asyncHandler(
     } else if (req.files) {
       // For multer function: upload.fields([{ name: 'field1'}, {name: 'field2'}])
       // req.files is represented as { 'field1': files[], 'field2': files[] }
-      const uploadFilesPromises = Object.values(req.files).map(files =>
-        uploadFilesAndAttachUrlsToRequest(req, user, files)
+      const uploadFilesPromises = Object.values(req.files).map((files) =>
+        uploadFilesAndAttachUrlsToRequest(req, user, files),
       );
 
       await Promise.all(uploadFilesPromises);
     }
 
     return next();
-  }
+  },
 );
 
 export default uploadToCloudinary;

@@ -2,10 +2,10 @@ import { describe, expect, it, vi } from "vitest";
 import supertest from "supertest";
 import { Prisma } from "@prisma/client";
 
-import createServer from "../server";
-import { StatusCode } from "../data/enums";
-import * as UserService from "../services/user.service";
-import type { SafeDbUser, UserSignup } from "../schemas/user.zod";
+import createServer from "../server.js";
+import { StatusCode } from "../data/enums.js";
+import * as UserService from "../services/user.service.js";
+import type { SafeDbUser, UserSignup } from "../schemas/user.zod.js";
 
 const app = createServer();
 
@@ -80,8 +80,8 @@ describe("User", () => {
         .mockRejectedValue(
           new Prisma.PrismaClientKnownRequestError(
             "Failed to create new user!",
-            { code: "P2002", clientVersion: "1" }
-          )
+            { code: "P2002", clientVersion: "1" },
+          ),
         );
 
       const { statusCode } = await supertest(app)

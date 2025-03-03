@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createUserSchema } from "./user.zod";
+import { createUserSchema } from "./user.zod.js";
 
 const userSignupSchema = createUserSchema.shape.body;
 const userLoginSchema = userSignupSchema.pick({ email: true, password: true });

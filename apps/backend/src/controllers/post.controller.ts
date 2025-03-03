@@ -1,10 +1,10 @@
 import type { Request, Response, Handler } from "express";
 import asyncHandler from "express-async-handler";
 
-import type { CreatePost, UpdatePost } from "../schemas/post.zod";
-import * as PostService from "../services/post.service";
-import { StatusCode } from "../data/enums";
-import { assertObjectExists } from "../utils/common.utils";
+import type { CreatePost, UpdatePost } from "../schemas/post.zod.js";
+import * as PostService from "../services/post.service.js";
+import { StatusCode } from "../data/enums.js";
+import { assertObjectExists } from "../utils/common.utils.js";
 import createHttpError from "http-errors";
 
 const createPostHandler: Handler = asyncHandler(

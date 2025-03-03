@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import prisma from "./customClient";
+import prisma from "./customClient.js";
 
 async function populateDatabase() {
   // Seed user data

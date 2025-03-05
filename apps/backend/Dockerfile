@@ -57,7 +57,7 @@ COPY --from=builder /app/out/full/ .
 
 # Setup Prisma
 WORKDIR /app/apps/backend
-RUN pnpm prisma generate
+RUN pnpm prisma generate --no-engine
 
 # Build the project
 WORKDIR /app

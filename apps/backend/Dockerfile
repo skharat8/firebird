@@ -69,12 +69,17 @@ RUN pnpm turbo run build --filter=@repo/server...
 FROM base AS runner
 WORKDIR /app
 COPY --from=installer /app .
-COPY --from=installer /app/apps/backend/prisma/migrations ./apps/backend/dist/prisma/migrations
-COPY --from=installer /app/apps/backend/prisma/schema.prisma ./apps/backend/dist/prisma/schema.prisma
 
 # Delete source directory, but not from the dist folder
 RUN find . -type d \( -name 'node_modules' -o -name 'dist' \) -prune -o \
  -type d -name 'src' -print | xargs rm -rf
+
+# Copy built files back to a new source directory
+COPY --from=installer /app/apps/backend/dist/src ./apps/backend/src
+COPY --from=installer /app/apps/backend/dist/prisma ./apps/backend/prisma
+
+# Delete dist directory
+RUN find . -type d -name 'node_modules' -prune -o -type d -name 'dist' -print | xargs rm -rf
 
 EXPOSE 3000
 

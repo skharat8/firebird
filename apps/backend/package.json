@@ -11,7 +11,7 @@
     "prestart": "pnpm build",
     "preinstall": "npx only-allow pnpm",
     "start": "tsx ./src/app.ts",
-    "start:migrate": "prisma migrate deploy && node ./dist/src/app.js",
+    "start:migrate": "prisma migrate deploy && node ./src/app.js",
     "test": "vitest .",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0"
   },

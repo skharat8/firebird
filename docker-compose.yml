@@ -8,6 +8,10 @@ services:
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
+      # ARGS defines build-time variables,
+      # while ENV sets run-time variables within the container.
+      args:
+        NODE_ENV: ${NODE_ENV}
     container_name: firebird-backend-app
     ports:
       - 3000:3000

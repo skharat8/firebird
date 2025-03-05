@@ -47,6 +47,9 @@ RUN turbo prune --scope=@repo/server --docker
 FROM base AS installer
 WORKDIR /app
 
+ARG NODE_ENV
+ENV NODE_ENV=$NODE_ENV
+
 # Get the package.json from builder stage & install dependencies
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
@@ -57,7 +60,8 @@ COPY --from=builder /app/out/full/ .
 
 # Setup Prisma
 WORKDIR /app/apps/backend
-RUN pnpm prisma generate --no-engine
+RUN if [[ "$NODE_ENV" == "development" ]] ; then pnpm prisma generate ; \
+  else pnpm prisma generate --no-engine ; fi
 
 # Build the project
 WORKDIR /app

@@ -1,4 +1,4 @@
-# Run: docker compose --env-file apps/backend/.env up --build
+# Run: docker compose --env-file apps/backend/.env.development up --build
 services:
   backend:
     build:
@@ -7,7 +7,7 @@ services:
     container_name: firebird-backend-app
     ports:
       - 3000:3000
-    env_file: apps/backend/.env
+    env_file: apps/backend/.env.development
     environment:
       PORT: ${PORT}
       NODE_ENV: ${NODE_ENV}
@@ -29,7 +29,7 @@ services:
     restart: always
     ports:
       - 5432:5432
-    env_file: apps/backend/.env
+    env_file: apps/backend/.env.development
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}

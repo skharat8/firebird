@@ -6,8 +6,8 @@ import { pinoHttp } from "pino-http";
 import cookieParser from "cookie-parser";
 import createHttpError from "http-errors";
 
-import "./config/env";
-import "./config/cloudinary";
+import "./config/env.js";
+import "./config/cloudinary.js";
 import logger from "./utils/logger.js";
 import { StatusCode } from "./data/enums.js";
 import userRoutes from "./routes/user.route.js";

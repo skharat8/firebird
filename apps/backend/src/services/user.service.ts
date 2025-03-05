@@ -1,7 +1,7 @@
 import createHttpError from "http-errors";
 import { type Prisma, NotificationType } from "@prisma/client";
 
-import prisma from "../prisma/customClient.js";
+import prisma from "../../prisma/customClient.js";
 import type { UserSignup, SafeDbUser } from "../schemas/user.zod.js";
 import { StatusCode } from "../data/enums.js";
 import { createNotification } from "./notification.service.js";

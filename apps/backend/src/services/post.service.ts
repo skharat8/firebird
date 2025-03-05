@@ -1,7 +1,7 @@
 import createHttpError from "http-errors";
 import { NotificationType } from "@prisma/client";
 
-import prisma from "../prisma/customClient.js";
+import prisma from "../../prisma/customClient.js";
 import { PostAction, StatusCode } from "../data/enums.js";
 import { createNotification } from "./notification.service.js";
 

@@ -54,7 +54,6 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 
 # Get the rest of the source files from builder stage
 COPY --from=builder /app/out/full/ .
-COPY turbo.json turbo.json
 
 # Setup Prisma
 WORKDIR /app/apps/backend
@@ -70,6 +69,12 @@ RUN pnpm turbo run build --filter=@repo/server...
 FROM base AS runner
 WORKDIR /app
 COPY --from=installer /app .
+COPY --from=installer /app/apps/backend/prisma/migrations ./apps/backend/dist/prisma/migrations
+COPY --from=installer /app/apps/backend/prisma/schema.prisma ./apps/backend/dist/prisma/schema.prisma
+
+# Delete source directory, but not from the dist folder
+RUN find . -type d \( -name 'node_modules' -o -name 'dist' \) -prune -o \
+ -type d -name 'src' -print | xargs rm -rf
 
 EXPOSE 3000
 

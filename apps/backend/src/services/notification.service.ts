@@ -1,5 +1,5 @@
 import type { NotificationType } from "@prisma/client";
-import prisma from "../prisma/customClient.js";
+import prisma from "../../prisma/customClient.js";
 
 async function createNotification(
   fromId: string,

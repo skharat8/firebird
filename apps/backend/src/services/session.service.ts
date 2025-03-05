@@ -1,6 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { signJwt, verifyJwt, type JwtData } from "../utils/auth.utils.js";
-import prisma from "../prisma/customClient.js";
+import prisma from "../../prisma/customClient.js";
 
 async function createSession(
   userId: string,

@@ -11,13 +11,12 @@
     "prestart": "pnpm build",
     "preinstall": "npx only-allow pnpm",
     "start": "tsx ./src/app.ts",
-    "start:migrate": "prisma migrate deploy && pnpm start",
+    "start:migrate": "prisma migrate deploy && node ./dist/src/app.js",
     "test": "vitest .",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0"
   },
   "prisma": {
-    "schema": "./src/prisma/schema.prisma",
-    "seed": "tsx ./src/prisma/seed.ts"
+    "seed": "tsx ./prisma/seed.ts"
   },
   "license": "ISC",
   "dependencies": {

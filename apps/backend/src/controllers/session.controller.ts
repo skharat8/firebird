@@ -56,8 +56,10 @@ const getSessionsHandler: Handler = asyncHandler(
 const deleteSessionHandler: Handler = asyncHandler(
   async (_: Request, res: Response) => {
     await deleteSession({ id: res.locals.sessionId });
-    res.clearCookie("AccessToken");
-    res.clearCookie("RefreshToken");
+
+    const cookieOptions = getCookieOptions();
+    res.clearCookie("AccessToken", cookieOptions);
+    res.clearCookie("RefreshToken", cookieOptions);
 
     res.json({ message: "Session deleted" });
   },

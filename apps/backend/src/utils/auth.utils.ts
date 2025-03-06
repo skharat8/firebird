@@ -52,7 +52,7 @@ function verifyJwt(token: string): JwtVerificationResult {
   }
 }
 
-function getCookieOptions(age: string | undefined): CookieOptions {
+function getCookieOptions(age?: string | undefined): CookieOptions {
   const ageInMs = convertDurationToMs(age ?? "");
 
   return {

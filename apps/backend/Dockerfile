@@ -1,28 +1,8 @@
-###########################################################################
-# 1) Build image (from root of monorepo)
-# docker build -f apps/backend/Dockerfile . --tag firebird-backend:latest
-#
-# 2) Confirm image
-# docker image ls   [See list of docker images]
-#
-# 3) Create database server
-# sudo docker network create firebird
-#
-# 4) Run the database server using a default image
-# sudo docker run --rm --name firebird-db[container_name/host_name]
-# --env POSTGRES_DB=firebird --env POSTGRES_PASSWORD=admin
-# --volume pg-data:/var/lib/postgresql/data --publish[port] 5432:5432
-# --network firebird postgres:alpine
-#
-# 5) Run the app docker image
-# docker run --rm --name firebird-backend-app[container_name]
-# -p[port] 3000:3000 --env-file apps/backend/.env --network firebird
-# firebird-backend[image_name]
-#
-###########################################################################
-
 # Setup node & pnpm
 FROM node:22-alpine AS base
+ARG PROJECT="@repo/server"
+ARG NODE_ENV
+ENV NODE_ENV=$NODE_ENV
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -39,7 +19,7 @@ COPY . .
 # Generate a partial monorepo with a pruned lockfile for a target workspace.
 # This creates ./out/json (contains package.json for just the workspaces
 # which the app depends on) & ./out/full (contains source files) directories.
-RUN turbo prune --scope=@repo/server --docker
+RUN turbo prune --scope=${PROJECT} --docker
 
 ###############
 ## INSTALLER
@@ -47,16 +27,24 @@ RUN turbo prune --scope=@repo/server --docker
 FROM base AS installer
 WORKDIR /app
 
-ARG NODE_ENV
-ENV NODE_ENV=$NODE_ENV
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine
+# to understand why libc6-compat might be needed.
+RUN apk add --update --no-cache libc6-compat
 
-# Get the package.json from builder stage & install dependencies
-COPY --from=builder /app/out/json/ .
+# Get the dependencies list from builder stage
+COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
+# By caching the content-addressable store we stop downloading the same packages again and again
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm fetch
+
+# Install dependencies
+COPY --from=builder /app/out/json/ .
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+ pnpm install --filter=${PROJECT}... -r --workspace-root --frozen-lockfile
 
 # Get the rest of the source files from builder stage
 COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
 
 # Setup Prisma
 WORKDIR /app/apps/backend
@@ -65,13 +53,14 @@ RUN if [[ "$NODE_ENV" == "development" ]] ; then pnpm prisma generate ; \
 
 # Build the project
 WORKDIR /app
-RUN pnpm turbo run build --filter=@repo/server...
+RUN pnpm turbo run build --filter=${PROJECT}...
 
 ###############
 ## RUNNER
 ###############
 FROM base AS runner
 WORKDIR /app
+
 COPY --from=installer /app .
 
 # Delete source directory, but not from the dist folder
@@ -84,6 +73,13 @@ COPY --from=installer /app/apps/backend/dist/prisma ./apps/backend/prisma
 
 # Delete dist directory
 RUN find . -type d -name 'node_modules' -prune -o -type d -name 'dist' -print | xargs rm -rf
+
+# Don't run production as root
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 express
+RUN touch /app/apps/backend/server.log
+RUN chown -R express: /app/apps/backend/server.log
+USER express
 
 EXPOSE 3000
 

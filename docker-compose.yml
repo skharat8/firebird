@@ -1,8 +1,3 @@
-# Run: docker compose --env-file apps/backend/.env.development up --build
-
-# List Files in Running Container: docker exec firebird-backend-app ls /app
-# Prune to recover space: docker system prune
-# After prune, run 'docker compose up' with --force-recreate option
 services:
   backend:
     build:

@@ -8,6 +8,8 @@
   `docker system prune`
   - After pruning, run `docker compose up` with `--force-recreate` option
 - ARGS defines build-time variables, while ENV sets run-time variables within the container.
+- Run single container: `docker compose up -d <service_name>`
+- Use `docker compose watch` in development as it enables hot reloading
 
 **Databases**
 

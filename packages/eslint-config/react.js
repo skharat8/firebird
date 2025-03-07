@@ -6,6 +6,7 @@ import pluginReactRefresh from "eslint-plugin-react-refresh";
 import pluginJsxA11y from "eslint-plugin-jsx-a11y";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 
+import { fixupPluginRules } from "@eslint/compat";
 import baseConfig from "./base.js";
 
 /* A custom ESLint configuration for libraries that use React */
@@ -33,7 +34,7 @@ export default tseslint.config(
     plugins: {
       react: pluginReact,
       "react-refresh": pluginReactRefresh,
-      "react-hooks": pluginReactHooks,
+      "react-hooks": fixupPluginRules(pluginReactHooks),
       "jsx-a11y": pluginJsxA11y,
     },
     settings: {

@@ -1,9 +1,8 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "@/services/apiUser";
+import { getLocalStorage } from "@/utils/common.utils";
 
 function useUser() {
-  const queryClient = useQueryClient();
-
   const {
     data: user,
     isPending,
@@ -13,12 +12,8 @@ function useUser() {
     queryFn: getCurrentUser,
   });
 
-  queryClient.setQueryData(["user", "isAuthenticated"], isSuccess);
-  const { data: isAuthenticated } = useQuery({
-    queryKey: ["user", "isAuthenticated"],
-  });
-
-  return { user, isPending, isAuthenticated };
+  const isAuthenticated = getLocalStorage("isAuthenticated");
+  return { user, isPending, isSuccess, isAuthenticated };
 }
 
 export default useUser;

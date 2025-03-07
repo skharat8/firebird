@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteUserSession } from "@/services/apiAuth";
+import { setLocalStorage } from "@/utils/common.utils";
 
 function useLogout() {
   const queryClient = useQueryClient();
@@ -10,6 +11,8 @@ function useLogout() {
     mutationFn: deleteUserSession,
     onSuccess: () => {
       queryClient.removeQueries();
+      setLocalStorage("isAuthenticated", false);
+
       navigate("/login", { replace: true });
     },
   });

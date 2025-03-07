@@ -1,18 +1,19 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Logo from "@/components/ui/Logo";
 import Auth from "@/features/authentication/Auth";
+import React from "react";
 import useUser from "@/hooks/useUser";
-import logo from "@images/firebird.svg";
 import HeroTitle from "@/components/ui/HeroTitle";
 
 function Login() {
   const navigate = useNavigate();
   const { isAuthenticated } = useUser();
 
-  useEffect(() => {
-    if (isAuthenticated) navigate("/", { replace: true });
+  React.useEffect(() => {
+    // User is already logged in, so redirect to home page
+    if (isAuthenticated) {
+      navigate("/", { replace: true });
+    }
   }, [isAuthenticated, navigate]);
 
   return (

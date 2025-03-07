@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { BeatLoader } from "react-spinners";
+import { GridLoader } from "react-spinners";
 
 import { getUser } from "@/services/apiUser";
 // eslint-disable-next-line import/no-restricted-paths
@@ -25,7 +25,7 @@ function ProfileFeed({ userId }: { userId: string }) {
 
   return (
     <div className="flex flex-col items-center gap-5">
-      {isPending && <BeatLoader color="#b63b63" />}
+      {isPending && <GridLoader color="#b63b63" />}
       {isSuccess && (
         <div className="mx-auto flex max-w-[65ch] flex-col gap-2">
           <div className="bg-card-400">

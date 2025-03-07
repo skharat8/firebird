@@ -1,5 +1,5 @@
 import { Outlet, useNavigate, useNavigation } from "react-router-dom";
-import { BeatLoader } from "react-spinners";
+import { GridLoader } from "react-spinners";
 import { Feather } from "lucide-react";
 
 import Button from "@/components/ui/Button";
@@ -18,7 +18,7 @@ function AppLayout() {
   }
 
   return (
-    <>
+    <div className="flex-center-col min-h-full">
       <Header showAvatar={true} />
 
       <main className="dark:bg-secondary-50/60 mx-auto flex min-w-full grow justify-center gap-5">
@@ -28,7 +28,7 @@ function AppLayout() {
         />
 
         <div className="flex-center max-w-[65ch] flex-1">
-          {isLoading && <BeatLoader color="#b63b63" />}
+          {isLoading && <GridLoader color="#b63b63" />}
           <Outlet />
         </div>
       </main>
@@ -42,7 +42,7 @@ function AppLayout() {
       >
         <Feather />
       </Button>
-    </>
+    </div>
   );
 }
 

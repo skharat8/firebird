@@ -81,6 +81,13 @@
 }
 
 @layer component {
+  .full-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
   .background-pattern {
     background-color: hsl(240 53% 93%);
     background-image:

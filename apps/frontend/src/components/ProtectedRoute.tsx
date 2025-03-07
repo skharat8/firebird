@@ -1,9 +1,8 @@
 import React, { type PropsWithChildren } from "react";
 import { useNavigate } from "react-router-dom";
-import { BeatLoader } from "react-spinners";
+import { GridLoader } from "react-spinners";
 
 import useUser from "@/hooks/useUser";
-import toast from "react-hot-toast";
 
 function ProtectedRoute({ children }: PropsWithChildren) {
   const navigate = useNavigate();
@@ -19,13 +18,11 @@ function ProtectedRoute({ children }: PropsWithChildren) {
   return (
     <>
       {isPending && (
-        <div className="flex min-h-screen items-center justify-center">
-          <BeatLoader color="#b63b63" />
+        <div className="full-page">
+          <GridLoader color="#b63b63" />
         </div>
       )}
-      {isSuccess && (
-        <div className="flex-center-col min-h-full">{children}</div>
-      )}
+      {isSuccess && children}
     </>
   );
 }

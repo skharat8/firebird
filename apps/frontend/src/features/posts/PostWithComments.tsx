@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { BeatLoader } from "react-spinners";
+import { GridLoader } from "react-spinners";
 
 // eslint-disable-next-line import/no-restricted-paths
 import ErrorPage from "@/pages/ErrorPage";
@@ -17,7 +17,7 @@ function PostWithComments() {
 
   return (
     <>
-      {isPending && <BeatLoader color="#b63b63" />}
+      {isPending && <GridLoader color="#b63b63" />}
       {isSuccess && (
         <div className="dark:bg-secondary-50/60 w-full">
           <Header showBackButton={true} />

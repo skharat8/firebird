@@ -10,6 +10,7 @@
 - ARGS defines build-time variables, while ENV sets run-time variables within the container.
 - Run single container: `docker compose up -d <service_name>`
 - Use `docker compose watch` in development as it enables hot reloading
+  - Then, use `docker compose logs -f backend[service_name]>` to get console output in a separate terminal.
 
 **Databases**
 
@@ -32,12 +33,13 @@
 
 2. Confirm image was created: `docker image ls `
 
-3. Create database server: `sudo docker network create firebird`
+3. Create database server: `docker network create firebird`
 
-4. Run the database server using a default image
+4. Run the database server using a default image. Note that the `--rm` flag
+   will clean up the container and remove volumes when the container exits.
 
    ```
-    sudo docker run --rm --name firebird-db[container_name/host_name] --env POSTGRES_DB=firebird --env POSTGRES_PASSWORD=admin --volume pg-data:/var/lib/postgresql/data --publish[port] 5432:5432 --network firebird postgres:alpine
+    docker run --rm --name firebird-db[container_name/host_name] --env POSTGRES_DB=firebird --env POSTGRES_PASSWORD=admin --volume pg-data:/var/lib/postgresql/data --publish[port] 5432:5432 --network firebird postgres:alpine
    ```
 
 5. Run the app docker image

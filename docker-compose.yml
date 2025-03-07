@@ -14,9 +14,7 @@ services:
     environment:
       PORT: ${PORT}
       NODE_ENV: ${NODE_ENV}
-      LOG_LEVEL: ${PINO_LOG_LEVEL}
       POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     depends_on:
@@ -26,11 +24,14 @@ services:
       - firebird
     develop:
       watch:
-        - path: ./apps/backend
-          target: /apps/backend
-          action: sync+restart
-        - path: ./apps/backend/package.json
-          action: rebuild
+        - action: sync
+          path: ./apps/backend
+          target: /app/apps/backend
+          ignore:
+            - ./apps/backend/node_modules/
+        - action: rebuild
+          path: ./apps/backend/package.json
+          target: /app/apps/backend/package.json
 
   postgres:
     image: postgres:alpine

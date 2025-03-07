@@ -48,7 +48,8 @@ COPY turbo.json turbo.json
 
 # Setup Prisma
 WORKDIR /app/apps/backend
-RUN if [[ "$NODE_ENV" == "development" ]] ; then pnpm prisma generate ; \
+RUN if [[ "$NODE_ENV" == "development" ]] ; \
+  then pnpm prisma generate ; \
   else pnpm prisma generate --no-engine ; fi
 
 # Build the project
@@ -85,4 +86,10 @@ EXPOSE 3000
 
 # Start
 WORKDIR /app/apps/backend
-CMD ["pnpm", "start:migrate"]
+
+## Uncomment this to run dev script
+# CMD if [[ "$NODE_ENV" == "development" ]]; \
+#   then pnpm start:dev; \
+#   else pnpm start:prod; fi
+
+CMD ["pnpm", "start:prod"]

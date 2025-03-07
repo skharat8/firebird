@@ -57,7 +57,7 @@ const deleteSessionHandler: Handler = asyncHandler(
   async (_: Request, res: Response) => {
     await deleteSession({ id: res.locals.sessionId });
 
-    const cookieOptions = getCookieOptions();
+    const { maxAge, ...cookieOptions } = getCookieOptions();
     res.clearCookie("AccessToken", cookieOptions);
     res.clearCookie("RefreshToken", cookieOptions);
 

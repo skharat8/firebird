@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 
 import { createUserSession } from "@/services/apiAuth";
 import type { UserLogin } from "@/schemas/auth.zod";
-import { setLocalStorage } from "@/utils/common.utils";
 
 function useLogin() {
   const queryClient = useQueryClient();
@@ -14,8 +13,6 @@ function useLogin() {
     mutationFn: (loginData: UserLogin) => createUserSession(loginData),
     onSuccess: (user) => {
       queryClient.setQueryData(["user"], user);
-      setLocalStorage("isAuthenticated", true);
-
       navigate("/", { replace: true });
     },
     onError: (err) => {

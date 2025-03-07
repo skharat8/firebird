@@ -13,12 +13,6 @@ function ProtectedRoute({ children }: PropsWithChildren) {
     // User is not logged in, so redirect to login page
     if (!isAuthenticated) {
       navigate("/login", { replace: true });
-      toast("Not logged in yet? Let's get you signed in!", {
-        style: {
-          color: "var(--color-neutral-100)",
-          backgroundColor: "var(--color-secondary-900)",
-        },
-      });
     }
   }, [isAuthenticated, navigate]);
 

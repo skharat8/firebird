@@ -18,4 +18,16 @@ function getLocalStorage(key: string) {
     return null;
   }
 }
-export { setLocalStorage, getLocalStorage };
+
+function getCookie(key: string): string | null {
+  const cookies = document.cookie
+    .split(";")
+    // Filter out the cookie matching key name
+    .filter((cookie) => cookie.substring(0, key.length + 1) === `${key}=`)
+    // Decode the value part of the cookie
+    .map((cookie) => decodeURIComponent(cookie.substring(key.length + 1)));
+
+  return cookies[0] ?? null;
+}
+
+export { setLocalStorage, getLocalStorage, getCookie };

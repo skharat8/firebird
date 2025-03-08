@@ -1,4 +1,4 @@
-import { useEffect, type PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 import LogoutButton from "@/features/authentication/LogoutButton";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";

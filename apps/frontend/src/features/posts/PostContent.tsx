@@ -16,7 +16,6 @@ import usePostAction from "@/features/posts/usePostAction";
 
 import styles from "./Post.module.css";
 import { PostAction } from "@/data/enums";
-import useUser from "@/hooks/useUser";
 
 type PostContentProps = {
   post: Post | PostWithComments;

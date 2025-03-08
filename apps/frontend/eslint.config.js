@@ -7,6 +7,7 @@ export default tseslint.config(reactConfig, {
       alias: {
         extensions: [".ts", ".tsx"],
         map: [
+          ["", "./public"],
           ["@", "./src"],
           ["@images", "./src/assets/images"],
           ["@fonts", "./src/assets/fonts"],

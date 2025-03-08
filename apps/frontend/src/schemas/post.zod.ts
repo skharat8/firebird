@@ -1,4 +1,4 @@
-import { any, z } from "zod";
+import { z } from "zod";
 
 const postSchema = z.object({
   id: z.string(),

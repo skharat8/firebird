@@ -5,7 +5,6 @@ import type { AuthType } from "@/data/types";
 import { Card, CardTitle } from "@/components/ui/Card";
 import AuthForm from "./AuthForm";
 import AuthLink from "./AuthLink";
-import styles from "./Auth.module.css";
 
 function Auth() {
   const [authType, setAuthType] = useState<AuthType>("login");

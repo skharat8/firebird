@@ -12,6 +12,10 @@ function usePost(postId: string) {
     throwOnError: true,
   });
 
+  if (!post) {
+    throw Error("No post found");
+  }
+
   return { post, isPending, isSuccess };
 }
 

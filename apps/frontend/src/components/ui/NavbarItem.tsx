@@ -26,7 +26,7 @@ function NavbarItem({ to, title, icon, selectedIcon }: NavbarItemProps) {
   }
 
   return (
-    <NavLink to={to} className={getNavLinkStyles} title={title}>
+    <NavLink to={to} end className={getNavLinkStyles} title={title}>
       {({ isActive }) => (
         <>
           {isActive ? selectedIcon : icon}

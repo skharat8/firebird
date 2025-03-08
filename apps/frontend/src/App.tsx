@@ -19,34 +19,28 @@ const router = createBrowserRouter([
   {
     element: (
       <ProtectedRoute>
-        <AppLayout />
+        <AppLayout showAvatar showFooterNavbar />
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <Home />, errorElement: <ErrorPage /> },
-      { path: "/profile", element: <Profile />, errorElement: <ErrorPage /> },
-      { path: "/search", element: <Search />, errorElement: <ErrorPage /> },
+      { path: "/", element: <Home /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/search", element: <Search /> },
     ],
   },
 
   {
-    path: "/profile/:profileId",
     element: (
       <ProtectedRoute>
-        <Profile />
+        <AppLayout showBackButton />
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,
-  },
-  {
-    path: "/post/:postId",
-    element: (
-      <ProtectedRoute>
-        <PostWithComments />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorPage />,
+    children: [
+      { path: "/profile/:profileId", element: <Profile /> },
+      { path: "/post/:postId", element: <PostWithComments /> },
+    ],
   },
 
   {

@@ -19,23 +19,20 @@ function PostWithComments() {
     <>
       {isPending && <GridLoader color="#b63b63" />}
       {isSuccess && (
-        <div className="dark:bg-secondary-50/60 w-full">
-          <Header showBackButton={true} />
-          <div className="mx-auto max-w-[65ch] p-5">
+        <div className="mx-auto max-w-[65ch] self-start p-5">
+          <PostContent
+            // @ts-expect-error
+            post={post}
+            disableLineClamp
+            className="border-b-3 rounded-b-none border-b-neutral-200 dark:border-b-neutral-400"
+          />
+          {post?.comments.map((comment) => (
             <PostContent
-              // @ts-expect-error
-              post={post}
-              disableLineClamp
-              className="border-b-3 rounded-b-none border-b-neutral-200 dark:border-b-neutral-400"
+              key={comment.id}
+              post={comment}
+              className="border-t-1 rounded-none border-neutral-200 pl-6 dark:border-b-neutral-400"
             />
-            {post?.comments.map((comment) => (
-              <PostContent
-                key={comment.id}
-                post={comment}
-                className="border-t-1 rounded-none border-neutral-200 pl-6 dark:border-b-neutral-400"
-              />
-            ))}
-          </div>
+          ))}
         </div>
       )}
     </>

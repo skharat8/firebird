@@ -6,7 +6,17 @@ import Button from "@/components/ui/Button";
 import Header from "./Header";
 import Navbar from "./Navbar";
 
-function AppLayout() {
+type AppLayoutProps = {
+  showAvatar?: boolean;
+  showBackButton?: boolean;
+  showFooterNavbar?: boolean;
+};
+
+function AppLayout({
+  showAvatar,
+  showBackButton,
+  showFooterNavbar,
+}: AppLayoutProps) {
   // React Router Loader state is app wide, not per component. So, handle it here.
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
@@ -19,7 +29,7 @@ function AppLayout() {
 
   return (
     <div className="flex-center-col min-h-full">
-      <Header showAvatar={true} />
+      <Header showAvatar={showAvatar} showBackButton={showBackButton} />
 
       <main className="dark:bg-secondary-50/60 mx-auto flex min-w-full grow justify-center gap-5">
         <Navbar
@@ -33,15 +43,19 @@ function AppLayout() {
         </div>
       </main>
 
-      <Navbar className="bottom-0 flex min-w-full sm:hidden" />
+      {showFooterNavbar && (
+        <>
+          <Navbar className="bottom-0 flex min-w-full sm:hidden" />
 
-      <Button
-        size="rounded"
-        className="fixed bottom-10 right-5 md:hidden"
-        onClick={createNewPost}
-      >
-        <Feather />
-      </Button>
+          <Button
+            size="rounded"
+            className="fixed bottom-10 right-5 md:hidden"
+            onClick={createNewPost}
+          >
+            <Feather />
+          </Button>
+        </>
+      )}
     </div>
   );
 }

@@ -20,15 +20,12 @@ function getLocalStorage(key: string) {
 }
 
 function getCookie(key: string): string | null {
-  console.log("before", document.cookie);
   const cookies = document.cookie
     .split(";")
     // Filter out the cookie matching key name
     .filter((cookie) => cookie.substring(0, key.length + 1) === `${key}=`)
     // Decode the value part of the cookie
     .map((cookie) => cookie.substring(key.length + 1));
-
-  console.log("after", cookies[0]);
 
   return cookies[0] ?? null;
 }

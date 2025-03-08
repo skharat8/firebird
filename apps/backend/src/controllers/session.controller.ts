@@ -40,10 +40,6 @@ const createSessionHandler: Handler = asyncHandler(
 
     res.cookie("AccessToken", accessToken, cookieOptions);
     res.cookie("RefreshToken", refreshToken, cookieOptions);
-    res.cookie("isAuthenticated", true, {
-      ...cookieOptions,
-      httpOnly: false,
-    });
 
     res.json(user);
   },
@@ -65,10 +61,6 @@ const deleteSessionHandler: Handler = asyncHandler(
     const { maxAge, ...cookieOptions } = getCookieOptions();
     res.clearCookie("AccessToken", cookieOptions);
     res.clearCookie("RefreshToken", cookieOptions);
-    res.clearCookie("isAuthenticated", {
-      ...cookieOptions,
-      httpOnly: false,
-    });
 
     res.json({ message: "Session deleted" });
   },

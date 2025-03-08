@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "@/services/apiUser";
-import { getCookie } from "@/utils/common.utils";
+import { getLocalStorage } from "@/utils/common.utils";
 
 function useUser() {
   const {
@@ -12,8 +12,7 @@ function useUser() {
     queryFn: getCurrentUser,
   });
 
-  const isAuthenticated = getCookie("isAuthenticated") === "true";
-  console.log("useUser", { isAuthenticated });
+  const isAuthenticated = getLocalStorage("isAuthenticated");
   return { user, isPending, isSuccess, isAuthenticated };
 }
 

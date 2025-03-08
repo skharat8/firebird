@@ -6,7 +6,7 @@ import useUser from "@/hooks/useUser";
 
 function ProtectedRoute({ children }: PropsWithChildren) {
   const navigate = useNavigate();
-  const { isPending, isSuccess, isAuthenticated } = useUser();
+  const { isPending, isAuthenticated } = useUser();
 
   React.useEffect(() => {
     // User is not logged in, so redirect to login page
@@ -22,7 +22,7 @@ function ProtectedRoute({ children }: PropsWithChildren) {
           <GridLoader color="#b63b63" />
         </div>
       )}
-      {isSuccess && children}
+      {isAuthenticated && children}
     </>
   );
 }

@@ -59,7 +59,8 @@ function getCookieOptions(age?: string | undefined): CookieOptions {
     maxAge: ageInMs,
     httpOnly: true, // Prevent XSS attacks (cross-site scripting)
     sameSite: process.env.NODE_ENV === "development" ? "strict" : "none", // Prevent CSRF attacks (cross-site request forgery)
-    secure: process.env.NODE_ENV !== "development",
+    secure: true,
+    partitioned: true,
   };
 }
 

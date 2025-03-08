@@ -16,6 +16,10 @@ function ProfileFeed({ userId }: { userId: string }) {
     throwOnError: true,
   });
 
+  if (!isPending && !userAndPosts) {
+    throw Error("No post found");
+  }
+
   return (
     <div className="flex flex-col items-center gap-5">
       {isPending && <GridLoader color="#b63b63" />}

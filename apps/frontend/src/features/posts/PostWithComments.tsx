@@ -14,6 +14,7 @@ function PostWithComments() {
       {isSuccess && (
         <div className="mx-auto max-w-[65ch] self-start p-5">
           <PostContent
+            // @ts-expect-error Already checking for undefined post above, this shouldn't error
             post={post}
             disableLineClamp
             className="border-b-3 rounded-b-none border-b-neutral-200 dark:border-b-neutral-400"

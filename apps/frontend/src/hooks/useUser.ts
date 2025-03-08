@@ -13,6 +13,7 @@ function useUser() {
   });
 
   const isAuthenticated = getCookie("isAuthenticated") === "true";
+  console.log("useUser", { isAuthenticated });
   return { user, isPending, isSuccess, isAuthenticated };
 }
 

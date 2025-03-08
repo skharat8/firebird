@@ -6,7 +6,7 @@
       "env": [
         "PORT",
         "NODE_ENV",
-        "PINO_LOG_LEVEL",
+        "LOG_LEVEL",
         "POSTGRES_*",
         "DATABASE_URL",
         "CLIENT_ORIGIN",
@@ -21,7 +21,7 @@
       "env": [
         "PORT",
         "NODE_ENV",
-        "PINO_LOG_LEVEL",
+        "LOG_LEVEL",
         "POSTGRES_*",
         "DATABASE_URL",
         "CLIENT_ORIGIN",

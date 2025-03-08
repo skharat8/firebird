@@ -77,11 +77,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: [
-      "**/dist",
-      "**/eslint.config.js",
-      "**/postcss.config.js",
-      "**/stylelint.config.js",
-    ],
+    ignores: ["**/dist", "**/*.config.js"],
   },
 );

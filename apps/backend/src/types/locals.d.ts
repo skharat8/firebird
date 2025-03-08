@@ -1,4 +1,4 @@
-import type { SafeDbUser } from "../schemas/user.zod";
+import type { SafeDbUser } from "../schemas/user.zod.js";
 
 // Define an interface for data stored in res.locals
 declare global {

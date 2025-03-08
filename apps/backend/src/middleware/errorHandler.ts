@@ -19,7 +19,10 @@ function errorHandler(
   switch (true) {
     case err instanceof ZodError: {
       const validationError = fromZodError(err);
-      logger.error(validationError.details, validationError.message);
+      logger.error(validationError.message, {
+        details: validationError.details,
+      });
+
       res.status(StatusCode.BAD_REQUEST).json({ error: validationError });
       break;
     }

@@ -2,13 +2,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
 import cors from "cors";
-import { pinoHttp } from "pino-http";
+import { morganMiddleware } from "./config/morgan.js";
 import cookieParser from "cookie-parser";
 import createHttpError from "http-errors";
 
 import "./config/env.js";
 import "./config/cloudinary.js";
-import logger from "./utils/logger.js";
 import { StatusCode } from "./data/enums.js";
 import userRoutes from "./routes/user.route.js";
 import sessionRoutes from "./routes/session.route.js";
@@ -27,8 +26,8 @@ function createServer() {
   /* Third Party Middleware */
   /* ---------------------- */
 
-  // HTTP logger. Log to console using req.log.info()
-  app.use(pinoHttp({ logger }));
+  // Configure automatic HTTP request logging
+  app.use(morganMiddleware);
 
   // Enable cross-origin requests. This is needed because client and server
   // are located on different ports. A URL's origin is defined by combination

@@ -78,8 +78,7 @@ RUN find . -type d -name 'node_modules' -prune -o -type d -name 'dist' -print | 
 # Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 express
-RUN touch /app/apps/backend/server.log
-RUN chown -R express: /app/apps/backend/server.log
+RUN chown -R express: /app/apps/backend/logs
 USER express
 
 EXPOSE 3000

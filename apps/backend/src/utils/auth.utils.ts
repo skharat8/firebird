@@ -36,14 +36,14 @@ function verifyJwt(token: string): JwtVerificationResult {
 
     return { valid: true, expired: false, decodedToken };
   } catch (err) {
-    logger.error(err);
-
     if (err instanceof jwt.TokenExpiredError) {
       return {
         valid: false,
         expired: true,
       };
     }
+
+    logger.error(err);
 
     return {
       valid: false,
@@ -52,7 +52,7 @@ function verifyJwt(token: string): JwtVerificationResult {
   }
 }
 
-function getCookieOptions(age?: string | undefined): CookieOptions {
+function getCookieOptions(age?: string): CookieOptions {
   const ageInMs = convertDurationToMs(age ?? "");
 
   return {

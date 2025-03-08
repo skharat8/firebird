@@ -6,14 +6,13 @@ function usePost(postId: string) {
     data: post,
     isPending,
     isSuccess,
-    isError,
-    error,
   } = useQuery({
     queryKey: ["post", postId],
     queryFn: () => getPost(postId),
+    throwOnError: true,
   });
 
-  return { post, isPending, isSuccess, isError, error };
+  return { post, isPending, isSuccess };
 }
 
 export default usePost;

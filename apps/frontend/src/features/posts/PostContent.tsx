@@ -15,7 +15,7 @@ import { getTimeElapsed } from "@/utils/date.utils";
 import usePostAction from "@/features/posts/usePostAction";
 
 import styles from "./Post.module.css";
-import PostAction from "@/data/enums";
+import { PostAction } from "@/data/enums";
 import useUser from "@/hooks/useUser";
 
 type PostContentProps = {

@@ -2,7 +2,7 @@ import { likePost, retweetPost } from "@/services/apiPost";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import PostAction from "@/data/enums";
+import { PostAction } from "@/data/enums";
 
 function usePostAction(postId: string) {
   const queryClient = useQueryClient();

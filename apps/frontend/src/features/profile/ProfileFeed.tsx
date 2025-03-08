@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { GridLoader } from "react-spinners";
 
 import { getUser } from "@/services/apiUser";
-// eslint-disable-next-line import/no-restricted-paths
-import ErrorPage from "@/pages/ErrorPage";
 import PostContent from "../posts/PostContent";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
 
@@ -12,16 +10,11 @@ function ProfileFeed({ userId }: { userId: string }) {
     data: userAndPosts,
     isPending,
     isSuccess,
-    isError,
-    error,
   } = useQuery({
     queryKey: ["profile", userId],
     queryFn: () => getUser(userId),
+    throwOnError: true,
   });
-
-  if (isError) {
-    return <ErrorPage customError={error} />;
-  }
 
   return (
     <div className="flex flex-col items-center gap-5">
@@ -31,7 +24,7 @@ function ProfileFeed({ userId }: { userId: string }) {
           <div className="bg-card-400">
             <img
               src={userAndPosts.user.coverImage}
-              alt="Cover Image for User Profile"
+              alt="Background Cover for User Profile"
               className="h-[20vh] w-full object-cover"
             />
           </div>

@@ -5,14 +5,18 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 
-import type { ResponseError } from "@/data/types";
 import Button from "@/components/ui/Button";
+import { StatusCode } from "@/data/enums";
 
 function getErrorMessage(error: unknown): string {
   let msg: string;
 
-  if (axios.isAxiosError<ResponseError>(error)) {
-    msg = error.response?.data.error ?? error.message;
+  if (axios.isAxiosError(error)) {
+    msg = error.message;
+
+    if (error.status === StatusCode.NOT_FOUND) {
+      msg = "404 Page Not Found";
+    }
   } else if (isRouteErrorResponse(error)) {
     msg = `${error.status} ${error.statusText}`;
   } else if (error instanceof Error) {

@@ -13,6 +13,7 @@ function Home() {
   } = useQuery({
     queryKey: ["feed"],
     queryFn: getUserFeed,
+    staleTime: 1000 * 60,
   });
 
   return (

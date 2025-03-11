@@ -16,13 +16,13 @@ function PostWithComments() {
           <PostContent
             post={post}
             disableLineClamp
-            className="border-b-3 rounded-b-none border-b-neutral-200 dark:border-b-neutral-400"
+            className="border-b-3 rounded-b-none border-b-neutral-200 dark:border-b-neutral-800"
           />
           {post?.comments.map((comment) => (
             <PostContent
               key={comment.id}
               post={comment}
-              className="border-t-1 rounded-none border-neutral-200 pl-6 dark:border-b-neutral-400"
+              className="border-t-1 rounded-none border-b-neutral-200 pl-6 dark:border-b-neutral-800"
             />
           ))}
         </div>

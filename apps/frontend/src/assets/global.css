@@ -39,6 +39,10 @@
       sans-serif;
   }
 
+  html.dark {
+    background-color: var(--color-neutral-900);
+  }
+
   html,
   body,
   #root {

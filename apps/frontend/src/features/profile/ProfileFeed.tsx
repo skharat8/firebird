@@ -16,7 +16,7 @@ function ProfileFeed({ userId }: { userId: string }) {
       {isPending && <GridLoader color="#b63b63" />}
       {userAndPosts && (
         <div className="mx-auto flex max-w-[65ch] flex-col gap-2">
-          <div className="bg-card-400">
+          <div className="bg-card">
             <img
               src={userAndPosts.user.coverImage}
               alt="Background Cover for User Profile"
@@ -24,13 +24,13 @@ function ProfileFeed({ userId }: { userId: string }) {
             />
           </div>
 
-          <div className="bg-card-400 border-b-1 border-b-card-200 h-30 -mt-5 flex flex-col p-4">
-            <Avatar className="border-card-400 -mt-14 mb-2 h-20 w-20 border-2">
+          <div className="bg-card border-b-1 border-b-card h-30 -mt-5 flex flex-col p-4">
+            <Avatar className="border-card -mt-14 mb-2 h-20 w-20 border-2">
               <AvatarImage src={userAndPosts.user.profileImage} />
               <AvatarFallback />
             </Avatar>
             <span className="font-bold">{userAndPosts.user.fullName}</span>
-            <span className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            <span className="text-sm font-light text-neutral-600 dark:text-neutral-200">
               @{userAndPosts.user.username}
             </span>{" "}
           </div>

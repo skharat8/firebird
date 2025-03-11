@@ -32,7 +32,7 @@ function Login() {
 
       <div className="z-2 flex-center-col mx-auto max-w-[640px] p-4 pb-8">
         <HeroTitle title="Firebird" backgroundColor="bg-card" />
-        <h2 className="text-primary-700 mb-3 max-w-[15ch] pb-1 text-center text-xl font-extrabold">
+        <h2 className="text-primary mb-3 max-w-[15ch] pb-1 text-center text-xl font-extrabold">
           A Modern Social Media Platform
         </h2>
         <Auth />

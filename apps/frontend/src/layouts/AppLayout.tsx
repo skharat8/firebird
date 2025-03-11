@@ -31,7 +31,7 @@ function AppLayout({
     <div className="flex-center-col min-h-full">
       <Header showAvatar={showAvatar} showBackButton={showBackButton} />
 
-      <main className="dark:bg-secondary-50/60 mx-auto flex min-w-full grow justify-center gap-5">
+      <main className="mx-auto flex min-w-full grow justify-center gap-5">
         <Navbar
           className="xl:w-50 top-[5rem] ml-5 hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex
             sm:flex-col"

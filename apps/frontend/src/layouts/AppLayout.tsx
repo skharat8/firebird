@@ -32,10 +32,7 @@ function AppLayout({
       <Header showAvatar={showAvatar} showBackButton={showBackButton} />
 
       <main className="mx-auto flex min-w-full grow justify-center gap-5">
-        <Navbar
-          className="xl:w-50 top-[5rem] ml-5 hidden h-fit gap-2 rounded-xl px-3 py-5 sm:flex
-            sm:flex-col"
-        />
+        <Navbar className="xl:w-50 top-[5rem] ml-5 hidden h-fit gap-2 rounded-xl p-3 sm:flex sm:flex-col" />
 
         <div className="flex-center max-w-[65ch] flex-1">
           {isLoading && <GridLoader color="#b63b63" />}
@@ -45,11 +42,11 @@ function AppLayout({
 
       {showFooterNavbar && (
         <>
-          <Navbar className="bottom-0 flex min-w-full sm:hidden" />
+          <Navbar className="border-t-1 bottom-0 flex min-w-full border-t-neutral-500/30 sm:hidden" />
 
           <Button
             size="rounded"
-            className="fixed bottom-10 right-5 md:hidden"
+            className="shadow-secondary fixed bottom-14 right-7 shadow-[0px_1px_2px_1px] md:hidden"
             onClick={createNewPost}
           >
             <Feather />

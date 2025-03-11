@@ -1,22 +1,38 @@
 import {
+  useNavigate,
   useRouteError,
   isRouteErrorResponse,
-  useNavigate,
 } from "react-router-dom";
 import axios from "axios";
 
 import Button from "@/components/ui/Button";
 import { StatusCode } from "@/data/enums";
 
+function parseStatusCodes(status: StatusCode): string | null {
+  let msg;
+
+  switch (status) {
+    case StatusCode.NOT_FOUND:
+      msg = "Looks like this page does not exist";
+      break;
+    case StatusCode.FORBIDDEN:
+      msg = "Restricted Access";
+      break;
+    case StatusCode.UNAUTHORIZED:
+      msg = "Looks like you are not logged in";
+      break;
+    default:
+      msg = null;
+  }
+
+  return msg;
+}
+
 function getErrorMessage(error: unknown): string {
   let msg: string;
 
   if (axios.isAxiosError(error)) {
-    msg = error.message;
-
-    if (error.status === StatusCode.NOT_FOUND) {
-      msg = "404 Page Not Found";
-    }
+    msg = parseStatusCodes(error.status as StatusCode) ?? error.message;
   } else if (isRouteErrorResponse(error)) {
     msg = `${error.status} ${error.statusText}`;
   } else if (error instanceof Error) {
@@ -31,14 +47,12 @@ function getErrorMessage(error: unknown): string {
   return msg;
 }
 
-function ErrorPage({ customError }: { customError?: Error | null }) {
-  let error = useRouteError();
+function ErrorFallback() {
+  const routeError = useRouteError();
   const navigate = useNavigate();
 
-  if (customError) error = customError;
-
-  function navigateBack() {
-    navigate(-1);
+  function navigateHome() {
+    navigate("/");
   }
 
   return (
@@ -49,12 +63,12 @@ function ErrorPage({ customError }: { customError?: Error | null }) {
           Sorry, an unexpected error has occurred
         </p>
         <p className="text-error mb-4 font-semibold">
-          <i>{getErrorMessage(error)}</i>
+          <i>{getErrorMessage(routeError)}</i>
         </p>
-        <Button onClick={navigateBack}>Go Back</Button>
+        <Button onClick={navigateHome}>Go Back</Button>
       </div>
     </div>
   );
 }
 
-export default ErrorPage;
+export default ErrorFallback;

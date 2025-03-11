@@ -4,17 +4,18 @@ import toast from "react-hot-toast";
 
 import { createUserSession } from "@/services/apiAuth";
 import type { UserLogin } from "@/schemas/auth.zod";
-import { setLocalStorage } from "@/utils/common.utils";
+import { useLocalStorage } from "usehooks-ts";
 
 function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [_, setIsAuthenticated] = useLocalStorage("isAuthenticated", false);
 
   const { mutate: login, isPending: isLoginPending } = useMutation({
     mutationFn: (loginData: UserLogin) => createUserSession(loginData),
     onSuccess: (user) => {
       queryClient.setQueryData(["user"], user);
-      setLocalStorage("isAuthenticated", true);
+      setIsAuthenticated(true);
 
       navigate("/", { replace: true });
     },

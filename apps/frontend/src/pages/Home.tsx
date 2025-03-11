@@ -6,11 +6,7 @@ import PostContent from "@/features/posts/PostContent";
 import PostEditor from "@/features/posts/PostEditor";
 
 function Home() {
-  const {
-    data: posts,
-    isPending,
-    isSuccess,
-  } = useQuery({
+  const { data: posts, isPending } = useQuery({
     queryKey: ["feed"],
     queryFn: getUserFeed,
     staleTime: 1000 * 60,
@@ -19,7 +15,7 @@ function Home() {
   return (
     <div className="flex flex-col items-stretch gap-5 p-5">
       {isPending && <GridLoader color="#b63b63" />}
-      {isSuccess && (
+      {posts && (
         <>
           <PostEditor showAvatar={false} className="hidden md:flex" />
           {posts.map((post) => (

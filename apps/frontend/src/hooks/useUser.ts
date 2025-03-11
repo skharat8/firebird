@@ -1,19 +1,16 @@
+import { useLocalStorage } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "@/services/apiUser";
-import { getLocalStorage } from "@/utils/common.utils";
 
 function useUser() {
-  const {
-    data: user,
-    isPending,
-    isSuccess,
-  } = useQuery({
+  const [isAuthenticated] = useLocalStorage("isAuthenticated", false);
+  const { data: user, isPending } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrentUser,
+    enabled: isAuthenticated, // Only run this query when user is authenticated
   });
 
-  const isAuthenticated = getLocalStorage("isAuthenticated");
-  return { user, isPending, isSuccess, isAuthenticated };
+  return { user, isPending, isAuthenticated };
 }
 
 export default useUser;

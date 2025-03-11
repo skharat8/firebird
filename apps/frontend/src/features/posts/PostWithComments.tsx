@@ -6,15 +6,14 @@ import usePost from "@/hooks/usePost";
 
 function PostWithComments() {
   const { postId } = useParams() as { postId: string };
-  const { post, isPending, isSuccess } = usePost(postId);
+  const { post, isPending } = usePost(postId);
 
   return (
     <>
       {isPending && <GridLoader color="#b63b63" />}
-      {isSuccess && (
+      {post && (
         <div className="mx-auto max-w-[65ch] self-start p-5">
           <PostContent
-            // @ts-expect-error Already checking for undefined post above, this shouldn't error
             post={post}
             disableLineClamp
             className="border-b-3 rounded-b-none border-b-neutral-200 dark:border-b-neutral-400"

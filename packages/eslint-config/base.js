@@ -7,6 +7,8 @@ import pluginTurbo from "eslint-plugin-turbo";
 import pluginImport from "eslint-plugin-import";
 import "eslint-plugin-only-warn";
 
+import { fixupPluginRules } from "@eslint/compat";
+
 /* A shared ESLint configuration for the repository */
 export default tseslint.config(
   eslint.configs.recommended,
@@ -38,7 +40,7 @@ export default tseslint.config(
     plugins: {
       "@typescript-eslint": tseslint.plugin,
       turbo: pluginTurbo,
-      import: pluginImport,
+      import: fixupPluginRules(pluginImport),
     },
     rules: {
       ...pluginImport.flatConfigs.recommended.rules,

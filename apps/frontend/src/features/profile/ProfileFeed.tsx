@@ -6,24 +6,15 @@ import PostContent from "../posts/PostContent";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
 
 function ProfileFeed({ userId }: { userId: string }) {
-  const {
-    data: userAndPosts,
-    isPending,
-    isSuccess,
-  } = useQuery({
+  const { data: userAndPosts, isPending } = useQuery({
     queryKey: ["profile", userId],
     queryFn: () => getUser(userId),
-    throwOnError: true,
   });
-
-  if (!isPending && !userAndPosts) {
-    throw Error("No post found");
-  }
 
   return (
     <div className="flex flex-col items-center gap-5">
       {isPending && <GridLoader color="#b63b63" />}
-      {isSuccess && (
+      {userAndPosts && (
         <div className="mx-auto flex max-w-[65ch] flex-col gap-2">
           <div className="bg-card-400">
             <img

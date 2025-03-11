@@ -44,7 +44,7 @@ export default tseslint.config(
       ...pluginReactRefresh.configs.recommended.rules,
       ...pluginReactHooks.configs.recommended.rules,
       ...pluginJsxA11y.flatConfigs.recommended.rules,
-      "no-console": ["error", { allow: ["error"] }],
+      "no-console": ["error", { allow: ["error", "warn"] }],
 
       "react-refresh/only-export-components": [
         "warn",

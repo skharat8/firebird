@@ -3,14 +3,15 @@ import { GridLoader } from "react-spinners";
 
 import PostContent from "./PostContent";
 import usePost from "@/hooks/usePost";
+import Offline from "@/components/ui/Offline";
 
 function PostWithComments() {
   const { postId } = useParams() as { postId: string };
-  const { post, isPending } = usePost(postId);
+  const { post, isPending, isPaused } = usePost(postId);
 
   return (
     <>
-      {isPending && <GridLoader color="#b63b63" />}
+      {isPending && (isPaused ? <Offline /> : <GridLoader color="#b63b63" />)}
       {post && (
         <div className="mx-auto max-w-[65ch] self-start p-5">
           <PostContent

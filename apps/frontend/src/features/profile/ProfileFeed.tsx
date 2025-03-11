@@ -4,16 +4,21 @@ import { GridLoader } from "react-spinners";
 import { getUser } from "@/services/apiUser";
 import PostContent from "../posts/PostContent";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
+import Offline from "@/components/ui/Offline";
 
 function ProfileFeed({ userId }: { userId: string }) {
-  const { data: userAndPosts, isPending } = useQuery({
+  const {
+    data: userAndPosts,
+    isPending,
+    isPaused,
+  } = useQuery({
     queryKey: ["profile", userId],
     queryFn: () => getUser(userId),
   });
 
   return (
     <div className="flex flex-col items-center gap-5">
-      {isPending && <GridLoader color="#b63b63" />}
+      {isPending && (isPaused ? <Offline /> : <GridLoader color="#b63b63" />)}
       {userAndPosts && (
         <div className="mx-auto flex max-w-[65ch] flex-col gap-2">
           <div className="bg-card">

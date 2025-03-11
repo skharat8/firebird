@@ -9,9 +9,7 @@ function HeroTitle({ title, backgroundColor }: HeroTitleProps) {
       className={`${backgroundColor} ring-secondary-900 dark:ring-card border-primary-400 mb-4
         rounded-full border-4 p-4 pt-6 ring-4`}
     >
-      <h1 className="font-header text-primary-500 mb-1 text-center text-5xl font-bold">
-        {title}
-      </h1>
+      <h1 className="header-text mb-1 text-5xl">{title}</h1>
     </div>
   );
 }

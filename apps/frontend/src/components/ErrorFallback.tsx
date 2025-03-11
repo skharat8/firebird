@@ -57,13 +57,16 @@ function ErrorFallback() {
 
   return (
     <div className="centered-container flex-center-col max-w-[640px]">
-      <div className="flex-center-col px-container-lr py-container-tb rounded-lg bg-zinc-200">
-        <h1 className="main-title">Oops!</h1>
-        <p className="text-secondary">
+      <div
+        className="flex-center-col px-container-lr py-container-tb bg-card dark:shadow-primary-800
+          rounded-lg shadow-xl dark:shadow-md"
+      >
+        <h1 className="header-text mb-4 text-5xl">Oops!</h1>
+        <p className="text-neutral-900">
           Sorry, an unexpected error has occurred
         </p>
         <p className="text-error mb-4 font-semibold">
-          <i>{getErrorMessage(routeError)}</i>
+          {getErrorMessage(routeError)}
         </p>
         <Button onClick={navigateHome}>Go Back</Button>
       </div>

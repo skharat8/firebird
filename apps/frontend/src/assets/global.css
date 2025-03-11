@@ -88,6 +88,13 @@
     min-height: 100vh;
   }
 
+  .header-text {
+    font-family: var(--font-header);
+    font-weight: bold;
+    color: var(--color-primary-500);
+    text-align: center;
+  }
+
   .background-pattern {
     background-color: hsl(240 53% 93%);
     background-image:

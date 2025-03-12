@@ -56,6 +56,7 @@ function ErrorFallback() {
   // Break out of forbidden status loop in case of server error
   if (axios.isAxiosError(error) && error.status === StatusCode.FORBIDDEN) {
     setIsAuthenticated(false);
+    navigate("/login");
   }
 
   function navigateHome() {

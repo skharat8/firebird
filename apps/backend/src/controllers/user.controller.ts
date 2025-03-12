@@ -47,15 +47,18 @@ const updateCurrentUserHandler: Handler = asyncHandler(
 
 const getUserHandler: Handler = asyncHandler(
   async (req: Request, res: Response) => {
-    const { userId } = req.params;
+    const { userId, cursor } = req.params;
 
     if (!userId) {
       throw createHttpError(StatusCode.BAD_REQUEST, "User ID not provided");
     }
 
-    const { user, posts } = await UserService.getUserProfile(userId);
+    const { user, posts, nextCursor } = await UserService.getUserProfile(
+      userId,
+      cursor,
+    );
 
-    res.json({ user, posts });
+    res.json({ user, posts, nextCursor });
   },
 );
 

@@ -1,4 +1,4 @@
-import ProfileFeed from "@/features/profile/ProfileFeed";
+import ProfileFeed from "@/features/users/ProfileFeed";
 import useUser from "@/hooks/useUser";
 import { useParams } from "react-router-dom";
 

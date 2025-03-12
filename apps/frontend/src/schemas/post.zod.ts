@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { userSchema } from "./auth.zod";
 
 const postSchema = z.object({
   id: z.string(),
@@ -34,11 +35,22 @@ const postWithCommentsSchema = postSchema.extend({
 
 const postFeedSchema = z.object({
   posts: postArraySchema,
-  nextCursor: z.string(),
+  nextCursor: z.string().nullable(),
+});
+
+const userAndPostFeedSchema = z.object({
+  user: userSchema,
+  posts: postArraySchema,
+  nextCursor: z.string().nullable(),
 });
 
 type Post = z.infer<typeof postSchema>;
 type PostWithComments = z.infer<typeof postWithCommentsSchema>;
 
 export type { Post, PostWithComments };
-export { postSchema, postWithCommentsSchema, postFeedSchema, postArraySchema };
+export {
+  postSchema,
+  postWithCommentsSchema,
+  postFeedSchema,
+  userAndPostFeedSchema,
+};

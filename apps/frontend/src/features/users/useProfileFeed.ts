@@ -1,11 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getUserFeed } from "@/services/apiUser";
+import { getUser } from "@/services/apiUser";
 
-function useUserFeed() {
+function useProfileFeed(userId: string) {
   const { data, isPending, isPaused, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ["feed"],
-      queryFn: ({ pageParam = "" }) => getUserFeed(pageParam),
+      queryKey: ["profile", userId],
+      queryFn: ({ pageParam = "" }) => getUser(userId, pageParam),
       initialPageParam: "",
       getNextPageParam: (lastPage) => lastPage.nextCursor,
       staleTime: 1000 * 60,
@@ -14,4 +14,4 @@ function useUserFeed() {
   return { data, isPending, isPaused, fetchNextPage, isFetchingNextPage };
 }
 
-export default useUserFeed;
+export default useProfileFeed;

@@ -4,7 +4,8 @@ import prisma from "../../prisma/customClient.js";
 type fetchNextPageParams = {
   cursor?: string;
   filterQuery: Prisma.PostWhereInput;
-  selectQuery: Prisma.PostSelect;
+  selectQuery?: Prisma.PostSelect;
+  includeQuery?: Prisma.PostInclude;
   pageSize: number;
   orderBy?: "id" | "createdAt";
 };
@@ -13,6 +14,7 @@ async function fetchNextPage({
   cursor,
   filterQuery,
   selectQuery,
+  includeQuery,
   pageSize,
   orderBy = "id",
 }: fetchNextPageParams) {
@@ -24,6 +26,7 @@ async function fetchNextPage({
     posts = await prisma.post.findMany({
       where: filterQuery,
       select: selectQuery,
+      include: includeQuery,
       orderBy: [{ [orderBy]: "desc" }, { id: "desc" }],
       take: pageSize,
     });
@@ -31,6 +34,7 @@ async function fetchNextPage({
     posts = await prisma.post.findMany({
       where: filterQuery,
       select: selectQuery,
+      include: includeQuery,
       orderBy: [{ [orderBy]: "desc" }, { id: "desc" }],
       take: pageSize,
       skip: 1, // skip the cursor

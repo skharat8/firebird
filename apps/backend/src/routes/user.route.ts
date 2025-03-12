@@ -42,6 +42,7 @@ router.get(
 );
 
 router.get("/:userId", requireUser, getUserHandler);
+router.get("/:userId/:cursor", requireUser, getUserHandler);
 router.post("/follow/:userId", requireUser, followUserHandler);
 
 export default router;

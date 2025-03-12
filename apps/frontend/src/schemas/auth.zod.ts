@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { postArraySchema } from "./post.zod";
 
 const userSignupSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
@@ -27,14 +26,9 @@ const userSchema = userSignupSchema.omit({ password: true }).extend({
   bio: z.string().nullish(),
 });
 
-const userAndPostSchema = z.object({
-  user: userSchema,
-  posts: postArraySchema,
-});
-
 type UserLogin = z.infer<typeof userLoginSchema>;
 type UserSignup = z.infer<typeof userSignupSchema>;
 type User = z.infer<typeof userSchema>;
 
 export type { UserLogin, UserSignup, User };
-export { userLoginSchema, userSignupSchema, userSchema, userAndPostSchema };
+export { userLoginSchema, userSignupSchema, userSchema };

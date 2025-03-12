@@ -15,7 +15,7 @@ async function findUser(query: Prisma.UserWhereInput): Promise<SafeDbUser> {
   return prisma.user.findFirstOrThrow({ where: query });
 }
 
-async function getUserProfile(userId: string) {
+async function getUserProfile(userId: string, cursor?: string) {
   const user = await prisma.user.findFirstOrThrow({
     where: {
       id: userId,
@@ -23,47 +23,43 @@ async function getUserProfile(userId: string) {
     include: { _count: { select: { followers: true, following: true } } },
   });
 
-  const allPosts = await prisma.post.findMany({
-    where: {
-      OR: [{ authorId: user.id }, { retweets: { some: { userId: user.id } } }],
-      parentPost: null,
-    },
-    select: {
-      id: true,
-      author: {
-        select: {
-          id: true,
-          fullName: true,
-          username: true,
-          profileImage: true,
-        },
+  const filterQuery = {
+    OR: [{ authorId: user.id }, { retweets: { some: { userId: user.id } } }],
+    parentPost: null,
+  };
+
+  // TODO: How to orderby retweet createdAt only for retweets?
+  const selectQuery = {
+    id: true,
+    author: {
+      select: {
+        id: true,
+        fullName: true,
+        username: true,
+        profileImage: true,
       },
-      content: true,
-      image: true,
-      likes: { where: { id: userId } },
-      retweets: {
-        where: { userId: userId },
-        select: { userId: true, createdAt: true },
-      },
-      createdAt: true,
-      updatedAt: true,
-      _count: { select: { likes: true, retweets: true, comments: true } },
     },
-    orderBy: { createdAt: "desc" },
-    take: 10,
+    content: true,
+    image: true,
+    likes: { where: { id: userId } },
+    retweets: {
+      where: { userId: userId },
+      select: { userId: true, createdAt: true },
+    },
+    createdAt: true,
+    updatedAt: true,
+    _count: { select: { likes: true, retweets: true, comments: true } },
+  };
+
+  const { posts, nextCursor } = await fetchNextPage({
+    cursor,
+    filterQuery,
+    selectQuery,
+    pageSize: 10,
+    orderBy: "createdAt",
   });
 
-  // If the post was a retweet, then replace createdAt with the time the retweet
-  // was created. This is so that the posts can be sorted on user's profile.
-  const posts = allPosts.map((post) => {
-    if (post.retweets[0])
-      return { ...post, createdAt: post.retweets[0].createdAt };
-    return { ...post, retweets: false };
-  });
-
-  posts.sort((a, b) => b.createdAt.valueOf() - a.createdAt.valueOf());
-
-  return { user, posts };
+  return { user, posts, nextCursor };
 }
 
 async function updateUser(id: string, updateData: Prisma.UserUpdateInput) {

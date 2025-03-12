@@ -4,13 +4,13 @@ import { GridLoader } from "react-spinners";
 import PostContent from "@/features/posts/PostContent";
 import PostEditor from "@/features/posts/PostEditor";
 import Offline from "@/components/ui/Offline";
-import useUserFeed from "@/hooks/useUserFeed";
+import useHomeFeed from "@/features/users/useHomeFeed";
 import { useIntersectionObserver } from "usehooks-ts";
 import SpinnerMini from "@/components/ui/SpinnerMini";
 
 function Home() {
   const { data, isPending, isPaused, fetchNextPage, isFetchingNextPage } =
-    useUserFeed();
+    useHomeFeed();
   const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.5 });
 
   React.useEffect(() => {

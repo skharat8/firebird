@@ -3,7 +3,6 @@ import { Heart, MessageCircle, Repeat } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import type { Post, PostWithComments } from "@/schemas/post.zod";
-import useToggle from "@/hooks/useToggle";
 import { Link } from "react-router-dom";
 import {
   Card,
@@ -12,10 +11,10 @@ import {
   CardHeader,
 } from "@/components/ui/Card";
 import { getTimeElapsed } from "@/utils/date.utils";
-import usePostAction from "@/features/posts/usePostAction";
+import useRetweet from "@/features/posts/useRetweet";
 
 import styles from "./Post.module.css";
-import { PostAction } from "@/data/enums";
+import useLike from "./useLike";
 
 type PostContentProps = {
   post: Post | PostWithComments;
@@ -30,25 +29,23 @@ function PostContent({
   disableLineClamp,
   className,
 }: PostContentProps) {
-  const [like, toggleLike] = useToggle({
-    initialValue: post?.likes?.length === 1 ? true : false,
-  });
-  const [retweet, toggleRetweet] = useToggle({
-    initialValue: post?.retweets?.length === 1 ? true : false,
-  });
-  const { performPostAction } = usePostAction(post.id);
+  const { like, isLikePending, likeVariables } = useLike(post.id);
+  const { retweet, isRetweetPending, retweetVariables } = useRetweet(post.id);
 
   const linkStyles = "flex w-fit text-current hover:text-current";
   const dotAfter = "after:ml-1 after:content-['•']";
 
+  const isLiked = isLikePending ? likeVariables : post.likes?.length === 1;
+  const isRetweeted = isRetweetPending
+    ? retweetVariables
+    : post.retweets?.length === 1;
+
   function submitLike() {
-    toggleLike();
-    performPostAction(PostAction.LIKE);
+    like();
   }
 
   function submitRetweet() {
-    toggleRetweet();
-    performPostAction(PostAction.RETWEET);
+    retweet();
   }
 
   return (
@@ -93,11 +90,7 @@ function PostContent({
             className="rounded-full"
             onClick={submitLike}
           >
-            {post?.likes?.length === 1 ? (
-              <Heart color="red" fill="red" />
-            ) : (
-              <Heart />
-            )}
+            {isLiked ? <Heart color="red" fill="red" /> : <Heart />}
           </Button>
           <Button
             variant="ghost"
@@ -105,11 +98,7 @@ function PostContent({
             className="rounded-full"
             onClick={submitRetweet}
           >
-            {post?.retweets?.length === 1 ? (
-              <Repeat color="green" fill="green" />
-            ) : (
-              <Repeat />
-            )}
+            {isRetweeted ? <Repeat color="green" fill="green" /> : <Repeat />}
           </Button>
           <Button variant="ghost" size="icon" className="rounded-full">
             <MessageCircle />

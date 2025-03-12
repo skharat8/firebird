@@ -1,3 +1,4 @@
+import React from "react";
 import {
   useNavigate,
   useRouteError,
@@ -53,11 +54,13 @@ function ErrorFallback() {
   const navigate = useNavigate();
   const [_, setIsAuthenticated] = useLocalStorage("isAuthenticated", false);
 
-  // Break out of forbidden status loop in case of server error
-  if (axios.isAxiosError(error) && error.status === StatusCode.FORBIDDEN) {
-    setIsAuthenticated(false);
-    navigate("/login");
-  }
+  React.useEffect(() => {
+    // Break out of forbidden status loop in case of server error
+    if (axios.isAxiosError(error) && error.status === StatusCode.FORBIDDEN) {
+      setIsAuthenticated(false);
+      navigate("/login");
+    }
+  }, [error, navigate, setIsAuthenticated]);
 
   function navigateHome() {
     navigate("/");

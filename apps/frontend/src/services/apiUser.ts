@@ -1,5 +1,5 @@
 import { userAndPostSchema, userSchema } from "@/schemas/auth.zod";
-import { postArraySchema } from "@/schemas/post.zod";
+import { postFeedSchema } from "@/schemas/post.zod";
 import createAxiosInstance from "@/lib/axiosInstance";
 
 const api = createAxiosInstance();
@@ -14,7 +14,7 @@ export async function getUser(userId: string) {
   return userAndPostSchema.parse(res.data);
 }
 
-export async function getUserFeed() {
-  const res = await api.get("api/users/feed");
-  return postArraySchema.parse(res.data);
+export async function getUserFeed(cursor?: string) {
+  const res = await api.get(`api/users/feed/${cursor}`);
+  return postFeedSchema.parse(res.data);
 }

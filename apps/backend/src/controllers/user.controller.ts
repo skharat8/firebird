@@ -83,11 +83,13 @@ const followUserHandler: Handler = asyncHandler(
 );
 
 const getUserFeedHandler: Handler = asyncHandler(
-  async (_: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     assertObjectExists(res.locals.user);
-    const feed = await UserService.getUserFeed(res.locals.user.id);
+    const { cursor } = req.params;
 
-    res.json(feed);
+    const data = await UserService.getUserFeed(res.locals.user.id, cursor);
+
+    res.json(data);
   },
 );
 

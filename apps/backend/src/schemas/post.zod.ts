@@ -11,8 +11,12 @@ const updatePostSchema = createPostSchema.extend({
   params: z.object({ postId: z.string().optional() }),
 });
 
+const fetchPostFeedSchema = z.object({
+  params: z.object({ cursor: z.string() }),
+});
+
 type CreatePost = z.infer<typeof createPostSchema.shape.body>;
 type UpdatePost = z.infer<typeof updatePostSchema>;
 
-export { createPostSchema, updatePostSchema };
+export { createPostSchema, updatePostSchema, fetchPostFeedSchema };
 export type { CreatePost, UpdatePost };

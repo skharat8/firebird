@@ -65,7 +65,7 @@ function ErrorFallback() {
         <p className="mb-2 text-neutral-900 dark:text-neutral-100">
           Sorry, an unexpected error has occurred
         </p>
-        <p className="text-primary-400 mb-4 text-2xl font-semibold">
+        <p className="text-primary-400 mb-4 text-center text-2xl font-semibold">
           {getErrorMessage(routeError)}
         </p>
         <Button onClick={navigateHome}>Go Back</Button>

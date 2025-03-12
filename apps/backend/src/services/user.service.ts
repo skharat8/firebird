@@ -5,6 +5,7 @@ import prisma from "../../prisma/customClient.js";
 import type { UserSignup, SafeDbUser } from "../schemas/user.zod.js";
 import { StatusCode } from "../data/enums.js";
 import { createNotification } from "./notification.service.js";
+import { fetchNextPage } from "../utils/prisma.utils.js";
 
 async function createUser(userData: UserSignup): Promise<SafeDbUser> {
   return prisma.user.create({ data: userData });
@@ -108,7 +109,7 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
   }
 }
 
-async function getUserFeed(userId: string) {
+async function getUserFeed(userId: string, cursor?: string) {
   // Get a list of users being followed by the current user
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = await prisma.user.findUniqueOrThrow({
@@ -118,39 +119,43 @@ async function getUserFeed(userId: string) {
 
   // Create a feed from following users
   // TODO: include the current user's posts
-  const feed = await prisma.post.findMany({
-    where: {
-      author: {
-        is: {
-          id: {
-            not: userId,
-          },
+  const filterQuery = {
+    author: {
+      is: {
+        id: {
+          not: userId,
         },
       },
-      parentPost: null,
     },
-    select: {
-      id: true,
-      author: {
-        select: {
-          id: true,
-          fullName: true,
-          username: true,
-          profileImage: true,
-        },
-      },
-      content: true,
-      image: true,
-      likes: { where: { id: userId } },
-      retweets: { where: { userId: userId } },
-      createdAt: true,
-      updatedAt: true,
-      _count: { select: { likes: true, retweets: true, comments: true } },
-    },
-    take: 10,
-  });
+    parentPost: null,
+  };
 
-  return feed;
+  const selectQuery = {
+    id: true,
+    author: {
+      select: {
+        id: true,
+        fullName: true,
+        username: true,
+        profileImage: true,
+      },
+    },
+    content: true,
+    image: true,
+    likes: { where: { id: userId } },
+    retweets: { where: { userId: userId } },
+    createdAt: true,
+    updatedAt: true,
+    _count: { select: { likes: true, retweets: true, comments: true } },
+  };
+
+  return fetchNextPage({
+    cursor,
+    filterQuery,
+    selectQuery,
+    pageSize: 10,
+    orderBy: "id",
+  });
 }
 
 export {

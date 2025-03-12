@@ -13,6 +13,7 @@ import {
   followUserHandler,
   getUserFeedHandler,
 } from "../controllers/user.controller.js";
+import { fetchPostFeedSchema } from "../schemas/post.zod.js";
 
 const router = express.Router();
 
@@ -32,6 +33,13 @@ router.post(
 );
 
 router.get("/feed", requireUser, getUserFeedHandler);
+
+router.get(
+  "/feed/:cursor",
+  requireUser,
+  validateResource(fetchPostFeedSchema),
+  getUserFeedHandler,
+);
 
 router.get("/:userId", requireUser, getUserHandler);
 router.post("/follow/:userId", requireUser, followUserHandler);

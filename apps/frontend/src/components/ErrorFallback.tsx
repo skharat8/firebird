@@ -4,6 +4,7 @@ import {
   isRouteErrorResponse,
 } from "react-router-dom";
 import axios from "axios";
+import { useLocalStorage } from "usehooks-ts";
 
 import Button from "@/components/ui/Button";
 import { StatusCode } from "@/data/enums";
@@ -48,8 +49,14 @@ function getErrorMessage(error: unknown): string {
 }
 
 function ErrorFallback() {
-  const routeError = useRouteError();
+  const error = useRouteError();
   const navigate = useNavigate();
+  const [_, setIsAuthenticated] = useLocalStorage("isAuthenticated", false);
+
+  // Break out of forbidden status loop in case of server error
+  if (axios.isAxiosError(error) && error.status === StatusCode.FORBIDDEN) {
+    setIsAuthenticated(false);
+  }
 
   function navigateHome() {
     navigate("/");
@@ -66,7 +73,7 @@ function ErrorFallback() {
           Sorry, an unexpected error has occurred
         </p>
         <p className="text-primary-400 mb-4 text-center text-2xl font-semibold">
-          {getErrorMessage(routeError)}
+          {getErrorMessage(error)}
         </p>
         <Button onClick={navigateHome}>Go Back</Button>
       </div>

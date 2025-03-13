@@ -32,7 +32,10 @@ function AppLayout({
       <Header showAvatar={showAvatar} showBackButton={showBackButton} />
 
       <main className="mx-auto flex min-w-full grow justify-center gap-5">
-        <Navbar className="xl:w-50 top-[5rem] ml-5 hidden h-fit gap-2 rounded-xl p-3 sm:flex sm:flex-col" />
+        <Navbar
+          className="xl:w-50 top-[5rem] ml-5 hidden h-fit gap-2 rounded-xl p-3 sm:flex sm:flex-col
+            sm:gap-1"
+        />
 
         <div className="flex-center max-w-[65ch] flex-1">
           {isLoading && <GridLoader color="#b63b63" />}

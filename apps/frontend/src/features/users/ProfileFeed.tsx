@@ -22,7 +22,7 @@ function ProfileFeed({ userId }: { userId: string }) {
       {isPending && (isPaused ? <Offline /> : <GridLoader color="#b63b63" />)}
       {data && (
         <>
-          <div className="mx-auto flex max-w-[65ch] flex-col gap-2">
+          <div className="mx-auto flex max-w-[65ch] flex-col">
             <ProfileHeader user={data.pages.at(0)?.user} />
             {data.pages.map((page) =>
               page.posts.map((post) => (
@@ -30,7 +30,7 @@ function ProfileFeed({ userId }: { userId: string }) {
                   key={post.id}
                   post={post}
                   hoverShadow={true}
-                  className="rounded-none"
+                  className="mx-4 my-2"
                 />
               )),
             )}

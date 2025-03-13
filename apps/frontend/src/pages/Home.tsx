@@ -18,7 +18,7 @@ function Home() {
   });
 
   return (
-    <div className="flex flex-col items-stretch gap-5 p-5">
+    <div className="flex flex-col items-stretch gap-4 p-4">
       {isPending && (isPaused ? <Offline /> : <GridLoader color="#b63b63" />)}
       {data && (
         <>

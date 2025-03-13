@@ -10,8 +10,8 @@ type NavbarItemProps = {
 };
 
 function NavbarItem({ to, title, icon, selectedIcon }: NavbarItemProps) {
-  const inactiveStyles = tw`bg-card text-foreground hover:text-primary-foreground hover:bg-primary
-  rounded-xs flex-1 py-5 sm:justify-start sm:rounded-lg md:py-4`;
+  const inactiveStyles = tw`bg-card text-foreground hover:text-primary-foreground hover:bg-primary flex-1
+  rounded-lg py-6 sm:justify-start sm:py-4 md:px-6`;
 
   const activeStyles = cn(
     inactiveStyles,

@@ -1,7 +1,9 @@
 import { type ReactElement } from "react";
+
 import { render, screen } from "@testing-library/react";
-import { expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
+import { expect, it } from "vitest";
+
 import App from "../../App";
 
 function setup(jsx: ReactElement) {

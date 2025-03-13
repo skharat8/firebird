@@ -1,5 +1,7 @@
-import { useLocalStorage } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
+
+import { useLocalStorage } from "usehooks-ts";
+
 import { getCurrentUser } from "@/services/apiUser";
 
 function useUser() {

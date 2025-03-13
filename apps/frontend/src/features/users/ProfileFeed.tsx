@@ -1,12 +1,14 @@
 import React from "react";
 import { GridLoader } from "react-spinners";
+
 import { useIntersectionObserver } from "usehooks-ts";
 
-import PostContent from "../posts/PostContent";
 import Offline from "@/components/ui/Offline";
-import ProfileHeader from "./ProfileHeader";
-import useProfileFeed from "../posts/useProfileFeed";
 import SpinnerMini from "@/components/ui/SpinnerMini";
+
+import PostContent from "../posts/PostContent";
+import useProfileFeed from "../posts/useProfileFeed";
+import ProfileHeader from "./ProfileHeader";
 
 function ProfileFeed({ userId }: { userId: string }) {
   const { data, isPending, isPaused, fetchNextPage } = useProfileFeed(userId);

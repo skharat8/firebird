@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
-import { useMediaQuery } from "usehooks-ts";
+
 import { Heart, MessageCircle, Repeat } from "lucide-react";
+import { useMediaQuery } from "usehooks-ts";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
-import type { Post, PostWithComments } from "@/schemas/post.zod";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/Card";
-import { getTimeElapsed } from "@/utils/date.utils";
 import useRetweet from "@/features/posts/useRetweet";
+import type { Post, PostWithComments } from "@/schemas/post.zod";
+import { getTimeElapsed } from "@/utils/date.utils";
 
 import styles from "./Post.module.css";
 import useLike from "./useLike";

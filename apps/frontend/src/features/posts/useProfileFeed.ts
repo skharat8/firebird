@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getUser } from "@/services/apiUser";
+
 import { postKeys } from "@/data/queryKeys";
+import { getUser } from "@/services/apiUser";
 
 function useProfileFeed(userId: string) {
   const { data, isPending, isPaused, fetchNextPage, isFetchingNextPage } =

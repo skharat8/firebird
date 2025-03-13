@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 
-import type { AuthType } from "@/data/types";
 import { Card, CardTitle } from "@/components/ui/Card";
+import type { AuthType } from "@/data/types";
+
 import AuthForm from "./AuthForm";
 import AuthLink from "./AuthLink";
 

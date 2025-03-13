@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { GridLoader } from "react-spinners";
 
-import PostContent from "./PostContent";
-import usePost from "@/features/posts/usePost";
 import Offline from "@/components/ui/Offline";
+import usePost from "@/features/posts/usePost";
+
 import EmptyComments from "./EmptyComments";
+import PostContent from "./PostContent";
 
 function PostWithComments() {
   const { postId } = useParams() as { postId: string };

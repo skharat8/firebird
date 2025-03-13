@@ -1,5 +1,6 @@
-import type { User } from "@/schemas/auth.zod";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+
+import type { User } from "@/schemas/auth.zod";
 
 function ProfileHeader({ user }: { user?: User }) {
   if (!user) {

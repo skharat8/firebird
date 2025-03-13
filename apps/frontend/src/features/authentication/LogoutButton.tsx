@@ -2,6 +2,7 @@ import { LogOut } from "lucide-react";
 
 import Button from "@/components/ui/Button";
 import SpinnerMini from "@/components/ui/SpinnerMini";
+
 import useLogout from "./useLogout";
 
 function LogoutButton() {

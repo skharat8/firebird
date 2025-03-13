@@ -1,4 +1,4 @@
-import { User, Home, Search } from "lucide-react";
+import { Home, Search, User } from "lucide-react";
 
 import NavbarItem from "@/components/ui/NavbarItem";
 import { cn } from "@/lib/utils";

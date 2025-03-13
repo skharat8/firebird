@@ -1,12 +1,13 @@
 import type { PropsWithChildren } from "react";
-
-import LogoutButton from "@/features/authentication/LogoutButton";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/Avatar";
-import Logo from "@/components/ui/Logo";
-import useUser from "@/hooks/useUser";
-import ThemeToggle from "@/components/ThemeToggle";
 import { Link, useNavigate } from "react-router-dom";
+
 import { ArrowLeft } from "lucide-react";
+
+import ThemeToggle from "@/components/ThemeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
+import Logo from "@/components/ui/Logo";
+import LogoutButton from "@/features/authentication/LogoutButton";
+import useUser from "@/hooks/useUser";
 
 function Title({ children }: PropsWithChildren) {
   return (

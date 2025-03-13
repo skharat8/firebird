@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { createUser } from "@/services/apiAuth";
 import type { UserSignup } from "@/schemas/auth.zod";
+import { createUser } from "@/services/apiAuth";
 
 function useSignup() {
   const { mutate: signup, isPending: isSignupPending } = useMutation({

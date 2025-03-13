@@ -17,9 +17,20 @@ const config = {
           "prettier-plugin-tailwindcss",
           "prettier-plugin-classnames",
           "prettier-plugin-merge",
+          "@trivago/prettier-plugin-sort-imports",
         ],
         tailwindFunctions: ["clsx", "tw", "cn", "cva"], // For prettier-plugin-tailwindcss
         customFunctions: ["clsx", "tw", "cn", "cva"], // For prettier-plugin-classnames
+
+        // Import Sorting
+        importOrder: [
+          "^react(.*)|@tanstack(.*)",
+          "<THIRD_PARTY_MODULES>",
+          "@/(.*)",
+          "^[./]",
+        ],
+        importOrderSeparation: true,
+        importOrderSortSpecifiers: true,
       },
     },
   ],

@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Placeholder from "@tiptap/extension-placeholder";
-import useUser from "@/hooks/useUser";
+
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import Placeholder from "@tiptap/extension-placeholder";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
 import { Avatar } from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
+import useUser from "@/hooks/useUser";
 import { createPost } from "@/services/apiPost";
 
 const extensions = [

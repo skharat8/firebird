@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import { Check, Moon, Sun } from "lucide-react";
 
+import { useTheme } from "@/components/ThemeProvider";
 import Button from "@/components/ui/Button";
 import {
   DropdownMenu,
@@ -8,7 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
-import { useTheme } from "@/components/ThemeProvider";
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();

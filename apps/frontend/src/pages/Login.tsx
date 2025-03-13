@@ -1,9 +1,9 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import Auth from "@/features/authentication/Auth";
-import React from "react";
-import useUser from "@/hooks/useUser";
 import HeroTitle from "@/components/ui/HeroTitle";
+import Auth from "@/features/authentication/Auth";
+import useUser from "@/hooks/useUser";
 
 function Login() {
   const navigate = useNavigate();

@@ -1,10 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-import { createUserSession } from "@/services/apiAuth";
-import type { UserLogin } from "@/schemas/auth.zod";
 import { useLocalStorage } from "usehooks-ts";
+
+import type { UserLogin } from "@/schemas/auth.zod";
+import { createUserSession } from "@/services/apiAuth";
 
 function useLogin() {
   const queryClient = useQueryClient();

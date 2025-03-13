@@ -1,6 +1,6 @@
+import createAxiosInstance from "@/lib/axiosInstance";
 import { userSchema } from "@/schemas/auth.zod";
 import type { User, UserLogin, UserSignup } from "@/schemas/auth.zod";
-import createAxiosInstance from "@/lib/axiosInstance";
 
 const api = createAxiosInstance();
 

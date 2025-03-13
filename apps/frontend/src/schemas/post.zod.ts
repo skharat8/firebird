@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { userSchema } from "./auth.zod";
 
 const postSchema = z.object({

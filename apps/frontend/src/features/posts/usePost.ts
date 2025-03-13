@@ -1,6 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
+
 import { postKeys } from "@/data/queryKeys";
 import { getPost } from "@/services/apiPost";
-import { useQuery } from "@tanstack/react-query";
 
 function usePost(postId: string) {
   const {

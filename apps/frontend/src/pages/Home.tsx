@@ -1,12 +1,13 @@
 import React from "react";
 import { GridLoader } from "react-spinners";
 
+import { useIntersectionObserver } from "usehooks-ts";
+
+import Offline from "@/components/ui/Offline";
+import SpinnerMini from "@/components/ui/SpinnerMini";
 import PostContent from "@/features/posts/PostContent";
 import PostEditor from "@/features/posts/PostEditor";
-import Offline from "@/components/ui/Offline";
 import useHomeFeed from "@/features/posts/useHomeFeed";
-import { useIntersectionObserver } from "usehooks-ts";
-import SpinnerMini from "@/components/ui/SpinnerMini";
 
 function Home() {
   const { data, isPending, isPaused, fetchNextPage, isFetchingNextPage } =

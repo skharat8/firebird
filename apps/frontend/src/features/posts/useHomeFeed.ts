@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getHomeFeed } from "@/services/apiUser";
+
 import { postKeys } from "@/data/queryKeys";
+import { getHomeFeed } from "@/services/apiUser";
 
 function useHomeFeed() {
   const { data, isPending, isPaused, fetchNextPage, isFetchingNextPage } =

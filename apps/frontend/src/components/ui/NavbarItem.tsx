@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { cn, tw } from "@/lib/utils";
+
 import buttonVariants from "@/components/ui/buttonVariants";
+import { cn, tw } from "@/lib/utils";
 
 type NavbarItemProps = {
   to: string;

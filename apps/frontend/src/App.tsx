@@ -1,4 +1,3 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   QueryCache,
   QueryClient,
@@ -6,17 +5,18 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import toast from "react-hot-toast";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import ProtectedRoute from "./components/ProtectedRoute";
-import AppLayout from "./layouts/AppLayout";
 import ErrorFallback from "./components/ErrorFallback";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import Search from "./pages/Search";
-import CreatePost from "./pages/CreatePost";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { ThemeProvider } from "./components/ThemeProvider";
 import PostWithComments from "./features/posts/PostWithComments";
+import AppLayout from "./layouts/AppLayout";
+import CreatePost from "./pages/CreatePost";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Search from "./pages/Search";
 
 const router = createBrowserRouter([
   { path: "/login", element: <Login />, errorElement: <ErrorFallback /> },

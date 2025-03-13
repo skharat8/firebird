@@ -1,4 +1,5 @@
 import React from "react";
+
 import { getPlaceholderImage } from "@/services/apiUser";
 
 function PlaceholderCoverImage() {

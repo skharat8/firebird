@@ -1,5 +1,5 @@
-import { postSchema, postWithCommentsSchema } from "@/schemas/post.zod";
 import createAxiosInstance from "@/lib/axiosInstance";
+import { postSchema, postWithCommentsSchema } from "@/schemas/post.zod";
 
 const api = createAxiosInstance();
 

@@ -1,17 +1,19 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User, Mail, LockKeyhole } from "lucide-react";
+import { LockKeyhole, Mail, User } from "lucide-react";
 
 import Button from "@/components/ui/Button";
 import SpinnerMini from "@/components/ui/SpinnerMini";
+import type { AuthType } from "@/data/types";
+import { tw } from "@/lib/utils";
 import { userLoginSchema, userSignupSchema } from "@/schemas/auth.zod";
 import type { UserSignup } from "@/schemas/auth.zod";
-import type { AuthType } from "@/data/types";
+
 import styles from "./Auth.module.css";
 import useLogin from "./useLogin";
 import useSignup from "./useSignup";
-import { tw } from "@/lib/utils";
 
 type AuthFormProps = {
   authType: AuthType;

@@ -1,8 +1,9 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+
 import { postKeys } from "@/data/queryKeys";
 import type { Post, PostFeedWithPages } from "@/schemas/post.zod";
 import { retweetPost } from "@/services/apiPost";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 
 function useRetweet(postId: string, isRetweetedByUser: boolean) {
   const queryClient = useQueryClient();

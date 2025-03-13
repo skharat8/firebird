@@ -1,6 +1,7 @@
 import { tw } from "@/lib/utils";
-import iconDefault from "/icon-192x192.png";
+
 import icon1x from "/icon-128x128.png";
+import iconDefault from "/icon-192x192.png";
 import icon2x from "/icon-256x256.png";
 import icon4x from "/icon-512x512.png";
 

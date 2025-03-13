@@ -11,7 +11,8 @@ export async function getCurrentUser() {
 }
 
 export async function getUser(userId: string, cursor?: string) {
-  const res = await api.get(`api/users/${userId}/${cursor}`);
+  const url = cursor ? `api/users/${userId}/${cursor}` : `api/users/${userId}`;
+  const res = await api.get(url);
   return userAndPostFeedSchema.parse(res.data);
 }
 

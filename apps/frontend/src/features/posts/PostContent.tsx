@@ -29,16 +29,14 @@ function PostContent({
   disableLineClamp,
   className,
 }: PostContentProps) {
-  const { like, isLikePending, likeVariables } = useLike(post.id);
-  const { retweet, isRetweetPending, retweetVariables } = useRetweet(post.id);
+  const isLiked = post.likes?.length === 1;
+  const isRetweeted = post.retweets?.length === 1;
+
+  const { like } = useLike(post.id, isLiked);
+  const { retweet } = useRetweet(post.id, isRetweeted);
 
   const linkStyles = "flex w-fit text-current hover:text-current";
   const dotAfter = "after:ml-1 after:content-['•']";
-
-  const isLiked = isLikePending ? likeVariables : post.likes?.length === 1;
-  const isRetweeted = isRetweetPending
-    ? retweetVariables
-    : post.retweets?.length === 1;
 
   function submitLike() {
     like();

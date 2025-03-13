@@ -33,8 +33,8 @@ router.put(
 router.get("/:postId", requireUser, getPostHandler);
 router.delete("/:postId", requireUser, deletePostHandler);
 
-router.post("/:postId/like", requireUser, likePostHandler);
-router.post("/:postId/retweet", requireUser, retweetPostHandler);
+router.patch("/:postId/like", requireUser, likePostHandler);
+router.patch("/:postId/retweet", requireUser, retweetPostHandler);
 
 router.post(
   "/:postId/comments",

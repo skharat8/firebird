@@ -4,7 +4,7 @@ import { GridLoader } from "react-spinners";
 import PostContent from "@/features/posts/PostContent";
 import PostEditor from "@/features/posts/PostEditor";
 import Offline from "@/components/ui/Offline";
-import useHomeFeed from "@/features/users/useHomeFeed";
+import useHomeFeed from "@/features/posts/useHomeFeed";
 import { useIntersectionObserver } from "usehooks-ts";
 import SpinnerMini from "@/components/ui/SpinnerMini";
 

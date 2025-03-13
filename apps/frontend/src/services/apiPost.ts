@@ -13,10 +13,10 @@ export async function getPost(postId: string) {
 }
 
 export async function likePost(postId: string) {
-  const res = await api.post(`api/posts/${postId}/like`);
+  const res = await api.patch(`api/posts/${postId}/like`);
   return postSchema.parse(res.data);
 }
 
 export async function retweetPost(postId: string) {
-  return api.post(`api/posts/${postId}/retweet`);
+  return api.patch(`api/posts/${postId}/retweet`);
 }

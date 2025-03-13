@@ -5,7 +5,7 @@ import { useIntersectionObserver } from "usehooks-ts";
 import PostContent from "../posts/PostContent";
 import Offline from "@/components/ui/Offline";
 import ProfileHeader from "./ProfileHeader";
-import useProfileFeed from "./useProfileFeed";
+import useProfileFeed from "../posts/useProfileFeed";
 import SpinnerMini from "@/components/ui/SpinnerMini";
 
 function ProfileFeed({ userId }: { userId: string }) {

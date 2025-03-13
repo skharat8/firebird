@@ -1,3 +1,4 @@
+import { postKeys } from "@/data/queryKeys";
 import { getPost } from "@/services/apiPost";
 import { useQuery } from "@tanstack/react-query";
 
@@ -7,7 +8,7 @@ function usePost(postId: string) {
     isPending,
     isPaused,
   } = useQuery({
-    queryKey: ["post", postId],
+    queryKey: postKeys.detail(postId),
     queryFn: () => getPost(postId),
   });
 

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { GridLoader } from "react-spinners";
 
 import PostContent from "./PostContent";
-import usePost from "@/hooks/usePost";
+import usePost from "@/features/posts/usePost";
 import Offline from "@/components/ui/Offline";
 import EmptyComments from "./EmptyComments";
 

@@ -36,21 +36,22 @@ const deserializeUser: Handler = asyncHandler(
     // issue a new access token and send it back to client.
     if (expired && refreshToken) {
       const newAccessToken = await issueNewAccessToken(refreshToken);
+      const cookieOptions = getCookieOptions(process.env.REFRESH_TOKEN_TTL);
 
       if (newAccessToken) {
         // AccessToken cookie should last till refresh token expires. Otherwise,
         // client won't have an expired token to send back to the server in case
         // the user logs in much later. Internally, the access token expires
         // much quicker.
-        res.cookie(
-          "AccessToken",
-          newAccessToken,
-          getCookieOptions(process.env.REFRESH_TOKEN_TTL),
-        );
+        res.cookie("AccessToken", newAccessToken, cookieOptions);
 
         const result = verifyJwt(newAccessToken);
         await setLocals(res, result.decodedToken as JwtData);
         logger.info("Access Token Refreshed", result.decodedToken);
+      } else {
+        // Authentication failed. Clear any cookies that may still be set.
+        res.clearCookie("AccessToken", cookieOptions);
+        res.clearCookie("RefreshToken", cookieOptions);
       }
     }
 

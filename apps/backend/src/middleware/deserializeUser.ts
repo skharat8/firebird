@@ -8,6 +8,7 @@ import {
 } from "../utils/auth.utils.js";
 import { issueNewAccessToken } from "../services/session.service.js";
 import { findUser } from "../services/user.service.js";
+import logger from "../utils/logger.js";
 
 async function setLocals(res: Response, decodedToken: JwtData) {
   const { userId, sessionId } = decodedToken;
@@ -37,14 +38,19 @@ const deserializeUser: Handler = asyncHandler(
       const newAccessToken = await issueNewAccessToken(refreshToken);
 
       if (newAccessToken) {
+        // AccessToken cookie should last till refresh token expires. Otherwise,
+        // client won't have an expired token to send back to the server in case
+        // the user logs in much later. Internally, the access token expires
+        // much quicker.
         res.cookie(
           "AccessToken",
           newAccessToken,
-          getCookieOptions(process.env.ACCESS_TOKEN_TTL),
+          getCookieOptions(process.env.REFRESH_TOKEN_TTL),
         );
 
         const result = verifyJwt(newAccessToken);
         await setLocals(res, result.decodedToken as JwtData);
+        logger.info("Access Token Refreshed", result.decodedToken);
       }
     }
 

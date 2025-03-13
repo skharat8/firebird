@@ -1,6 +1,7 @@
 import type { Prisma } from "@prisma/client";
 import { signJwt, verifyJwt, type JwtData } from "../utils/auth.utils.js";
 import prisma from "../../prisma/customClient.js";
+import logger from "../utils/logger.js";
 
 async function createSession(
   userId: string,
@@ -22,12 +23,18 @@ async function issueNewAccessToken(
 ): Promise<string | false> {
   // Verify refresh token
   const result = verifyJwt(refreshToken);
-  if (!result.valid) return false;
+  if (!result.valid) {
+    logger.warn("Could not verify refresh token");
+    return false;
+  }
 
   // Check if the user session is valid
   const { userId, sessionId } = result.decodedToken as JwtData;
   const session = await prisma.session.findUnique({ where: { id: sessionId } });
-  if (!session?.valid) return false;
+  if (!session?.valid) {
+    logger.error("Could not verify user session", { session });
+    return false;
+  }
 
   return signJwt(
     { userId, sessionId },

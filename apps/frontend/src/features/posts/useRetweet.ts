@@ -15,12 +15,14 @@ function useRetweet(postId: string, isRetweetedByUser: boolean) {
       await queryClient.cancelQueries({ queryKey: postKeys.detail(postId) });
 
       // Snapshot the previous value
-      const previousLists = queryClient.getQueryData(postKeys.lists());
+      const previousLists = queryClient.getQueriesData({
+        queryKey: postKeys.lists(),
+      });
       const previousPost = queryClient.getQueryData(postKeys.detail(postId));
 
       // Optimistically update to the new value
-      queryClient.setQueryData(
-        postKeys.lists(),
+      queryClient.setQueriesData(
+        { queryKey: postKeys.lists() },
         (oldFeed: PostFeedWithPages) => {
           if (!oldFeed?.pages) return oldFeed;
 
@@ -73,7 +75,10 @@ function useRetweet(postId: string, isRetweetedByUser: boolean) {
       });
 
       // Roll back optimistic updates on error
-      queryClient.setQueryData(postKeys.lists(), context?.previousLists);
+      queryClient.setQueriesData(
+        { queryKey: postKeys.lists() },
+        context?.previousLists,
+      );
       queryClient.setQueryData(postKeys.detail(postId), context?.previousPost);
     },
     onSettled: () => {

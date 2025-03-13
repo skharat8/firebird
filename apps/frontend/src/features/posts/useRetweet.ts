@@ -31,7 +31,7 @@ function useRetweet(postId: string, isRetweetedByUser: boolean) {
                 return post.id === postId
                   ? {
                       ...post,
-                      retweets: isRetweetedByUser ? 0 : 1,
+                      retweets: isRetweetedByUser ? [] : [1],
                       _count: {
                         ...post._count,
                         retweets: isRetweetedByUser
@@ -53,7 +53,7 @@ function useRetweet(postId: string, isRetweetedByUser: boolean) {
 
         return {
           ...oldPost,
-          retweets: isRetweetedByUser ? 0 : 1,
+          retweets: isRetweetedByUser ? [] : [1],
           _count: {
             ...oldPost._count,
             retweets: isRetweetedByUser

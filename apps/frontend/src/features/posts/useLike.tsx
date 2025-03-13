@@ -31,7 +31,7 @@ function useLike(postId: string, isLikedByUser: boolean) {
                 return post.id === postId
                   ? {
                       ...post,
-                      likes: isLikedByUser ? 0 : 1,
+                      likes: isLikedByUser ? [] : [1],
                       _count: {
                         ...post._count,
                         likes: isLikedByUser
@@ -53,7 +53,7 @@ function useLike(postId: string, isLikedByUser: boolean) {
 
         return {
           ...oldPost,
-          likes: isLikedByUser ? 0 : 1,
+          likes: isLikedByUser ? [] : [1],
           _count: {
             ...oldPost._count,
             likes: isLikedByUser

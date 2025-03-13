@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
+import { useMediaQuery } from "usehooks-ts";
 import { Heart, MessageCircle, Repeat } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import type { Post, PostWithComments } from "@/schemas/post.zod";
-import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -38,6 +39,9 @@ function PostContent({
   const linkStyles = "flex w-fit text-current hover:text-current";
   const dotAfter = "after:ml-1 after:content-['•']";
 
+  const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)");
+  const iconColor = isDarkTheme ? "hsl(40 15% 90%)" : "black";
+
   function submitLike() {
     like();
   }
@@ -69,7 +73,7 @@ function PostContent({
         </p>
       </CardHeader>
 
-      <CardContent className="pb-4">
+      <CardContent className="pb-2">
         <Link
           to={`/post/${post.id}`}
           className="font-light text-current hover:text-current"
@@ -80,30 +84,57 @@ function PostContent({
         </Link>
       </CardContent>
 
-      <CardFooter className="flex items-center py-2">
-        <div className="flex gap-2">
+      <CardFooter className="rounded-lg rounded-t-none pb-2 pl-4">
+        <div className="flex items-center sm:gap-2">
           <Button
             variant="ghost"
             size="icon"
             className="rounded-full"
             onClick={submitLike}
           >
-            {isLiked ? <Heart color="red" fill="red" /> : <Heart />}
+            {isLiked ? (
+              <Heart color="red" fill="red" />
+            ) : (
+              <Heart color={iconColor} />
+            )}
           </Button>
+          <span
+            className={
+              "{dotAfter} mr-3 text-sm sm:hidden dark:text-neutral-200"
+            }
+          >
+            {post._count.likes}
+          </span>
+
           <Button
             variant="ghost"
             size="icon"
             className="rounded-full"
             onClick={submitRetweet}
           >
-            {isRetweeted ? <Repeat color="green" fill="green" /> : <Repeat />}
+            {isRetweeted ? (
+              <Repeat color="green" fill="green" />
+            ) : (
+              <Repeat color={iconColor} />
+            )}
           </Button>
+          <span
+            className={
+              "{dotAfter} mr-3 text-sm sm:hidden dark:text-neutral-200"
+            }
+          >
+            {post._count.retweets}
+          </span>
+
           <Button variant="ghost" size="icon" className="rounded-full">
-            <MessageCircle />
+            <MessageCircle color={iconColor} />
           </Button>
+          <span className="text-sm sm:hidden dark:text-neutral-200">
+            {post._count.comments}
+          </span>
         </div>
 
-        <div className="ml-auto flex gap-1 text-sm">
+        <div className="ml-auto hidden gap-1 text-sm sm:flex">
           <span className={dotAfter}>{post._count.likes} Likes</span>
           <span className={dotAfter}>{post._count.retweets} Shares</span>
           <span>{post._count.comments} Comments</span>

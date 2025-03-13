@@ -49,7 +49,7 @@ function AppLayout({
 
           <Button
             size="rounded"
-            className="shadow-secondary fixed bottom-14 right-7 shadow-[0px_1px_2px_1px] md:hidden"
+            className="shadow-secondary fixed bottom-16 right-7 shadow-[0px_1px_2px_1px] md:hidden"
             onClick={createNewPost}
           >
             <Feather />

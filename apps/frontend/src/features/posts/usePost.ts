@@ -1,13 +1,18 @@
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 
 import { postKeys } from "@/data/queryKeys";
-import type { Post } from "@/schemas/post.zod";
+import type { Post, PostWithComments } from "@/schemas/post.zod";
 import { getPost } from "@/services/apiPost";
 
 function usePost(postId: string, forceRefetch?: boolean) {
   const queryClient = useQueryClient();
 
-  if (forceRefetch) {
+  const oldPost = queryClient.getQueryData<PostWithComments>(
+    postKeys.detail(postId),
+  );
+
+  // Only refetch if comments data doesn't exist
+  if (forceRefetch && !oldPost?.comments) {
     queryClient.invalidateQueries({ queryKey: postKeys.detail(postId) });
   }
 

@@ -68,6 +68,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
   }
 
   const textInputStyles = tw`bg-neutral-100 dark:bg-neutral-400 dark:placeholder:text-neutral-800/70`;
+  const errorStyles = "text-left text-sm font-bold text-primary-400/80 my-1";
 
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
@@ -81,7 +82,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
             className={textInputStyles}
             disabled={isLoginPending || isSignupPending}
           />
-          <p className={styles.errorMessage}>{errors.username?.message}</p>
+          <p className={errorStyles}>{errors.username?.message}</p>
         </div>
       )}
 
@@ -95,7 +96,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
           className={textInputStyles}
           disabled={isLoginPending || isSignupPending}
         />
-        <p className={styles.errorMessage}>{errors.email?.message}</p>
+        <p className={errorStyles}>{errors.email?.message}</p>
       </div>
 
       <div className={styles.formInput}>
@@ -118,7 +119,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
           {showPassword ? "Hide" : "Show"}
         </Button>
 
-        <p className={styles.errorMessage}>{errors.password?.message}</p>
+        <p className={errorStyles}>{errors.password?.message}</p>
       </div>
 
       {authType === "login" && (

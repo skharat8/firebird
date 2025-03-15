@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams } from "react-router-dom";
 import { GridLoader } from "react-spinners";
 
@@ -19,6 +20,10 @@ function PostWithComments() {
       <SpinnerMini />
     </div>
   );
+
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  });
 
   return (
     <>

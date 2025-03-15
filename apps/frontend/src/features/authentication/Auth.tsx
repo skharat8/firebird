@@ -18,7 +18,7 @@ function Auth() {
 
   return (
     <Card
-      className="px-container-lr py-container-tb bg-card text-center shadow-xl
+      className="px-container-lr py-container-tb bg-neutral text-center shadow-xl
         dark:bg-neutral-700 dark:shadow-md"
     >
       <Toaster />

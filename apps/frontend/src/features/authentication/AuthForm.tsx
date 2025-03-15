@@ -67,7 +67,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   }
 
-  const textInputStyles = tw`bg-card-200 dark:bg-neutral-400 dark:placeholder:text-neutral-800/70`;
+  const textInputStyles = tw`bg-neutral-100 dark:bg-neutral-400 dark:placeholder:text-neutral-800/70`;
 
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>

@@ -31,7 +31,7 @@
     font-family: "Recursive Variable", var(--system-font-sans-serif);
     color: var(--color-primary);
     color-scheme: light dark;
-    background-color: --alpha(var(--color-card-500) / 60%);
+    background-color: var(--color-neutral-100);
 
     --system-font-sans-serif:
       -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
@@ -95,7 +95,7 @@
   .header-text {
     font-family: var(--font-header);
     font-weight: bold;
-    color: var(--color-primary-500);
+    color: var(--color-primary-50);
     text-align: center;
   }
 

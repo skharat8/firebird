@@ -27,7 +27,7 @@ function AppLayout({
   }
 
   return (
-    <div className="flex-center-col min-h-full">
+    <div className="flex-center-col min-h-full bg-card-50 dark:bg-neutral-900">
       <Header showAvatar={showAvatar} showBackButton={showBackButton} />
 
       <main className="mx-auto flex min-w-full grow justify-center gap-5">

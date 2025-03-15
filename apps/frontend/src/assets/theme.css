@@ -92,7 +92,7 @@
   --color-card-700: hsl(240 1% 36%);
   --color-card-800: hsl(0 0% 18%);
   --color-card-foreground: hsl(240 10% 3.9%);
-  --color-card: var(--color-neutral-200);
+  --color-card: var(--color-card-400);
 
   --color-popover: hsl(0 0% 100%);
   --color-popover-foreground: hsl(240 10% 3.9%);

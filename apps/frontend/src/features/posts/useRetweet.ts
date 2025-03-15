@@ -1,12 +1,8 @@
-import {
-  type InfiniteData,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { postKeys } from "@/data/queryKeys";
-import type { Post, PostFeed } from "@/schemas/post.zod";
+import type { Post } from "@/schemas/post.zod";
 import { retweetPost } from "@/services/apiPost";
 
 function useRetweet(postId: string) {
@@ -16,45 +12,12 @@ function useRetweet(postId: string) {
     mutationFn: () => retweetPost(postId),
     onMutate: async (isRetweetedByUser: boolean) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-      await queryClient.cancelQueries({ queryKey: postKeys.lists() });
       await queryClient.cancelQueries({ queryKey: postKeys.detail(postId) });
 
       // Snapshot the previous value
-      const previousLists = queryClient.getQueriesData({
-        queryKey: postKeys.lists(),
-      });
       const previousPost = queryClient.getQueryData(postKeys.detail(postId));
 
       // Optimistically update to the new value
-      queryClient.setQueriesData(
-        { queryKey: postKeys.lists() },
-        (oldFeed: InfiniteData<PostFeed>) => {
-          if (!oldFeed?.pages) return oldFeed;
-
-          const newPages = oldFeed.pages.map((page) => {
-            return {
-              ...page,
-              posts: page.posts.map((post) => {
-                return post.id === postId
-                  ? {
-                      ...post,
-                      retweets: isRetweetedByUser ? [] : [1],
-                      _count: {
-                        ...post._count,
-                        retweets: isRetweetedByUser
-                          ? post._count.retweets - 1
-                          : post._count.retweets + 1,
-                      },
-                    }
-                  : post;
-              }),
-            };
-          });
-
-          return { ...oldFeed, pages: newPages };
-        },
-      );
-
       queryClient.setQueryData(postKeys.detail(postId), (oldPost: Post) => {
         if (!oldPost) return oldPost;
 
@@ -71,7 +34,7 @@ function useRetweet(postId: string) {
       });
 
       // Return a context object with the snapshotted value
-      return { previousLists, previousPost };
+      return { previousPost };
     },
     onError: (err, _, context) => {
       console.error(err);
@@ -80,16 +43,11 @@ function useRetweet(postId: string) {
       });
 
       // Roll back optimistic updates on error
-      queryClient.setQueriesData(
-        { queryKey: postKeys.lists() },
-        context?.previousLists,
-      );
       queryClient.setQueryData(postKeys.detail(postId), context?.previousPost);
     },
     onSettled: () => {
       // Invalidate the cache to cause displayed components to refetch
       // in order to verify our optimistic updates
-      queryClient.invalidateQueries({ queryKey: postKeys.lists() });
       queryClient.invalidateQueries({ queryKey: postKeys.detail(postId) });
     },
   });

@@ -30,7 +30,7 @@ function ProfileFeed({ userId }: { userId: string }) {
               page.posts.map((post) => (
                 <PostContent
                   key={post.id}
-                  post={post}
+                  postId={post.id}
                   hoverShadow={true}
                   className="mx-4 my-2"
                 />

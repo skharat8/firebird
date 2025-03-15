@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Heart, MessageCircle, Repeat } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 
+import { useTheme } from "@/components/ThemeProvider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
 import {
@@ -12,43 +13,46 @@ import {
   CardHeader,
 } from "@/components/ui/Card";
 import useRetweet from "@/features/posts/useRetweet";
-import type { Post, PostWithComments } from "@/schemas/post.zod";
 import { getTimeElapsed } from "@/utils/date.utils";
 
 import styles from "./Post.module.css";
 import useLike from "./useLike";
+import usePost from "./usePost";
 
 type PostContentProps = {
-  post: Post | PostWithComments;
+  postId: string;
   hoverShadow?: boolean;
   disableLineClamp?: boolean;
   className?: string;
 };
 
 function PostContent({
-  post,
+  postId,
   hoverShadow,
   disableLineClamp,
   className,
 }: PostContentProps) {
+  const { post } = usePost(postId);
+  const { like } = useLike(postId);
+  const { retweet } = useRetweet(postId);
+
+  const themeContext = useTheme(); // check app theme
+  const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)"); // check system theme
+  const iconColor =
+    isDarkTheme || themeContext.theme === "dark" ? "hsl(40 15% 90%)" : "black";
+
   const isLiked = post.likes?.length === 1;
   const isRetweeted = post.retweets?.length === 1;
-
-  const { like } = useLike(post.id, isLiked);
-  const { retweet } = useRetweet(post.id, isRetweeted);
 
   const linkStyles = "flex w-fit text-current hover:text-current";
   const dotAfter = "after:ml-1 after:content-['•']";
 
-  const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)");
-  const iconColor = isDarkTheme ? "hsl(40 15% 90%)" : "black";
-
   function submitLike() {
-    like();
+    like(isLiked);
   }
 
   function submitRetweet() {
-    retweet();
+    retweet(isRetweeted);
   }
 
   return (

@@ -1,4 +1,5 @@
-import { Outlet, useNavigate, useNavigation } from "react-router-dom";
+import { Suspense } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { GridLoader } from "react-spinners";
 
 import { Feather } from "lucide-react";
@@ -19,10 +20,6 @@ function AppLayout({
   showBackButton,
   showFooterNavbar,
 }: AppLayoutProps) {
-  // React Router Loader state is app wide, not per component. So, handle it here.
-  const navigation = useNavigation();
-  const isLoading = navigation.state === "loading";
-
   const navigate = useNavigate();
 
   function createNewPost() {
@@ -40,8 +37,9 @@ function AppLayout({
         />
 
         <div className="flex-center max-w-[65ch] flex-1">
-          {isLoading && <GridLoader color="#b63b63" />}
-          <Outlet />
+          <Suspense fallback={<GridLoader color="#b63b63" />}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
 

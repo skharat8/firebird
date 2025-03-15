@@ -45,16 +45,11 @@ const userAndPostFeedSchema = z.object({
   nextCursor: z.string().nullable(),
 });
 
-const _postFeedWithPagesSchema = z.object({
-  pages: z.array(postFeedSchema),
-  pageParams: z.number(),
-});
-
 type Post = z.infer<typeof postSchema>;
-type PostFeedWithPages = z.infer<typeof _postFeedWithPagesSchema>;
+type PostFeed = z.infer<typeof postFeedSchema>;
 type PostWithComments = z.infer<typeof postWithCommentsSchema>;
 
-export type { Post, PostFeedWithPages, PostWithComments };
+export type { Post, PostFeed, PostWithComments };
 export {
   postSchema,
   postWithCommentsSchema,

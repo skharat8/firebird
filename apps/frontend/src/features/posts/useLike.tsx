@@ -1,16 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  type InfiniteData,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { postKeys } from "@/data/queryKeys";
-import type { Post, PostFeedWithPages } from "@/schemas/post.zod";
+import type { Post, PostFeed } from "@/schemas/post.zod";
 import { likePost } from "@/services/apiPost";
 
-function useLike(postId: string, isLikedByUser: boolean) {
+function useLike(postId: string) {
   const queryClient = useQueryClient();
 
   const { mutate: like } = useMutation({
     mutationFn: () => likePost(postId),
-    onMutate: async () => {
+    onMutate: async (isLikedByUser: boolean) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({ queryKey: postKeys.lists() });
       await queryClient.cancelQueries({ queryKey: postKeys.detail(postId) });
@@ -24,7 +28,7 @@ function useLike(postId: string, isLikedByUser: boolean) {
       // Optimistically update to the new value
       queryClient.setQueriesData(
         { queryKey: postKeys.lists() },
-        (oldFeed: PostFeedWithPages) => {
+        (oldFeed: InfiniteData<PostFeed>) => {
           if (!oldFeed?.pages) return oldFeed;
 
           const newPages = oldFeed.pages.map((page) => {

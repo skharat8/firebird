@@ -1,16 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  type InfiniteData,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { postKeys } from "@/data/queryKeys";
-import type { Post, PostFeedWithPages } from "@/schemas/post.zod";
+import type { Post, PostFeed } from "@/schemas/post.zod";
 import { retweetPost } from "@/services/apiPost";
 
-function useRetweet(postId: string, isRetweetedByUser: boolean) {
+function useRetweet(postId: string) {
   const queryClient = useQueryClient();
 
   const { mutate: retweet } = useMutation({
     mutationFn: () => retweetPost(postId),
-    onMutate: async () => {
+    onMutate: async (isRetweetedByUser: boolean) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({ queryKey: postKeys.lists() });
       await queryClient.cancelQueries({ queryKey: postKeys.detail(postId) });
@@ -24,7 +28,7 @@ function useRetweet(postId: string, isRetweetedByUser: boolean) {
       // Optimistically update to the new value
       queryClient.setQueriesData(
         { queryKey: postKeys.lists() },
-        (oldFeed: PostFeedWithPages) => {
+        (oldFeed: InfiniteData<PostFeed>) => {
           if (!oldFeed?.pages) return oldFeed;
 
           const newPages = oldFeed.pages.map((page) => {

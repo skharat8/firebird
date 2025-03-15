@@ -31,6 +31,8 @@ async function getPost(postId: string, currentUserId: string) {
   const commentInfo = {
     ...postInfo,
     author: { select: authorInfo },
+    likes: { where: { id: currentUserId } },
+    retweets: { where: { userId: currentUserId } },
     _count: { select: counters },
   };
 

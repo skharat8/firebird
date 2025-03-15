@@ -26,7 +26,7 @@ function Home() {
           <PostEditor showAvatar={false} className="hidden md:flex" />
           {data.pages.map((page) =>
             page.posts.map((post) => (
-              <PostContent key={post.id} post={post} hoverShadow={true} />
+              <PostContent key={post.id} postId={post.id} hoverShadow={true} />
             )),
           )}
 

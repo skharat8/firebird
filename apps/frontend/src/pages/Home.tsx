@@ -20,7 +20,8 @@ function Home() {
 
   return (
     <div className="flex flex-col items-stretch gap-4 p-4">
-      {isPending && (isPaused ? <Offline /> : <GridLoader color="#b63b63" />)}
+      {isPending &&
+        (isPaused ? <Offline /> : <GridLoader color="var(--color-primary)" />)}
       {data && (
         <>
           <PostEditor showAvatar={false} className="hidden md:flex" />

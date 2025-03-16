@@ -21,7 +21,8 @@ function ProfileFeed({ userId }: { userId: string }) {
   // TODO: getting posts and user data needs to be separated out on the backend
   return (
     <div className="flex flex-col items-center gap-5">
-      {isPending && (isPaused ? <Offline /> : <GridLoader color="#b63b63" />)}
+      {isPending &&
+        (isPaused ? <Offline /> : <GridLoader color="var(--color-primary)" />)}
       {data && (
         <>
           <div className="mx-auto flex max-w-[65ch] flex-col">

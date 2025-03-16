@@ -37,7 +37,7 @@ function AppLayout({
         />
 
         <div className="flex-center max-w-[65ch] flex-1">
-          <Suspense fallback={<GridLoader color="#b63b63" />}>
+          <Suspense fallback={<GridLoader color="var(--color-primary)" />}>
             <Outlet />
           </Suspense>
         </div>

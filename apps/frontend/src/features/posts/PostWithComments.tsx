@@ -27,7 +27,8 @@ function PostWithComments() {
 
   return (
     <>
-      {isPending && (isPaused ? <Offline /> : <GridLoader color="#b63b63" />)}
+      {isPending &&
+        (isPaused ? <Offline /> : <GridLoader color="var(--color-primary)" />)}
 
       {post && (
         <div className="mx-auto max-w-[65ch] self-start p-5">

@@ -19,7 +19,7 @@ function ProtectedRoute({ children }: PropsWithChildren) {
     <>
       {isPending && (
         <div className="full-page">
-          <GridLoader color="#b63b63" />
+          <GridLoader color="var(--color-primary)" />
         </div>
       )}
       {isAuthenticated && children}

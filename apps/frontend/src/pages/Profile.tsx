@@ -10,7 +10,7 @@ function Profile() {
 
   return (
     <>
-      {isPending && <GridLoader color="#b63b63" />}
+      {isPending && <GridLoader color="var(--color-primary)" />}
       {user && <ProfileFeed userId={profileId ?? user?.id} />}
     </>
   );

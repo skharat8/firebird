@@ -125,10 +125,11 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
       {authType === "login" && (
         <Button
           variant="demo"
+          className="italic"
           onClick={handleGuestLogin}
           disabled={isLoginPending || isSignupPending}
         >
-          Demo the app with a guest login?
+          Click here for a demo
         </Button>
       )}
 

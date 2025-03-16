@@ -8,7 +8,7 @@ function ProfileHeader({ user }: { user?: User }) {
   }
 
   return (
-    <>
+    <div className="mb-2">
       <div className="bg-card">
         <img
           src={user.coverImage}
@@ -30,7 +30,7 @@ function ProfileHeader({ user }: { user?: User }) {
           @{user.username}
         </span>{" "}
       </div>
-    </>
+    </div>
   );
 }
 

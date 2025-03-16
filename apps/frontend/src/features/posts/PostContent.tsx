@@ -38,8 +38,16 @@ function PostContent({
 
   const themeContext = useTheme(); // check app theme
   const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)"); // check system theme
-  const iconColor =
-    isDarkTheme || themeContext.theme === "dark" ? "hsl(40 15% 90%)" : "black";
+
+  let iconColor;
+  if (themeContext.theme === "dark") {
+    iconColor = "hsl(40 15% 90%)";
+  } else if (themeContext.theme === "light") {
+    iconColor = "black";
+  } else {
+    // If app theme is set to system, check the system theme
+    iconColor = isDarkTheme ? "hsl(40 15% 90%)" : "black";
+  }
 
   const isLiked = post.likes?.length === 1;
   const isRetweeted = post.retweets?.length === 1;

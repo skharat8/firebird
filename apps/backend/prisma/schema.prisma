@@ -10,8 +10,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -59,14 +59,14 @@ model Follow {
 // Comments uses implicit one-to-many relation table
 model Post {
   id           String   @id @default(cuid())
-  author       User     @relation("author", fields: [authorId], references: [id])
+  author       User     @relation("author", fields: [authorId], references: [id], onDelete: Cascade)
   authorId     String
   content      String
   image        String?
   likes        User[]   @relation("likes")
   retweets     Repost[]
   comments     Post[]   @relation("comments")
-  parentPost   Post?    @relation("comments", fields: [parentPostId], references: [id])
+  parentPost   Post?    @relation("comments", fields: [parentPostId], references: [id], onDelete: Cascade)
   parentPostId String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -74,9 +74,9 @@ model Post {
 
 model Repost {
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    String
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -85,8 +85,8 @@ model Repost {
 
 model Notification {
   id        String           @id @default(cuid())
-  from      User             @relation("from", fields: [fromId], references: [id])
-  to        User             @relation("to", fields: [toId], references: [id])
+  from      User             @relation("from", fields: [fromId], references: [id], onDelete: Cascade)
+  to        User             @relation("to", fields: [toId], references: [id], onDelete: Cascade)
   fromId    String
   toId      String
   read      Boolean          @default(false)

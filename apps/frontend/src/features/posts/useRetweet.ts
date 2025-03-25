@@ -49,6 +49,7 @@ function useRetweet(postId: string) {
       // Invalidate the cache to cause displayed components to refetch
       // in order to verify our optimistic updates
       queryClient.invalidateQueries({ queryKey: postKeys.detail(postId) });
+      queryClient.invalidateQueries({ queryKey: postKeys.lists() });
     },
   });
 

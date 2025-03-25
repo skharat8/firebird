@@ -28,8 +28,11 @@ async function populateDatabase() {
           bio: faker.person.bio(),
           posts: {
             createMany: {
-              data: Array.from({ length: 1 }).map(() => ({
+              data: Array.from({
+                length: faker.number.int({ min: 5, max: 10 }),
+              }).map(() => ({
                 content: faker.lorem.paragraph(),
+                createdAt: faker.date.past(),
               })),
             },
           },
@@ -58,9 +61,12 @@ async function populateDatabase() {
           retweets: { createMany: { data: retweetUserIds } },
           comments: {
             createMany: {
-              data: Array.from({ length: 20 }).map(() => ({
+              data: Array.from({
+                length: faker.number.int({ min: 5, max: 20 }),
+              }).map(() => ({
                 authorId: faker.helpers.arrayElement(users).id,
                 content: faker.lorem.paragraph(),
+                createdAt: faker.date.past(),
               })),
             },
           },

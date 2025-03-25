@@ -67,7 +67,7 @@ export default tseslint.config(
       "@typescript-eslint/no-floating-promises": "off",
 
       // Allow passing functions as props (without having to memoize)
-      "react/jsx-no-bind": ["error", { allowFunctions: true }],
+      "react/jsx-no-bind": "off",
       // Allow prop spreading
       "react/jsx-props-no-spreading": "off",
       // defaultProps are not required when using TypeScript

@@ -107,19 +107,17 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
 
 async function getUserFeed(userId: string, cursor?: string) {
   // Get a list of users being followed by the current user
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const currentUser = await prisma.user.findUniqueOrThrow({
     where: { id: userId },
-    select: { following: { select: { followingId: true } } },
+    select: { following: true },
   });
 
   // Create a feed from following users
-  // TODO: include the current user's posts
   const filterQuery = {
     author: {
       is: {
         id: {
-          not: userId,
+          in: [userId, ...currentUser.following.map((item) => item.followerId)],
         },
       },
     },

@@ -1,8 +1,6 @@
-import createHttpError from "http-errors";
 import { NotificationType } from "@prisma/client";
 
 import prisma from "../../prisma/customClient.js";
-import { PostAction, StatusCode } from "../data/enums.js";
 import { createNotification } from "./notification.service.js";
 
 async function createPost(userId: string, content: string, image?: string) {
@@ -60,25 +58,7 @@ async function deletePost(postId: string) {
   return prisma.post.delete({ where: { id: postId } });
 }
 
-async function throwIfOwnPost(
-  postId: string,
-  userId: string,
-  action: PostAction,
-) {
-  const ownPost = await prisma.post.findUnique({
-    where: { id: postId, authorId: userId },
-  });
-
-  if (ownPost) {
-    const actionText = action === PostAction.LIKE ? "like" : "retweet";
-    const msg = `User can't ${actionText} their own post`;
-    throw createHttpError(StatusCode.BAD_REQUEST, msg);
-  }
-}
-
 async function likePost(postId: string, userId: string) {
-  await throwIfOwnPost(postId, userId, PostAction.LIKE);
-
   const post = await prisma.post.findUnique({
     where: { id: postId, likes: { some: { id: userId } } },
   });
@@ -112,8 +92,6 @@ async function likePost(postId: string, userId: string) {
 }
 
 async function retweetPost(postId: string, userId: string) {
-  await throwIfOwnPost(postId, userId, PostAction.RETWEET);
-
   const repost = await prisma.repost.findUnique({
     where: { userId_postId: { userId, postId } },
   });

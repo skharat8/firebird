@@ -20,3 +20,7 @@ export async function likePost(postId: string) {
 export async function retweetPost(postId: string) {
   return api.patch(`api/posts/${postId}/retweet`);
 }
+
+export async function deletePost(postId: string) {
+  await api.delete(`api/posts/${postId}`);
+}

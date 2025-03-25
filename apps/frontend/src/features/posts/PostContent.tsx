@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Heart, MessageCircle, Repeat } from "lucide-react";
+import { Heart, MessageCircle, Repeat, Trash2 } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { useTheme } from "@/components/ThemeProvider";
@@ -13,9 +13,11 @@ import {
   CardHeader,
 } from "@/components/ui/Card";
 import useRetweet from "@/features/posts/useRetweet";
+import useUser from "@/hooks/useUser";
 import { getTimeElapsed } from "@/utils/date.utils";
 
 import styles from "./Post.module.css";
+import useDeletePost from "./useDeletePost";
 import useLike from "./useLike";
 import usePost from "./usePost";
 
@@ -32,9 +34,11 @@ function PostContent({
   disableLineClamp,
   className,
 }: PostContentProps) {
+  const { user } = useUser();
   const { post } = usePost(postId);
   const { like } = useLike(postId);
   const { retweet } = useRetweet(postId);
+  const { removePost } = useDeletePost(postId);
 
   const themeContext = useTheme(); // check app theme
   const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)"); // check system theme
@@ -48,6 +52,8 @@ function PostContent({
     // If app theme is set to system, check the system theme
     iconColor = isDarkTheme ? "hsl(40 15% 90%)" : "black";
   }
+
+  const trashIconColor = "hsl(41 18% 48%)";
 
   const isLiked = post.likes?.length === 1;
   const isRetweeted = post.retweets?.length === 1;
@@ -84,6 +90,17 @@ function PostContent({
         <p className="ml-auto text-sm text-neutral-500 dark:text-neutral-400">
           {getTimeElapsed(post.createdAt)}
         </p>
+
+        {post.author.id === user?.id && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="-ml-3 -mr-4 -mt-2 rounded-full"
+            onClick={() => removePost()}
+          >
+            <Trash2 color={trashIconColor} />
+          </Button>
+        )}
       </CardHeader>
 
       <CardContent className="pb-2">

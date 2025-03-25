@@ -5,7 +5,7 @@ function CreatePost() {
   const { createNewPost, isPending } = useCreatePost();
 
   function submitPost(content: string) {
-    createNewPost(content, { onSuccess: () => console.log("success") });
+    createNewPost(content);
   }
 
   return (

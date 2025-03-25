@@ -59,8 +59,10 @@ function PostEditor({
             <AvatarFallback>{user?.username}</AvatarFallback>
           </Avatar>
           <h2>
-            <p className="text-primary-300 font-semibold">{user?.fullName}</p>
-            <span className="text-sm text-neutral-500/90">
+            <p className="font-semibold text-neutral-900 dark:text-neutral-50">
+              {user?.fullName}
+            </p>
+            <span className="text-sm text-neutral-500 dark:text-neutral-300/90">
               @{user?.username}
             </span>
           </h2>
@@ -69,7 +71,7 @@ function PostEditor({
 
       <EditorContent
         editor={editor}
-        className="relative mb-4 h-[80%] flex-1 rounded-md bg-neutral-100 p-3 text-neutral-900
+        className="bg-card-400/90 relative mb-4 h-[80%] flex-1 rounded-md p-3 text-neutral-900
           dark:bg-neutral-400"
       >
         <span className="absolute bottom-4 right-4 text-sm text-neutral-600/90">

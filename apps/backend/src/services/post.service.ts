@@ -23,6 +23,7 @@ async function getPost(postId: string, currentUserId: string) {
     id: true,
     content: true,
     image: true,
+    parentPostId: true,
     createdAt: true,
     updatedAt: true,
   };

@@ -4,12 +4,13 @@ import toast from "react-hot-toast";
 import { postKeys } from "@/data/queryKeys";
 import { deletePost } from "@/services/apiPost";
 
-function useDeletePost(postId: string) {
+function useDeletePost() {
   const queryClient = useQueryClient();
   const { mutate: removePost, isPending } = useMutation({
-    mutationFn: () => deletePost(postId),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: postKeys.lists() }),
+    mutationFn: (postId: string) => deletePost(postId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: postKeys.lists() });
+    },
     onError: (err) => {
       console.error(err);
       toast.error("Uh oh, deleting post failed. Please try again later.", {

@@ -25,6 +25,7 @@ const postSchema = z.object({
     retweets: z.number(),
     comments: z.number(),
   }),
+  parentPostId: z.string().nullish(),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
 });

@@ -24,3 +24,11 @@ export async function retweetPost(postId: string) {
 export async function deletePost(postId: string) {
   await api.delete(`api/posts/${postId}`);
 }
+
+export async function createComment(
+  postId: string,
+  content: string,
+  image = "",
+) {
+  return api.post(`api/posts/${postId}/comments`, { content, image });
+}

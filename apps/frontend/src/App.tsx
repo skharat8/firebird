@@ -12,7 +12,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { ThemeProvider } from "./components/ThemeProvider";
 import PostWithComments from "./features/posts/PostWithComments";
 import AppLayout from "./layouts/AppLayout";
-import CreatePost from "./pages/CreatePost";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
@@ -46,16 +45,6 @@ const router = createBrowserRouter([
       { path: "/profile/:profileId", element: <Profile /> },
       { path: "/post/:postId", element: <PostWithComments /> },
     ],
-  },
-
-  {
-    path: "/new",
-    element: (
-      <ProtectedRoute>
-        <CreatePost />
-      </ProtectedRoute>
-    ),
-    errorElement: <ErrorFallback />,
   },
 ]);
 

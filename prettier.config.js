@@ -14,10 +14,10 @@ const config = {
       files: "./apps/frontend/src/**/*",
       options: {
         plugins: [
+          "@trivago/prettier-plugin-sort-imports",
           "prettier-plugin-tailwindcss",
           "prettier-plugin-classnames",
           "prettier-plugin-merge",
-          "@trivago/prettier-plugin-sort-imports",
         ],
         tailwindFunctions: ["clsx", "tw", "cn", "cva"], // For prettier-plugin-tailwindcss
         customFunctions: ["clsx", "tw", "cn", "cva"], // For prettier-plugin-classnames

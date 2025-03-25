@@ -5,8 +5,8 @@ import { useIntersectionObserver } from "usehooks-ts";
 
 import Offline from "@/components/ui/Offline";
 import SpinnerMini from "@/components/ui/SpinnerMini";
+import CreatePost from "@/features/posts/CreatePost";
 import PostContent from "@/features/posts/PostContent";
-import PostEditor from "@/features/posts/PostEditor";
 import useHomeFeed from "@/features/posts/useHomeFeed";
 
 function Home() {
@@ -24,7 +24,7 @@ function Home() {
         (isPaused ? <Offline /> : <GridLoader color="var(--color-primary)" />)}
       {data && (
         <>
-          <PostEditor showAvatar={false} className="hidden md:flex" />
+          <CreatePost />
           {data.pages.map((page) =>
             page.posts.map((post) => (
               <PostContent key={post.id} postId={post.id} hoverShadow={true} />

@@ -76,7 +76,7 @@ function PostContent({
         <Link to={`/profile/${post.author.id}`} className={linkStyles}>
           <h2>
             <p className="font-bold hover:underline">{post.author.fullName}</p>
-            <span className="text-sm font-light text-neutral-600 dark:text-neutral-300">
+            <span className="text-sm text-neutral-500/90 dark:text-neutral-300/90">
               @{post.author.username}
             </span>
           </h2>

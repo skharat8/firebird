@@ -1,64 +1,90 @@
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import CharacterCount from "@tiptap/extension-character-count";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 import { Avatar } from "@/components/ui/Avatar";
 import Button from "@/components/ui/Button";
+import SpinnerMini from "@/components/ui/SpinnerMini";
 import useUser from "@/hooks/useUser";
-import { createPost } from "@/services/apiPost";
+import { cn } from "@/lib/utils";
+
+const MAX_CHARACTER_COUNT = 280;
 
 const extensions = [
   StarterKit,
   Placeholder.configure({
     placeholder: "What's on your mind...",
   }),
+  CharacterCount.configure({ limit: MAX_CHARACTER_COUNT }),
 ];
 
 type PostEditorProps = {
   showAvatar?: boolean;
+  onSubmit: (content: string) => void;
+  isSubmitPending: boolean;
   className?: string;
 };
 
-function PostEditor({ showAvatar = true, className }: PostEditorProps) {
-  const navigate = useNavigate();
+function PostEditor({
+  showAvatar = true,
+  onSubmit,
+  isSubmitPending,
+  className,
+}: PostEditorProps) {
   const { user } = useUser();
 
-  const editor = useEditor({ extensions });
+  const editor = useEditor({
+    extensions,
+  });
   const content = editor?.getText({ blockSeparator: "\n" }) ?? "";
 
-  // TODO: use custom hook
-  async function submitPost() {
-    await createPost(content);
-    navigate("/");
+  function handleSubmitPost(e: React.FormEvent) {
+    e.preventDefault();
+    onSubmit(content);
   }
 
   return (
-    // TODO: Fix this to use a modal instead
-    <div className={`${className} flex flex-col gap-2`}>
-      <div className="flex">
-        {showAvatar && (
-          <Avatar className="mr-4">
+    <form
+      onSubmit={handleSubmitPost}
+      className={cn("flex h-full flex-col", className)}
+    >
+      {showAvatar && (
+        <div className="mb-4 flex items-center gap-4">
+          <Avatar>
             <AvatarImage src={user?.profileImage} />
             <AvatarFallback>{user?.username}</AvatarFallback>
           </Avatar>
-        )}
+          <h2>
+            <p className="text-primary-300 font-semibold">{user?.fullName}</p>
+            <span className="text-sm text-neutral-500/90">
+              @{user?.username}
+            </span>
+          </h2>
+        </div>
+      )}
 
-        <EditorContent
-          editor={editor}
-          className="mr-2 flex-1 rounded-md bg-gray-200 p-3 text-neutral-900 shadow"
-        />
-      </div>
-      <Button
-        disabled={!content.trim()}
-        className="mr-1 self-end rounded-lg font-bold"
-        onClick={submitPost}
+      <EditorContent
+        editor={editor}
+        className="relative mb-4 h-[80%] flex-1 rounded-md bg-neutral-100 p-3 text-neutral-900
+          dark:bg-neutral-400"
       >
-        Post
+        <span className="absolute bottom-4 right-4 text-sm text-neutral-600/90">
+          {MAX_CHARACTER_COUNT - (editor?.getCharacterCount() ?? 0)}
+        </span>
+      </EditorContent>
+
+      <Button
+        type="submit"
+        disabled={!content.trim()}
+        className="self-end rounded-lg font-bold"
+      >
+        {isSubmitPending ? <SpinnerMini /> : "Post"}
       </Button>
-    </div>
+    </form>
   );
 }
 

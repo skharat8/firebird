@@ -31,16 +31,12 @@
     font-family: "Recursive Variable", var(--system-font-sans-serif);
     color: var(--color-primary);
     color-scheme: light dark;
-    background-color: var(--color-neutral-100);
+    background-color: var(--color-background);
 
     --system-font-sans-serif:
       -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
       helvetica neue, Cantarell, Ubuntu, roboto, noto, helvetica, arial,
       sans-serif;
-  }
-
-  html.dark {
-    background-color: var(--color-neutral-900);
   }
 
   html,
@@ -75,7 +71,7 @@
   float: left;
   height: 0;
   font-style: italic;
-  color: hsl(40 15% 60% / 60);
+  color: --alpha(var(--color-neutral-600) / 70%);
   pointer-events: none;
   content: attr(data-placeholder);
 }

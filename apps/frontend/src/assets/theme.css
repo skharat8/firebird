@@ -75,7 +75,7 @@
   --color-neutral: var(--color-neutral-200);
   --color-neutral-foreground: var(--color-neutral-100);
 
-  --color-background: var(--color-neutral-50);
+  --color-background: var(--color-neutral-100);
   --color-foreground: var(--color-neutral-900);
   --color-muted: hsl(240 4.8% 95.9%);
   --color-muted-foreground: hsl(240 3.8% 46.1%);
@@ -123,8 +123,8 @@
     --color-neutral-foreground: var(--color-neutral-50);
     --color-neutral: var(--color-primary-900);
 
-    --color-background: var(--color-neutral-800);
-    --color-foreground: var(--color-neutral-50);
+    --color-background: var(--color-neutral-900);
+    --color-foreground: var(--color-neutral-100);
     --color-muted: hsl(0 0% 15%);
     --color-muted-foreground: hsl(240 3.8% 36.1%);
     --color-accent: hsl(12 6.5% 15.1%);

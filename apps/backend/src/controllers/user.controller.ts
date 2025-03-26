@@ -65,21 +65,21 @@ const getUserHandler: Handler = asyncHandler(
 const followUserHandler: Handler = asyncHandler(
   async (req: Request, res: Response) => {
     assertObjectExists(res.locals.user);
-    const { targetUserId } = req.params;
+    const { userId } = req.params;
     const currentUser = res.locals.user;
 
-    if (!targetUserId) {
+    if (!userId) {
       throw createHttpError(StatusCode.BAD_REQUEST, "User ID not provided");
     }
 
-    if (targetUserId === currentUser.id) {
+    if (userId === currentUser.id) {
       throw createHttpError(
         StatusCode.BAD_REQUEST,
         "User can't follow/unfollow themselves",
       );
     }
 
-    await UserService.toggleFollowUser(currentUser.id, targetUserId);
+    await UserService.toggleFollowUser(currentUser.id, userId);
 
     res.json({ message: "Follow/unfollow request successful" });
   },

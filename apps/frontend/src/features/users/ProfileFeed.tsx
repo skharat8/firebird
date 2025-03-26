@@ -26,7 +26,7 @@ function ProfileFeed({ userId }: { userId: string }) {
       {data && (
         <>
           <div className="mx-auto flex max-w-[65ch] flex-col">
-            <ProfileHeader user={data.pages.at(0)?.user} />
+            <ProfileHeader user={data.pages.at(0)!.user} />
             {data.pages.map((page) =>
               page.posts.map((post) => (
                 <PostContent

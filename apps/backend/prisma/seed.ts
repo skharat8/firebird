@@ -79,15 +79,15 @@ async function populateDatabase() {
   const usersToUpdate = [];
 
   for (const currentUser of users) {
-    const followingIds = faker.helpers
+    const followRelationship = faker.helpers
       .arrayElements(users, limits)
-      .map((item) => ({ followingId: item.id }));
+      .map((item) => ({ followingId: item.id, followerId: currentUser.id }));
 
     usersToUpdate.push(
       prisma.user.update({
         where: { id: currentUser.id },
         data: {
-          followers: { createMany: { data: followingIds } },
+          followers: { createMany: { data: followRelationship } },
         },
       }),
     );

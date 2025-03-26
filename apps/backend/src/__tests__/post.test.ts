@@ -7,7 +7,7 @@ import * as SessionService from "../services/session.service.js";
 import * as PostService from "../services/post.service.js";
 import { StatusCode } from "../data/enums.js";
 import type { UserLogin } from "../schemas/session.zod.js";
-import type { SafeDbUser, UserSignup } from "../schemas/user.zod.js";
+import type { DbUserWithFollows, UserSignup } from "../schemas/user.zod.js";
 import type { CreatePost } from "../schemas/post.zod.js";
 
 const app = createServer();
@@ -41,7 +41,7 @@ const createPostPayload: CreatePost = {
 };
 
 // @ts-expect-error Not including common DB fields like createdAt
-const userResponsePayload: SafeDbUser = {
+const userResponsePayload: DbUserWithFollows = {
   id: "10",
   username: "test_name",
   email: "johndoe@gmail.com",

@@ -11,13 +11,12 @@ type FollowButtonProps = ComponentProps<"button"> & {
 };
 
 const buttonVariants = cva(
-  `border-3 border-accent-cyan-900 group flex items-center justify-center gap-4
-  rounded-xl py-1 pl-1 pr-4`,
+  "border-3 group flex items-center justify-center rounded-xl py-1 pl-1 pr-4",
   {
     variants: {
       variant: {
-        primary: "bg-accent-cyan-900",
-        ghost: "bg-stone-800",
+        primary: "bg-accent-cyan-900 border-accent-cyan-900 gap-4",
+        ghost: "gap-1 bg-stone-800",
       },
     },
     defaultVariants: {

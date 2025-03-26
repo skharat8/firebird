@@ -28,3 +28,7 @@ export async function getPlaceholderImage(format: string) {
   const schema = z.string();
   return schema.parse(res.data);
 }
+
+export async function followUser(userId: string) {
+  await api.post(`api/users/follow/${userId}`);
+}

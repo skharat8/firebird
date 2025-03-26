@@ -5,10 +5,12 @@ import useUser from "@/hooks/useUser";
 import type { User } from "@/schemas/auth.zod";
 
 import FollowButton from "./FollowButton";
+import useFollow from "./useFollow";
 
-function ProfileHeader({ user }: { user?: User }) {
+function ProfileHeader({ user }: { user: User }) {
   const { user: currentUser } = useUser();
-  const followerIds = user?.followers.map((item) => item.followingId);
+  const { follow } = useFollow(user.id, currentUser?.id ?? "");
+  const followerIds = user?.followers.map((item) => item.followerId);
   const isFollowing = followerIds?.includes(currentUser?.id ?? "");
 
   const followButtonVariant = isFollowing ? "primary" : "ghost";
@@ -72,7 +74,11 @@ function ProfileHeader({ user }: { user?: User }) {
         <div className="flex items-center gap-6 px-6 pb-4">
           <span className="mr-auto">{user.bio}</span>
           {currentUser?.id !== user.id && (
-            <FollowButton icon={followButtonIcon} variant={followButtonVariant}>
+            <FollowButton
+              icon={followButtonIcon}
+              variant={followButtonVariant}
+              onClick={() => follow(isFollowing)}
+            >
               {followButtonVariant === "primary" ? "Following" : "Follow"}
             </FollowButton>
           )}

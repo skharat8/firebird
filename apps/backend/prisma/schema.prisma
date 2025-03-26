@@ -25,8 +25,8 @@ model User {
   coverImage            String?
   bio                   String?
   sessions              Session[]
-  followers             Follow[]       @relation("follower")
-  following             Follow[]       @relation("following")
+  followers             Follow[]       @relation("following")
+  following             Follow[]       @relation("follower")
   posts                 Post[]         @relation("author")
   likes                 Post[]         @relation("likes")
   retweets              Repost[]
@@ -40,7 +40,7 @@ model Session {
   id        String   @id @default(cuid())
   valid     Boolean  @default(true)
   userAgent String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -48,8 +48,8 @@ model Session {
 
 // Explicit many-to-many relation table
 model Follow {
-  follower    User   @relation("follower", fields: [followerId], references: [id])
-  following   User   @relation("following", fields: [followingId], references: [id])
+  follower    User   @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User   @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
   followerId  String
   followingId String
 

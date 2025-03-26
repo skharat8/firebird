@@ -131,17 +131,28 @@ async function toggleFollowUser(currentUserId: string, targetUserId: string) {
 
 async function getUserFeed(userId: string, cursor?: string) {
   // Get a list of users being followed by the current user
-  const currentUser = await prisma.user.findUniqueOrThrow({
+  const followingObjects = await prisma.user.findUniqueOrThrow({
     where: { id: userId },
-    select: { following: true },
+    select: { following: { select: { followingId: true } } },
   });
 
-  // Create a feed from following users
+  const followingIds = followingObjects.following.map(
+    (item) => item.followingId,
+  );
+
+  const notFollowingObjects = await prisma.user.findMany({
+    where: { id: { notIn: followingIds } },
+    take: 10,
+  });
+
+  const notFollowingIds = notFollowingObjects.map((item) => item.id);
+
+  // Create a feed from current user + following users + 10 not following users
   const filterQuery = {
     author: {
       is: {
         id: {
-          in: [userId, ...currentUser.following.map((item) => item.followerId)],
+          in: [userId, ...followingIds, ...notFollowingIds],
         },
       },
     },

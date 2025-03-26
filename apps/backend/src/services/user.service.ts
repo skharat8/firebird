@@ -2,7 +2,11 @@ import createHttpError from "http-errors";
 import { type Prisma, NotificationType } from "@prisma/client";
 
 import prisma from "../../prisma/customClient.js";
-import type { UserSignup, SafeDbUser } from "../schemas/user.zod.js";
+import type {
+  UserSignup,
+  SafeDbUser,
+  DbUserWithFollows,
+} from "../schemas/user.zod.js";
 import { StatusCode } from "../data/enums.js";
 import { createNotification } from "./notification.service.js";
 import { fetchNextPage } from "../utils/prisma.utils.js";
@@ -11,8 +15,17 @@ async function createUser(userData: UserSignup): Promise<SafeDbUser> {
   return prisma.user.create({ data: userData });
 }
 
-async function findUser(query: Prisma.UserWhereInput): Promise<SafeDbUser> {
-  return prisma.user.findFirstOrThrow({ where: query });
+async function findUser(
+  query: Prisma.UserWhereInput,
+): Promise<DbUserWithFollows> {
+  return prisma.user.findFirstOrThrow({
+    where: query,
+    include: {
+      followers: true,
+      following: true,
+      _count: { select: { followers: true, following: true } },
+    },
+  });
 }
 
 async function getUserProfile(userId: string, cursor?: string) {
@@ -20,7 +33,11 @@ async function getUserProfile(userId: string, cursor?: string) {
     where: {
       id: userId,
     },
-    include: { _count: { select: { followers: true, following: true } } },
+    include: {
+      followers: true,
+      following: true,
+      _count: { select: { followers: true, following: true } },
+    },
   });
 
   const filterQuery = {
@@ -69,9 +86,16 @@ async function updateUser(id: string, updateData: Prisma.UserUpdateInput) {
 async function validateCredentials(
   email: string,
   password: string,
-): Promise<SafeDbUser> {
+): Promise<DbUserWithFollows> {
   const errorMessage = "Invalid username or password";
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: {
+      followers: true,
+      following: true,
+      _count: { select: { followers: true, following: true } },
+    },
+  });
   if (!user) throw createHttpError(StatusCode.UNAUTHORIZED, errorMessage);
 
   const isValid = await user.isValidPassword(password);

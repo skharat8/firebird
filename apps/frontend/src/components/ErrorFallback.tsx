@@ -7,6 +7,7 @@ import {
 
 import axios from "axios";
 import { useLocalStorage } from "usehooks-ts";
+import { ZodError } from "zod";
 
 import Button from "@/components/ui/Button";
 import { StatusCode } from "@/data/enums";
@@ -38,6 +39,8 @@ function getErrorMessage(error: unknown): string {
     msg = parseStatusCodes(error.status as StatusCode) ?? error.message;
   } else if (isRouteErrorResponse(error)) {
     msg = `${error.status} ${error.statusText}`;
+  } else if (error instanceof ZodError) {
+    msg = "Zod Error";
   } else if (error instanceof Error) {
     msg = error.message;
   } else if (typeof error === "string") {

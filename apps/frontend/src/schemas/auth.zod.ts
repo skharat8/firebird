@@ -10,6 +10,11 @@ const userSignupSchema = z.object({
 
 const userLoginSchema = userSignupSchema.omit({ username: true });
 
+const follows = z.object({
+  followerId: z.string(),
+  followingId: z.string(),
+});
+
 const userSchema = userSignupSchema.omit({ password: true }).extend({
   id: z.string(),
   firstName: z.string().nullish(),
@@ -24,6 +29,12 @@ const userSchema = userSignupSchema.omit({ password: true }).extend({
     .nullish()
     .transform((x) => x ?? undefined),
   bio: z.string().nullish(),
+  followers: z.array(follows),
+  following: z.array(follows),
+  _count: z.object({
+    followers: z.number(),
+    following: z.number(),
+  }),
 });
 
 type UserLogin = z.infer<typeof userLoginSchema>;

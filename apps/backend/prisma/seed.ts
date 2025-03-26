@@ -25,7 +25,7 @@ async function populateDatabase() {
             grayscale: false,
             blur: 0,
           }),
-          bio: faker.person.bio(),
+          bio: faker.lorem.paragraph(2),
           posts: {
             createMany: {
               data: Array.from({

@@ -57,7 +57,11 @@ type DbUser = Prisma.UserGetPayload<Prisma.UserDefaultArgs>;
 type SafeDbUser = Omit<DbUser, "password">;
 type DbUserWithFollows = Omit<
   Prisma.UserGetPayload<{
-    include: { followers: true; following: true };
+    include: {
+      followers: true;
+      following: true;
+      _count: { select: { followers: true; following: true } };
+    };
   }>,
   "password"
 >;

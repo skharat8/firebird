@@ -32,3 +32,16 @@ export async function getPlaceholderImage(format: string) {
 export async function followUser(userId: string) {
   await api.post(`api/users/follow/${userId}`);
 }
+
+export async function getFollowRecommendations() {
+  const res = await api.get("api/users/followRecommendations");
+  const schema = z.array(
+    z.object({
+      id: z.string(),
+      fullName: z.string(),
+      profileImage: z.string(),
+    }),
+  );
+
+  return schema.parse(res.data);
+}

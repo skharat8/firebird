@@ -6,6 +6,7 @@ import { StatusCode } from "../data/enums.js";
 import * as UserService from "../services/user.service.js";
 import type { DbUser, UserSignup, UserUpdate } from "../schemas/user.zod.js";
 import { assertObjectExists } from "../utils/common.utils.js";
+import logger from "../utils/logger.js";
 
 const createUserHandler: Handler = asyncHandler(
   async (req: Request<object, object, UserSignup>, res: Response) => {
@@ -96,6 +97,17 @@ const getUserFeedHandler: Handler = asyncHandler(
   },
 );
 
+const getFollowRecommendations: Handler = asyncHandler(
+  async (_: Request, res: Response) => {
+    assertObjectExists(res.locals.user);
+
+    const data = await UserService.getFollowRecommendations(res.locals.user.id);
+    logger.info(data);
+
+    res.json(data);
+  },
+);
+
 export {
   createUserHandler,
   getCurrentUserHandler,
@@ -103,4 +115,5 @@ export {
   getUserHandler,
   followUserHandler,
   getUserFeedHandler,
+  getFollowRecommendations,
 };

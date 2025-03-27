@@ -12,6 +12,7 @@ import {
   getUserHandler,
   followUserHandler,
   getUserFeedHandler,
+  getFollowRecommendations,
 } from "../controllers/user.controller.js";
 import { fetchPostFeedSchema } from "../schemas/post.zod.js";
 
@@ -20,6 +21,8 @@ const router = express.Router();
 router.post("/", validateResource(createUserSchema), createUserHandler);
 
 router.get("/me", requireUser, getCurrentUserHandler);
+router.get("/followRecommendations", requireUser, getFollowRecommendations);
+
 router.post(
   "/update",
   requireUser,

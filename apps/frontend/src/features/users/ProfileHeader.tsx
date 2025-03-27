@@ -44,7 +44,7 @@ function ProfileHeader({ user }: { user: User }) {
           </Avatar>
         </div>
         <div
-          className="absolute left-[50%] top-4 flex gap-4 font-thin text-neutral-900
+          className="absolute right-4 top-2 flex gap-4 font-thin text-neutral-900
             dark:text-neutral-50/80"
         >
           <div>

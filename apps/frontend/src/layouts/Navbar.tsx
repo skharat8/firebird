@@ -1,4 +1,4 @@
-import { Home, Search, User } from "lucide-react";
+import { Home, TrendingUp, User } from "lucide-react";
 
 import NavbarItem from "@/components/ui/NavbarItem";
 import { cn } from "@/lib/utils";
@@ -23,10 +23,10 @@ function Navbar({ className }: NavBarProps) {
         selectedIcon={<Home fill="white" />}
       />
       <NavbarItem
-        to="/search"
-        title="Search"
-        icon={<Search />}
-        selectedIcon={<Search fill="white" />}
+        to="/trending"
+        title="Trending"
+        icon={<TrendingUp />}
+        selectedIcon={<TrendingUp fill="white" />}
       />
     </nav>
   );

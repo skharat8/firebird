@@ -187,6 +187,28 @@ async function getUserFeed(userId: string, cursor?: string) {
   });
 }
 
+async function getFollowRecommendations(currentUserId: string) {
+  const followingObjects = await prisma.user.findUniqueOrThrow({
+    where: { id: currentUserId },
+    select: { following: { select: { followingId: true } } },
+  });
+
+  const followingIds = followingObjects.following.map(
+    (item) => item.followingId,
+  );
+
+  const notFollowingObjects = await prisma.user.findMany({
+    where: { id: { notIn: followingIds } },
+    take: 10,
+  });
+
+  return notFollowingObjects.map((item) => ({
+    id: item.id,
+    fullName: item.fullName,
+    profileImage: item.profileImage,
+  }));
+}
+
 export {
   createUser,
   findUser,
@@ -195,4 +217,5 @@ export {
   validateCredentials,
   toggleFollowUser,
   getUserFeed,
+  getFollowRecommendations,
 };

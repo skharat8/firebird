@@ -114,6 +114,12 @@
   /* Shadow */
   --shadow-extreme: 2px 2px 4px 2px oklch(0% 0 0 / 0.3);
   --drop-shadow-logo: 0 0 2rem var(--color-primary);
+
+  --shadow-elevation-medium:
+    0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.39),
+    0.8px 1.7px 2.1px -0.8px hsl(var(--shadow-color) / 0.39),
+    2.1px 4.3px 5.4px -1.7px hsl(var(--shadow-color) / 0.39),
+    5.2px 10.5px 13.2px -2.5px hsl(var(--shadow-color) / 0.39);
 }
 
 @layer base {

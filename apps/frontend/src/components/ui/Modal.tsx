@@ -21,8 +21,8 @@ function Modal({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger
         className="bg-primary text-primary-foreground hover:bg-primary/90 flex-center
-          shadow-secondary fixed bottom-16 right-7 h-14 w-14 rounded-full
-          shadow-[0px_1px_2px_1px] md:hidden"
+          shadow-elevation-medium shadow-primary-700 fixed bottom-16 right-7 h-14 w-14
+          rounded-full md:hidden"
       >
         <Feather />
       </Dialog.Trigger>

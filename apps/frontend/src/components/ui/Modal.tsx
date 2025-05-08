@@ -31,8 +31,8 @@ function Modal({
         <Dialog.Overlay className="fixed inset-0 bg-neutral-900/80" />
 
         <Dialog.Content
-          className="bg-card-400 dark:bg-card fixed inset-0 m-auto h-[40vh] w-[90vw] max-w-[640px]
-            rounded-lg p-8"
+          className="bg-card-400 dark:bg-card fixed inset-0 bottom-[30%] m-auto h-[40vh] w-[90vw]
+            max-w-[640px] rounded-lg p-8"
         >
           {children}
 

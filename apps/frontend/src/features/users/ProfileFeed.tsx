@@ -1,7 +1,7 @@
 import React from "react";
 import { GridLoader } from "react-spinners";
 
-import { useIntersectionObserver } from "usehooks-ts";
+import { useIntersectionObserver, useLocalStorage } from "usehooks-ts";
 
 import Offline from "@/components/ui/Offline";
 import SpinnerMini from "@/components/ui/SpinnerMini";
@@ -13,10 +13,25 @@ import ProfileHeader from "./ProfileHeader";
 function ProfileFeed({ userId }: { userId: string }) {
   const { data, isPending, isPaused, fetchNextPage } = useProfileFeed(userId);
   const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.5 });
+  const [scrollPosition, setScrollPosition] = useLocalStorage("profileScroll", {
+    top: 0,
+    left: 0,
+  });
 
   React.useEffect(() => {
     if (isIntersecting) fetchNextPage();
   });
+
+  // Save scroll position
+  React.useEffect(() => {
+    return () =>
+      setScrollPosition({ top: window.scrollY, left: window.scrollX });
+  }, [setScrollPosition]);
+
+  // Restore scroll position
+  React.useEffect(() => {
+    window.scrollTo(scrollPosition);
+  }, [scrollPosition]);
 
   // TODO: getting posts and user data needs to be separated out on the backend
   return (

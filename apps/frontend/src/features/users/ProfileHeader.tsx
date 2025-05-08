@@ -19,7 +19,7 @@ function ProfileHeader({ user }: { user: User }) {
 
   return (
     <div
-      className="relative mb-4 bg-stone-100 text-neutral-900 dark:bg-stone-700
+      className="relative mb-4 bg-stone-300 text-neutral-900 dark:bg-stone-700
         dark:text-neutral-50"
     >
       <div>
@@ -30,7 +30,7 @@ function ProfileHeader({ user }: { user: User }) {
         />
       </div>
 
-      <div className="relative border-b-2 border-b-stone-200 dark:border-b-stone-400">
+      <div className="relative border-b-2 border-b-stone-400">
         <div className="-top-13 absolute mb-4 ml-8">
           <Avatar>
             <AvatarImage
@@ -45,13 +45,13 @@ function ProfileHeader({ user }: { user: User }) {
             dark:text-neutral-50/80"
         >
           <div>
-            <span className="text-secondary-500 font-extrabold">
+            <span className="text-secondary-600 dark:text-secondary-500 font-extrabold">
               {user._count.followers}
             </span>{" "}
             Followers
           </div>
           <div>
-            <span className="text-secondary-500 font-extrabold">
+            <span className="text-secondary-600 dark:text-secondary-500 font-extrabold">
               {user._count.following}
             </span>{" "}
             Following

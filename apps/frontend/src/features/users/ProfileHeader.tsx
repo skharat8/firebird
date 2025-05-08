@@ -19,7 +19,7 @@ function ProfileHeader({ user }: { user: User }) {
 
   return (
     <div
-      className="relative mb-4 bg-stone-300 text-neutral-900 dark:bg-stone-700
+      className="bg-card-300 relative mb-4 text-neutral-900 dark:bg-stone-700
         dark:text-neutral-50"
     >
       <div>

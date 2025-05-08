@@ -28,7 +28,7 @@ function AppLayout({
             sm:gap-1"
         />
 
-        <div className="flex-center max-w-[65ch] flex-1">
+        <div className="flex-center max-w-[70ch] flex-1">
           <Suspense fallback={<GridLoader color="var(--color-primary)" />}>
             <Outlet />
           </Suspense>

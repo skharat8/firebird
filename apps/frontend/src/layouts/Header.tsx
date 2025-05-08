@@ -31,8 +31,8 @@ function Header({ showAvatar = false, showBackButton = false }: HeaderProps) {
   }
 
   return (
-    <header className="bg-card sticky top-0 z-10 min-w-full max-w-7xl shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-center px-5 py-3">
+    <header className="bg-card sticky top-0 z-10 w-full shadow-sm">
+      <div className="mx-auto flex max-w-4xl items-center px-3 py-3">
         {showAvatar && (
           <Link to={`/profile`}>
             <Avatar className="shadow-[inset_0_0_0_1px_hsla(0,0%,0%,.1)]">

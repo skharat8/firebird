@@ -198,7 +198,9 @@ async function getFollowRecommendations(currentUserId: string) {
   );
 
   const notFollowingObjects = await prisma.user.findMany({
-    where: { id: { notIn: followingIds } },
+    where: {
+      AND: [{ id: { notIn: followingIds } }, { id: { not: currentUserId } }],
+    },
     take: 10,
   });
 

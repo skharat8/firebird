@@ -25,7 +25,7 @@ function Trending() {
     <div className="flex h-full w-[90%] flex-col gap-6 px-6 py-4">
       <ScrollBox title="Who To Follow" data={users} isPending={isPending}>
         {(user) => (
-          <div className="flex w-full justify-center gap-2">
+          <div className="flex w-full items-center justify-center gap-2">
             <Link
               to={`/profile/${user.id}`}
               className="mr-auto flex w-fit items-center gap-4 text-current hover:text-current"

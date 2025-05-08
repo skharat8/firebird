@@ -13,6 +13,11 @@ const TRENDS = [
   { id: "3", name: "ScenicBeaches", numPosts: "8K" },
   { id: "4", name: "SixFlags", numPosts: "2.3K" },
   { id: "5", name: "Playstation", numPosts: "1.8K" },
+  { id: "6", name: "SleepingBeauty", numPosts: "1.6K" },
+  { id: "7", name: "London", numPosts: "1.3K" },
+  { id: "8", name: "PabloPicasso", numPosts: "1K" },
+  { id: "9", name: "ComicCon", numPosts: "800" },
+  { id: "10", name: "SummerHouse", numPosts: "500" },
 ];
 
 function Trending() {

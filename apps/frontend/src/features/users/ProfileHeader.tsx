@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { BadgeCheck, UserRoundCheck, UserRoundPlus } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 
 import useUser from "@/hooks/useUser";
 import type { User } from "@/schemas/auth.zod";
@@ -9,12 +9,9 @@ import useFollow from "./useFollow";
 
 function ProfileHeader({ user }: { user: User }) {
   const { user: currentUser } = useUser();
-  const { follow } = useFollow(user.id, currentUser?.id ?? "");
+  const { follow } = useFollow(currentUser?.id ?? "");
   const followerIds = user?.followers.map((item) => item.followerId);
   const isFollowing = followerIds?.includes(currentUser?.id ?? "");
-
-  const followButtonVariant = isFollowing ? "primary" : "ghost";
-  const followButtonIcon = isFollowing ? UserRoundCheck : UserRoundPlus;
 
   if (!user) {
     return null;
@@ -75,12 +72,11 @@ function ProfileHeader({ user }: { user: User }) {
           <span className="mr-auto">{user.bio}</span>
           {currentUser?.id !== user.id && (
             <FollowButton
-              icon={followButtonIcon}
-              variant={followButtonVariant}
-              onClick={() => follow(isFollowing)}
-            >
-              {followButtonVariant === "primary" ? "Following" : "Follow"}
-            </FollowButton>
+              initialIsFollowing={isFollowing}
+              onFollow={(isFollowing) =>
+                follow({ userId: user.id, isFollowedByUser: isFollowing })
+              }
+            />
           )}
         </div>
       </div>

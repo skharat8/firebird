@@ -10,12 +10,17 @@ import type { User } from "@/schemas/auth.zod";
 import type { Post } from "@/schemas/post.zod";
 import { followUser } from "@/services/apiUser";
 
-function useFollow(userId: string, currentUserId: string) {
+type MutateParams = {
+  userId: string;
+  isFollowedByUser: boolean;
+};
+
+function useFollow(currentUserId: string) {
   const queryClient = useQueryClient();
 
   const { mutate: follow } = useMutation({
-    mutationFn: () => followUser(userId),
-    onMutate: async (isFollowedByUser: boolean) => {
+    mutationFn: ({ userId }) => followUser(userId),
+    onMutate: async ({ userId, isFollowedByUser }: MutateParams) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({ queryKey: postKeys.profile(userId) });
 
@@ -62,21 +67,23 @@ function useFollow(userId: string, currentUserId: string) {
       // Return a context object with the snapshotted value
       return { previousProfile };
     },
-    onError: (err, _, context) => {
+    onError: (err, variables, context) => {
       console.error(err);
       toast.error("Follow action failed. Please try again.", {
         style: { background: "pink" },
       });
 
       queryClient.setQueryData(
-        postKeys.profile(userId),
+        postKeys.profile(variables.userId),
         context?.previousProfile,
       );
     },
-    onSettled: () => {
+    onSettled: (_, __, variables) => {
       // Invalidate the cache to cause displayed components to refetch
       // in order to verify our optimistic updates
-      queryClient.invalidateQueries({ queryKey: postKeys.profile(userId) });
+      queryClient.invalidateQueries({
+        queryKey: postKeys.profile(variables.userId),
+      });
       queryClient.invalidateQueries({
         queryKey: postKeys.profile(currentUserId),
       });

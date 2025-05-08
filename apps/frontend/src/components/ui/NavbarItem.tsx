@@ -31,7 +31,7 @@ function NavbarItem({ to, title, icon, selectedIcon }: NavbarItemProps) {
       {({ isActive }) => (
         <>
           {isActive ? selectedIcon : icon}
-          <span className="hidden lg:inline">{title}</span>
+          <span className="hidden lg:ml-1 lg:inline lg:pt-0.5">{title}</span>
         </>
       )}
     </NavLink>

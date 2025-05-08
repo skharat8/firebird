@@ -16,7 +16,7 @@ function LogoutButton() {
       onClick={logout}
       disabled={isLogoutPending}
     >
-      {isLogoutPending ? <SpinnerMini /> : <LogOut />}
+      {isLogoutPending ? <SpinnerMini /> : <LogOut strokeWidth={2.7} />}
       <span className="sr-only">Log out</span>
     </Button>
   );

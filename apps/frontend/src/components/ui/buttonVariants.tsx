@@ -38,7 +38,8 @@ const buttonVariants = cva(
         rounded: "h-14 w-14 rounded-full",
       },
       iconSize: {
-        default: "[&_svg]:size-4",
+        default: "[&_svg]:size-5",
+        sm: "[&_svg]:size-4",
         lg: "[&_svg]:size-6",
         xl: "[&_svg]:size-8",
       },

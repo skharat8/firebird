@@ -22,6 +22,7 @@ function useHomeFeed() {
       },
       initialPageParam: "",
       getNextPageParam: (lastPage) => lastPage.nextCursor,
+      maxPages: 3,
       staleTime: 1000 * 60,
     });
 

@@ -11,7 +11,8 @@ import useProfileFeed from "../posts/useProfileFeed";
 import ProfileHeader from "./ProfileHeader";
 
 function ProfileFeed({ userId }: { userId: string }) {
-  const { data, isPending, isPaused, fetchNextPage } = useProfileFeed(userId);
+  const { data, isPending, isPaused, fetchNextPage, isFetchingNextPage } =
+    useProfileFeed(userId);
   const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.5 });
   const [scrollPosition, setScrollPosition] = useLocalStorage("profileScroll", {
     top: 0,
@@ -54,8 +55,8 @@ function ProfileFeed({ userId }: { userId: string }) {
             )}
           </div>
 
-          <div ref={ref} className="m-auto flex-1">
-            <SpinnerMini />
+          <div ref={ref} className="m-auto border-2 border-transparent">
+            {isFetchingNextPage && <SpinnerMini />}
           </div>
         </>
       )}

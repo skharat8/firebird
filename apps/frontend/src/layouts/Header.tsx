@@ -11,7 +11,7 @@ import useUser from "@/hooks/useUser";
 
 function Title({ children }: PropsWithChildren) {
   return (
-    <h1 className="text-primary text-3xl font-bold tracking-wide">
+    <h1 className="dark:text-primary text-card text-3xl font-bold tracking-wide">
       {children}
     </h1>
   );
@@ -31,7 +31,7 @@ function Header({ showAvatar = false, showBackButton = false }: HeaderProps) {
   }
 
   return (
-    <header className="bg-card sticky top-0 z-10 w-full shadow-sm">
+    <header className="bg-primary dark:bg-card sticky top-0 z-10 w-full shadow-sm">
       <div className="mx-auto flex max-w-4xl items-center px-3 py-3">
         {showAvatar && (
           <Link to={`/profile`}>
@@ -42,7 +42,10 @@ function Header({ showAvatar = false, showBackButton = false }: HeaderProps) {
           </Link>
         )}
         {showBackButton && (
-          <ArrowLeft className="mr-4 cursor-pointer" onClick={navigateBack} />
+          <ArrowLeft
+            className="text-card dark:text-primary mr-4 cursor-pointer"
+            onClick={navigateBack}
+          />
         )}
         <div className="my-[0.15rem] ml-auto flex gap-2">
           <Logo />

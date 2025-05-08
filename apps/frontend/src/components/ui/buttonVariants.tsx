@@ -25,8 +25,9 @@ const buttonVariants = cva(
         ghost: `dark:hover:bg-accent hover:bg-card-500 hover:text-accent-foreground
         hover:ring-primary hover:shadow`,
         smallCaps: styles.btnSmallCaps,
-        navbar:
-          "bg-card hover:bg-primary hover:text-primary-foreground border-none shadow-none",
+        navbar: `bg-primary dark:bg-card text-card dark:text-primary hover:bg-card
+        dark:hover:bg-primary hover:text-primary dark:hover:text-card border-none
+        shadow-none`,
         link: "text-primary-400 underline-offset-4 hover:underline",
       },
       size: {

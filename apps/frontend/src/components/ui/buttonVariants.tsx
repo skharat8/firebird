@@ -18,12 +18,12 @@ const buttonVariants = cva(
         shadow-sm`,
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
-        demo: `text-primary border-2 bg-primary-900 border-primary-50 font-bold
+        demo: `text-primary bg-primary-900 border-primary-50 border-2 font-bold
         transition-[border_1s_ease] hover:border-solid ${styles.btnGuestDemo}
         dark:bg-primary-900 dark:text-primary-100 dark:border-neutral-800 dark:shadow-xl
         dark:hover:border-neutral-200`,
-        ghost:
-          "hover:bg-accent hover:text-accent-foreground hover:ring-primary hover:shadow",
+        ghost: `dark:hover:bg-accent hover:bg-card-500 hover:text-accent-foreground
+        hover:ring-primary hover:shadow`,
         smallCaps: styles.btnSmallCaps,
         navbar:
           "bg-card hover:bg-primary hover:text-primary-foreground border-none shadow-none",

@@ -23,13 +23,16 @@ function ScrollBox({
   return (
     <div className={cn(className, "overflow-hidden rounded-xl shadow-xl")}>
       <p
-        className="bold dark:bg-card/80 bg-card-500 dark:text-card-500 text-card-800 sticky top-0
-          px-6 py-4 font-bold"
+        className="bold dark:bg-card/80 bg-card border-card-400 dark:border-card-800/30
+          dark:text-card-500 text-card-800 sticky top-0 border-b-2 px-6 py-4 font-bold"
       >
         {title}
       </p>
 
-      <div className="bg-card text-card-900 dark:text-card-100 h-[32vh] overflow-auto px-6 py-3">
+      <div
+        className="bg-card-300 dark:bg-card text-card-900 dark:text-card-100 h-[32vh] overflow-auto
+          px-6 py-3"
+      >
         {isPending && <GridLoader color="var(--color-primary)" />}
         {data && (
           <ul>

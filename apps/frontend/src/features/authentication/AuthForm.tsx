@@ -67,7 +67,7 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   }
 
-  const textInputStyles = tw`bg-neutral-100 dark:bg-neutral-400 dark:placeholder:text-neutral-800/70`;
+  const textInputStyles = tw`bg-card-400 dark:bg-neutral-400 dark:placeholder:text-neutral-800/70`;
   const errorStyles = "text-left text-sm font-bold text-primary-400/80 my-1";
 
   return (

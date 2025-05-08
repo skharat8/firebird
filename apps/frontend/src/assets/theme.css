@@ -75,7 +75,7 @@
   --color-neutral: var(--color-neutral-200);
   --color-neutral-foreground: var(--color-neutral-100);
 
-  --color-background: var(--color-neutral-100);
+  --color-background: var(--color-card-400);
   --color-foreground: var(--color-neutral-900);
   --color-muted: hsl(240 4.8% 95.9%);
   --color-muted-foreground: hsl(240 3.8% 46.1%);
@@ -92,7 +92,7 @@
   --color-card-700: hsl(240 1% 36%);
   --color-card-800: hsl(0 0% 18%);
   --color-card-foreground: hsl(240 10% 3.9%);
-  --color-card: var(--color-card-400);
+  --color-card: var(--color-card-200);
 
   --color-popover: hsl(0 0% 100%);
   --color-popover-foreground: hsl(240 10% 3.9%);

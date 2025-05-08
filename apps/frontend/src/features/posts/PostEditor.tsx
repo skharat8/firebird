@@ -71,7 +71,7 @@ function PostEditor({
 
       <EditorContent
         editor={editor}
-        className="bg-card-400/90 relative mb-4 h-[80%] flex-1 rounded-md p-3 text-neutral-900
+        className="bg-card-200/90 relative mb-4 h-[80%] flex-1 rounded-md p-3 text-neutral-900
           dark:bg-neutral-400"
       >
         <span className="absolute bottom-4 right-4 text-sm text-neutral-600/90">

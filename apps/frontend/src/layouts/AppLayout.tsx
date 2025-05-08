@@ -19,7 +19,7 @@ function AppLayout({
   showFooterNavbar,
 }: AppLayoutProps) {
   return (
-    <div className="flex-center-col bg-card-50 min-h-full dark:bg-neutral-900">
+    <div className="flex-center-col min-h-full dark:bg-neutral-900">
       <Header showAvatar={showAvatar} showBackButton={showBackButton} />
 
       <main className="mx-auto flex min-w-full grow justify-center gap-5">

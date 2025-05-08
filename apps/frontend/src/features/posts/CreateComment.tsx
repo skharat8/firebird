@@ -21,7 +21,7 @@ function CreateComment({
   return (
     <>
       <div
-        className={`${styles.post} bg-card-500/90 py-8 pl-12 pr-4 dark:m-[0.05rem]
+        className={`${styles.post} bg-neutral-200/80 py-8 pl-12 pr-4 dark:m-[0.05rem]
           dark:bg-neutral-600/90`}
       >
         <PostEditor onSubmit={submitPost} isSubmitPending={isPending} />

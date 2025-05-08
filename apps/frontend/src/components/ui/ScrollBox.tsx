@@ -30,8 +30,8 @@ function ScrollBox({
       </p>
 
       <div
-        className="bg-card-300 dark:bg-card text-card-900 dark:text-card-100 h-[32vh] overflow-auto
-          px-6 py-3"
+        className={`bg-card-300 dark:bg-card text-card-900 dark:text-card-100 grid h-[32vh]
+          overflow-auto px-6 py-3 ${isPending ? "place-content-center" : ""}`}
       >
         {isPending && <GridLoader color="var(--color-primary)" />}
         {data && (

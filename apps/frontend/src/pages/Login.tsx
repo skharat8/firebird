@@ -26,8 +26,9 @@ function Login() {
       <div className="z-2 flex-center-col mx-auto max-w-[640px] p-4 pb-8">
         <HeroTitle title="Firebird" backgroundColor="bg-card" />
         <h2
-          className="text-primary-700 dark:text-primary mb-3 max-w-[15ch] pb-1 text-center text-xl
-            font-extrabold"
+          className="text-primary-700 dark:text-primary my-4 max-w-[15ch] text-center text-xl
+            font-extrabold [text-shadow:1px_1px_1px_var(--color-card-600)]
+            dark:[text-shadow:2px_2px_2px_black]"
         >
           A Modern Social Media Platform
         </h2>

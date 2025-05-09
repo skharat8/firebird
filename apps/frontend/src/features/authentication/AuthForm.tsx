@@ -123,14 +123,13 @@ function AuthForm({ authType, onAuthToggle }: AuthFormProps) {
       </div>
 
       {authType === "login" && (
-        <Button
-          variant="demo"
-          className="italic"
+        <button
+          className={styles.btnDemo}
           onClick={handleGuestLogin}
           disabled={isLoginPending || isSignupPending}
         >
-          Click here for a demo
-        </Button>
+          <span>Click here for a demo</span>
+        </button>
       )}
 
       <Button

@@ -34,6 +34,66 @@
   width: 1.1em;
 }
 
+.btnDemo {
+  --form-element-height: 2.9em;
+
+  position: relative;
+  z-index: 1;
+  height: var(--form-element-height);
+  overflow: hidden;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--color-stone-200);
+  background-color: var(--color-stone-800);
+  border-radius: 0.6rem;
+}
+
+.btnDemo::before {
+  position: absolute;
+  left: -5%;
+  z-index: -1;
+  width: 110%;
+  height: 50%;
+  content: "";
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+  animation: 4s infinite linear rotate;
+}
+
+.btnDemo::after {
+  position: absolute;
+  inset: 4px;
+  z-index: -1;
+  content: "";
+  background: linear-gradient(
+    to right,
+    var(--color-accent-cyan-600),
+    var(--color-primary-500)
+  );
+  border-radius: 0.4rem;
+}
+
+.btnDemo:hover::after {
+  background: linear-gradient(
+    to right,
+    var(--color-accent-cyan-600),
+    var(--color-primary-400)
+  );
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .errorMessage {
   font-size: 0.875rem;
   font-weight: 500;

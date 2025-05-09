@@ -5,21 +5,23 @@ import styles from "./Button.module.css";
 const buttonVariants = cva(
   `focus-visible:ring-ring inline-flex items-center justify-center gap-2
   whitespace-nowrap rounded-md text-sm font-medium transition-colors
-  focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none
-  disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0`,
+  focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50
+  [&_svg]:pointer-events-none [&_svg]:shrink-0`,
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 shadow",
+        default: `from-primary to-primary-700 text-primary-foreground hover:bg-secondary
+        hover:from-primary/85 hover:to-primary-700/85 bg-gradient-to-r shadow`,
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
         outline: `border-input bg-background hover:bg-accent hover:text-accent-foreground border
         shadow-sm`,
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
-        demo: `text-primary bg-primary-900 border-primary-50 border-2 font-bold
-        transition-[border_1s_ease] hover:border-solid ${styles.btnGuestDemo}
+        demo: `text-card-400 after:-z-1 before:bg-primary-900 before:z-1 relative z-10
+        overflow-hidden font-bold before:absolute before:inset-1 before:h-full
+        before:w-full after:absolute after:h-[140%] after:w-[50%] after:bg-gradient-to-b
+        after:from-red-400 after:to-orange-400 ${styles.btnGuestDemo}
         dark:bg-primary-900 dark:text-primary-100 dark:border-neutral-800 dark:shadow-xl
         dark:hover:border-neutral-200`,
         ghost: `dark:hover:bg-accent hover:bg-card-500 hover:text-accent-foreground

@@ -38,14 +38,7 @@
 .btnGuestDemo {
   height: var(--form-element-height);
   font-size: 0.9rem;
-  outline: none;
   border-radius: 0.6rem;
-}
-
-.btnGuestDemo:hover,
-.btnGuestDemo:focus {
-  border-color: var(--black);
-  box-shadow: 0 0 8px 3px var(--color-primary);
 }
 
 /* Small Caps */

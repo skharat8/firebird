@@ -23,13 +23,6 @@ function Login() {
           sm:basis-[40%] sm:bg-center"
       ></div>
 
-      {/* Background Pattern */}
-
-      {/* <div
-        className="background-pattern absolute bottom-0 h-[calc(100%-15rem)] w-full sm:left-0
-          sm:h-full sm:w-[60%]"
-      ></div> */}
-
       <div className="z-2 flex-center-col mx-auto max-w-[640px] p-4 pb-8">
         <HeroTitle title="Firebird" backgroundColor="bg-card" />
         <h2

@@ -18,28 +18,29 @@ function ProfileHeader({ user }: { user: User }) {
   }
 
   return (
-    <div
-      className="bg-card-300 relative mb-4 text-neutral-900 dark:bg-stone-700
-        dark:text-neutral-50"
-    >
-      <div>
+    <div className="relative bottom-11 -mb-11">
+      <div className="relative -bottom-11">
         <img
           src={user.coverImage}
           alt="Background Cover for User Profile"
-          className="h-[20vh] w-full object-cover"
+          className="h-[22vh] w-full object-cover"
         />
-      </div>
-
-      <div className="relative border-b-2 border-b-stone-400">
-        <div className="-top-13 absolute mb-4 ml-8">
+        <div className="ml-8.5 absolute -bottom-1 mb-4">
           <Avatar>
             <AvatarImage
               src={user.profileImage}
-              className="before-h-3 size-24 rounded-[50%] border-4 border-transparent"
+              className="before-h-3 drop-shadow-profile border-card size-24 rounded-[50%] border-2"
             />
             <AvatarFallback />
           </Avatar>
         </div>
+      </div>
+
+      <div
+        className="bg-card-300 relative mb-4 border-b-2 border-b-stone-400 text-neutral-900
+          [clip-path:path('M0,0L0,400L800,400L800,0L160,0Q140,0_132,12_A60,60_0_0_1_32,12Q22,0_0,0Z')]
+          dark:bg-stone-700 dark:text-neutral-50"
+      >
         <div
           className="absolute right-4 top-2 flex gap-4 font-thin text-neutral-900
             dark:text-neutral-50/80"

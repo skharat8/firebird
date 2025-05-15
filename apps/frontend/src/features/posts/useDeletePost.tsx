@@ -9,7 +9,9 @@ function useDeletePost() {
   const { mutate: removePost, isPending } = useMutation({
     mutationFn: (postId: string) => deletePost(postId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: postKeys.lists() });
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: postKeys.lists() });
+      }, 1000);
     },
     onError: (err) => {
       console.error(err);

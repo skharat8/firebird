@@ -35,7 +35,10 @@ function Modal({
     },
     exit: {
       y: "100vh",
-      opacity: 0,
+      opacity: 0.1,
+      transition: {
+        duration: 0.3,
+      },
     },
   };
 

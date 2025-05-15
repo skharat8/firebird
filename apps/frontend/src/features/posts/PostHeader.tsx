@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Trash2 } from "lucide-react";
 
@@ -15,24 +15,30 @@ import usePost from "./usePost";
 
 type PostHeaderProps = {
   postId: string;
+  toggleIsVisible: () => void;
 };
 
-function PostHeader({ postId }: PostHeaderProps) {
+function PostHeader({ postId, toggleIsVisible }: PostHeaderProps) {
   const { user } = useUser();
   const { post } = usePost(postId);
   const { removePost } = useDeletePost();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const trashIconColor = "hsl(41 18% 48%)";
   const linkStyles = "flex w-fit text-current hover:text-current";
 
   function handleTrash() {
+    toggleIsVisible();
     removePost(postId, {
       onSuccess: () => {
         if (post.parentPostId) {
           queryClient.invalidateQueries({
             queryKey: postKeys.detail(post.parentPostId),
           });
+        } else if (pathname.includes("post")) {
+          navigate(-1);
         }
       },
     });

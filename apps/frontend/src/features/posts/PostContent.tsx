@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import { AnimatePresence, motion } from "motion/react";
+
 import { Card, CardContent } from "@/components/ui/Card";
 import useToggle from "@/hooks/useToggle";
 
@@ -30,6 +32,7 @@ function PostContent({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     initialValue: location?.state?.showCommentForId === postId,
   });
+  const [isVisible, toggleIsVisible] = useToggle({ initialValue: true });
 
   // Clear the location state after using it once
   React.useEffect(() => {
@@ -45,34 +48,46 @@ function PostContent({
   const cardStyles = `${hoverShadow ? styles.post : ""} ${className} relative`;
 
   return (
-    <>
-      <Card className={cardStyles}>
-        <PostHeader postId={postId} />
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          exit={{
+            y: "100vh",
+            zIndex: 2,
+            opacity: 0.2,
+            rotate: "5deg",
+            transition: { duration: 0.5 },
+          }}
+        >
+          <Card className={cardStyles}>
+            <PostHeader postId={postId} toggleIsVisible={toggleIsVisible} />
 
-        <CardContent className="pb-2">
-          <Link
-            to={`/post/${post.id}`}
-            className="font-light text-current hover:text-current"
-          >
-            <p className={disableLineClamp ? "" : "line-clamp-5"}>
-              {post.content}
-            </p>
-          </Link>
-        </CardContent>
+            <CardContent className="pb-2">
+              <Link
+                to={`/post/${post.id}`}
+                className="font-light text-current hover:text-current"
+              >
+                <p className={disableLineClamp ? "" : "line-clamp-5"}>
+                  {post.content}
+                </p>
+              </Link>
+            </CardContent>
 
-        <PostFooter
-          postId={postId}
-          toggleShowCommentBox={toggleShowCommentBox}
-        />
-      </Card>
+            <PostFooter
+              postId={postId}
+              toggleShowCommentBox={toggleShowCommentBox}
+            />
+          </Card>
 
-      {showCommentBox && (
-        <CreateComment
-          parentPostId={postId}
-          toggleShowCommentBox={toggleShowCommentBox}
-        />
+          {showCommentBox && (
+            <CreateComment
+              parentPostId={postId}
+              toggleShowCommentBox={toggleShowCommentBox}
+            />
+          )}
+        </motion.div>
       )}
-    </>
+    </AnimatePresence>
   );
 }
 

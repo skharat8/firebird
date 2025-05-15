@@ -1,22 +1,24 @@
-import type { ComponentProps, PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 import { cva } from "class-variance-authority";
 import { UserRoundCheck, UserRoundPlus } from "lucide-react";
+import { type HTMLMotionProps, motion } from "motion/react";
 
+import useAppTheme from "@/hooks/useAppTheme";
 import useToggle from "@/hooks/useToggle";
 
-type FollowButtonProps = ComponentProps<"button"> & {
+type FollowButtonProps = HTMLMotionProps<"button"> & {
   initialIsFollowing: boolean;
   onFollow: (isFollowing: boolean) => void;
   className?: string;
 };
 
 const buttonVariants = cva(
-  "border-3 group flex items-center justify-center rounded-xl pl-1 pr-4",
+  "group flex items-center justify-center rounded-xl border-0 py-1 pl-1 pr-4",
   {
     variants: {
       variant: {
-        primary: "bg-accent-cyan-900 border-accent-cyan-900 gap-2",
+        primary: "bg-accent-cyan-900 border-accent-cyan-900 gap-2 pl-2",
         ghost: "gap-1 border-stone-800 bg-stone-800",
       },
     },
@@ -29,8 +31,8 @@ const buttonVariants = cva(
 const iconVariants = cva("rounded-[11px] p-2", {
   variants: {
     variant: {
-      primary:
-        "bg-accent-cyan-600 border-accent-cyan-900 group-hover:bg-[hsl(184_72_38)]",
+      primary: `bg-accent-cyan-500 dark:bg-accent-cyan-700 border-accent-cyan-900
+      group-hover:bg-[hsl(184_72_38)]`,
       ghost: "text-stone-200 dark:bg-stone-800",
     },
   },
@@ -51,9 +53,30 @@ function FollowButton({
   });
   const variant = isFollowing ? "primary" : "ghost";
   const Icon = isFollowing ? UserRoundCheck : UserRoundPlus;
+  const ghostColor = useAppTheme({
+    lightModeVariable: "var(--color-stone-700)",
+    darkModeVariable: "var(--color-stone-800)",
+  });
+  const primaryButtonColor = useAppTheme({
+    lightModeVariable: "var(--color-accent-cyan-600)",
+    darkModeVariable: "var(--color-accent-cyan-800)",
+  });
+
+  const motionVariants = {
+    initial: {
+      background: `linear-gradient(to right, ${ghostColor}, var(--color-stone-800))`,
+    },
+    clicked: {
+      background: `linear-gradient(to right, ${primaryButtonColor}, var(--color-accent-cyan-900))`,
+      transition: { duration: 0.3 },
+    },
+  };
 
   return (
-    <button
+    <motion.button
+      layout={true}
+      variants={motionVariants}
+      animate={isFollowing ? "clicked" : "initial"}
       className={buttonVariants({ variant, className })}
       {...rest}
       onClick={() => {
@@ -61,13 +84,13 @@ function FollowButton({
         toggleFollowing();
       }}
     >
-      <span className={iconVariants({ variant })}>
+      <motion.span layout="position" className={iconVariants({ variant })}>
         <Icon size={18} strokeWidth={3} />
-      </span>
-      <span className="font-bold text-neutral-100">
+      </motion.span>
+      <motion.span layout="position" className="font-bold text-neutral-100">
         {isFollowing ? "Following" : "Follow"}
-      </span>
-    </button>
+      </motion.span>
+    </motion.button>
   );
 }
 

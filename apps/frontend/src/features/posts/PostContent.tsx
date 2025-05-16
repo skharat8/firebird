@@ -79,12 +79,20 @@ function PostContent({
             />
           </Card>
 
-          {showCommentBox && (
-            <CreateComment
-              parentPostId={postId}
-              toggleShowCommentBox={toggleShowCommentBox}
-            />
-          )}
+          <AnimatePresence>
+            {showCommentBox && (
+              <motion.div
+                initial={{ opacity: 0, y: "-100%", zIndex: -1 }}
+                animate={{ opacity: 1, y: 0, zIndex: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                <CreateComment
+                  parentPostId={postId}
+                  toggleShowCommentBox={toggleShowCommentBox}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>

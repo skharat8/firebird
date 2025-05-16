@@ -47,8 +47,7 @@ function PostWithComments() {
               <PostContent
                 key={comment.id}
                 postId={comment.id}
-                className="border-t-1 rounded-none border-b-neutral-200 pl-6 last-of-type:rounded-b-xl
-                  dark:border-b-neutral-800"
+                className="border-t-1 rounded-none border-b-neutral-200 pl-6 dark:border-b-neutral-800"
               />
             ))
           )}

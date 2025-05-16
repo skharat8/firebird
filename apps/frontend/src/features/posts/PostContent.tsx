@@ -52,11 +52,11 @@ function PostContent({
       {isVisible && (
         <motion.div
           exit={{
-            y: "100vh",
+            y: "60vh",
             zIndex: 2,
-            opacity: 0.2,
-            rotate: "5deg",
-            transition: { duration: 0.5 },
+            opacity: 0,
+            rotate: "7deg",
+            transition: { duration: 0.6 },
           }}
         >
           <Card className={cardStyles}>

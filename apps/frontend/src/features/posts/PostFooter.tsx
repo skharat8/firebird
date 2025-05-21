@@ -1,12 +1,14 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { Heart, MessageCircle, Repeat } from "lucide-react";
+import { MessageCircle, Repeat } from "lucide-react";
+import { motion } from "motion/react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { useTheme } from "@/components/ThemeProvider";
 import Button from "@/components/ui/Button";
 import { CardFooter } from "@/components/ui/Card";
 
+import HeartIcon from "./HeartIcon";
 import useLike from "./useLike";
 import usePost from "./usePost";
 import useRetweet from "./useRetweet";
@@ -20,6 +22,7 @@ function PostFooter({ postId, toggleShowCommentBox }: PostFooterProps) {
   const { post } = usePost(postId);
   const { like } = useLike(postId);
   const { retweet } = useRetweet(postId);
+
   const navigate = useNavigate();
   const location = useLocation();
   const idFromPath = location.pathname.split("/").at(-1);
@@ -32,12 +35,12 @@ function PostFooter({ postId, toggleShowCommentBox }: PostFooterProps) {
 
   let iconColor;
   if (themeContext.theme === "dark") {
-    iconColor = "hsl(40 15% 90%)";
+    iconColor = "hsl(40 15% 80%)";
   } else if (themeContext.theme === "light") {
     iconColor = "black";
   } else {
     // If app theme is set to system, check the system theme
-    iconColor = isDarkTheme ? "hsl(40 15% 90%)" : "black";
+    iconColor = isDarkTheme ? "hsl(40 15% 80%)" : "black";
   }
 
   function submitLike() {
@@ -61,18 +64,17 @@ function PostFooter({ postId, toggleShowCommentBox }: PostFooterProps) {
   return (
     <CardFooter className="rounded-lg rounded-t-none pb-2 pl-4">
       <div className="flex items-center sm:gap-2">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full"
+        <motion.button
+          className="dark:hover:bg-accent hover:bg-card-500 hover:text-accent-foreground
+            hover:ring-primary mb-0.5 rounded-full p-1 hover:shadow"
           onClick={submitLike}
         >
-          {isLiked ? (
-            <Heart color="red" fill="red" />
-          ) : (
-            <Heart color={iconColor} />
-          )}
-        </Button>
+          <HeartIcon
+            isLiked={isLiked}
+            fill={isLiked ? "red" : "transparent"}
+            stroke={isLiked ? "" : iconColor}
+          />
+        </motion.button>
         <span
           className={"{dotAfter} mr-3 text-sm sm:hidden dark:text-neutral-200"}
         >

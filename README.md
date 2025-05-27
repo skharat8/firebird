@@ -1,5 +1,5 @@
 <h1 align="center">Firebird</h1>
-<p align="center">:link: <a href="#"><strong>Live Preview</strong></a></p>
+<p align="center">:link: <a href="https://project-firebird.vercel.app"><strong>Live Preview</strong></a></p>
 
 ## Built With
 
@@ -24,7 +24,6 @@
 ![Zod](https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white)
 
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-![Pino](https://img.shields.io/badge/pino-%23687634.svg?style=for-the-badge&logo=pino&logoColor=white)
 ![Cloudinary](https://img.shields.io/badge/cloudinary-%233448C5.svg?style=for-the-badge&logo=cloudinary&logoColor=white)
 
 <strong>Extras</strong>
